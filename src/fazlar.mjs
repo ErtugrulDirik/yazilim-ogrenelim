@@ -3,7 +3,7 @@
 export const FAZLAR = {
 	0: 'Bilgisayarın temeli',
 	1: 'Algoritma, akış diyagramı ve iz sürme',
-	2: "C'ye giriş: sadece int",
+	2: "C'ye giriş",
 	3: 'Veri tipleri ve dönüşümler',
 	4: 'Diziler, pointer, bellek ve string kütüphanesi',
 	5: 'Bit manipülasyonu',

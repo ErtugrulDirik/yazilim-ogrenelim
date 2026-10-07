@@ -2,7 +2,7 @@
 
 Temelden derinliğe: sıfırdan, hazır fonksiyon kullanmadan, sağlam temellerle yazılım.
 
-**Siteyi oku:** https://[KULLANICI-ADIN].github.io/yazilim-ogrenelim/
+**Siteyi oku:** deponun sağ üst köşesindeki *About* bölümünde yer alan bağlantı.
 
 Bu depo serinin kaynağıdır. Dersler `src/content/docs/` klasöründe Markdown olarak durur; site bu dosyalardan [Starlight](https://starlight.astro.build) ile otomatik üretilir.
 
@@ -10,6 +10,7 @@ Bu depo serinin kaynağıdır. Dersler `src/content/docs/` klasöründe Markdown
 
 ```
 astro.config.mjs            Site ayarları
+src/site.mjs                GitHub kullanıcı adı ve depo adı (sadece burada)
 src/fazlar.mjs              Faz başlıkları ve duraklar
 src/content/docs/index.mdx  Ana sayfa (Bu seri hakkında)
 src/content/docs/icindekiler.mdx  Kendiliğinden dolan içindekiler ağacı

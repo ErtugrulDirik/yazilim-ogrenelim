@@ -1,0 +1,21 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 660 190' width='660' height='190' role='img' aria-label='Beş elemanlı bir dizi: yan yana kutular ve indeksleri'>
+<defs><marker id='u' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto-start-reverse'><path d='M0,0 L10,5 L0,10 z' fill='#94a3b8'/></marker></defs>
+<rect width='660' height='190' rx='16' fill='#0f172a' stroke='#1e293b'/>
+<text x='70' y='80' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='14' font-weight='700' fill='#22d3ee'>scores</text>
+<rect x='150' y='52' width='90' height='56' fill='#22d3ee22' stroke='#22d3ee' stroke-width='2'/>
+<text x='195.0' y='80' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='18' font-weight='700' fill='#e2e8f0'>70</text>
+<text x='195.0' y='128' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#fbbf24'>scores[0]</text>
+<rect x='240' y='52' width='90' height='56' fill='#22d3ee22' stroke='#22d3ee' stroke-width='2'/>
+<text x='285.0' y='80' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='18' font-weight='700' fill='#e2e8f0'>85</text>
+<text x='285.0' y='128' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#fbbf24'>scores[1]</text>
+<rect x='330' y='52' width='90' height='56' fill='#22d3ee22' stroke='#22d3ee' stroke-width='2'/>
+<text x='375.0' y='80' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='18' font-weight='700' fill='#e2e8f0'>60</text>
+<text x='375.0' y='128' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#fbbf24'>scores[2]</text>
+<rect x='420' y='52' width='90' height='56' fill='#22d3ee22' stroke='#22d3ee' stroke-width='2'/>
+<text x='465.0' y='80' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='18' font-weight='700' fill='#e2e8f0'>90</text>
+<text x='465.0' y='128' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#fbbf24'>scores[3]</text>
+<rect x='510' y='52' width='90' height='56' fill='#22d3ee22' stroke='#22d3ee' stroke-width='2'/>
+<text x='555.0' y='80' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='18' font-weight='700' fill='#e2e8f0'>75</text>
+<text x='555.0' y='128' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#fbbf24'>scores[4]</text>
+<text x='375.0' y='168' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='12' font-weight='500' fill='#cbd5e1'>indeks 0’dan başlar · son indeks = eleman sayısı − 1</text>
+</svg>

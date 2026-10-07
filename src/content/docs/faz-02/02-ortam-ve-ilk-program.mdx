@@ -1,18 +1,18 @@
 ---
 title: "2.2 Ortam ve ilk program"
-description: "gcc, LLDB ve VS Code ile çalışma ortamını kurmak; Merhaba dünya, çıkış kodu, main'in rolü, spagetti kodun hikâyesi ve derleme hattı."
+description: "clang, LLDB ve VS Code ile çalışma ortamını kurmak; Hello world, çıkış kodu, main'in rolü, spagetti kodun hikâyesi ve derleme hattı."
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Her programlama yolculuğu aynı cümleyle başlar: **Merhaba, dünya!** Bu derste ekrana o cümleyi yazdıracağız. Ama önce, bu kitap boyunca kullanacağın çalışma ortamını sağlam bir şekilde kuracağız. Bir kez doğru kurulan ortam, sonraki her derste işini kolaylaştırır.
+Her programlama yolculuğu aynı cümleyle başlar: **Hello, world!** Bu derste ekrana o cümleyi yazdıracağız. Ama önce, bu kitap boyunca kullanacağın çalışma ortamını sağlam bir şekilde kuracağız. Bir kez doğru kurulan ortam, sonraki her derste işini kolaylaştırır.
 
 ---
 
 ## 1. Neye ihtiyacın var?
 
-- **gcc:** C kodunu çalıştırılabilir programa çeviren **derleyici**.
-- **LLDB:** Programı adım adım çalıştırıp her adımda değişkenlerin değerine bakmanı sağlayan **hata ayıklayıcı**. Faz 1'deki iz tablosunun dijital hali; Ders 2.6'da ayrıntısıyla kullanacağız.
+- **clang:** C kodunu çalıştırılabilir programa çeviren **derleyici**. LLVM adlı büyük bir derleyici projesinin parçasıdır.
+- **LLDB:** Yine LLVM projesinden. Programı adım adım çalıştırıp her adımda değişkenlerin değerine bakmanı sağlayan **hata ayıklayıcı**. Faz 1'deki iz tablosunun dijital hali; Ders 2.6'da ayrıntısıyla kullanacağız.
 - **VS Code:** Kodu yazacağın **editör**. Ücretsiz, her işletim sisteminde çalışır; derleme ve hata ayıklamayı tek tuşa bağlayacağız.
 
 ---
@@ -25,7 +25,7 @@ Her programlama yolculuğu aynı cümleyle başlar: **Merhaba, dünya!** Bu ders
 
     ```sh
     sudo apt update
-    sudo apt install build-essential lldb curl
+    sudo apt install clang lldb curl
     ```
 
     **2. VS Code.** [code.visualstudio.com](https://code.visualstudio.com) adresinden `.deb` paketini indirip çift tıklayarak kur.
@@ -45,7 +45,7 @@ Her programlama yolculuğu aynı cümleyle başlar: **Merhaba, dünya!** Bu ders
 
     ```sh
     sudo apt update
-    sudo apt install build-essential lldb curl
+    sudo apt install clang lldb curl
     ```
 
     **3. VS Code.** [code.visualstudio.com](https://code.visualstudio.com) adresinden **Windows** sürümünü indirip kur. Ardından VS Code'da sol kenardaki Eklentiler simgesine (`Ctrl+Shift+X`) tıkla ve **WSL** eklentisini (Microsoft) kur. Bu eklenti, VS Code'un Windows'ta açılıp Ubuntu'nun içinde çalışmasını sağlar.
@@ -59,7 +59,7 @@ Her programlama yolculuğu aynı cümleyle başlar: **Merhaba, dünya!** Bu ders
     xcode-select --install
     ```
 
-    Bu komut derleyiciyi ve LLDB'yi birlikte kurar. Dikkat: macOS'ta `gcc` komutu aslında **clang** adlı başka bir derleyiciyi çalıştırır. C kodların aynen çalışır; sadece hata mesajlarının cümleleri bu kitaptaki örneklerden biraz farklı olabilir.
+    Bu komut clang'i ve LLDB'yi birlikte kurar. (macOS'ta `gcc` diye bir komut da görürsün; o da aslında clang'i çalıştırır. Biz her yerde doğrudan `clang` yazacağız.)
 
     **2. VS Code.** [code.visualstudio.com](https://code.visualstudio.com) adresinden indirip **Uygulamalar** klasörüne taşı. VS Code'u aç, `Cmd+Shift+P` ile komut paletini aç ve **Shell Command: Install 'code' command in PATH** komutunu çalıştır. Böylece terminalden `code` yazarak VS Code'u açabileceksin.
   </TabItem>
@@ -68,7 +68,7 @@ Her programlama yolculuğu aynı cümleyle başlar: **Merhaba, dünya!** Bu ders
 Kurulumu kontrol et:
 
 ```sh
-gcc --version
+clang --version
 lldb --version
 ```
 
@@ -83,7 +83,7 @@ Bu kitap boyunca yazacağın bütün kodlar **tek bir klasörde**, fazlara göre
 ```sh
 mkdir -p ~/yazilim-ogrenelim/faz-02 ~/yazilim-ogrenelim/.vscode
 cd ~/yazilim-ogrenelim
-ADRES=https://dirikti.github.io/yazilim-ogrenelim/kurulum
+ADRES=%SITE_URL%/kurulum
 curl -fsSL $ADRES/tasks.json -o .vscode/tasks.json
 curl -fsSL $ADRES/launch.json -o .vscode/launch.json
 code .
@@ -112,12 +112,12 @@ yazilim-ogrenelim/
 │   └── tasks.json
 ├── build/
 │   └── faz-02/
-│       └── merhaba        ← derlenmiş program
+│       └── hello        ← derlenmiş program
 └── faz-02/
-    └── merhaba.c          ← senin kodun
+    └── hello.c          ← senin kodun
 ```
 
-`build` klasörünü istediğin zaman silebilirsin; bir sonraki derlemede yeniden oluşur. (macOS'ta programın yanında bir de `merhaba.dSYM` klasörü görürsün; hata ayıklayıcının kullandığı bilgiler orada durur.)
+`build` klasörünü istediğin zaman silebilirsin; bir sonraki derlemede yeniden oluşur. (macOS'ta programın yanında bir de `hello.dSYM` klasörü görürsün; hata ayıklayıcının kullandığı bilgiler orada durur.)
 
 <details class="bilgi">
 <summary>Ayar dosyalarının içinde ne var?</summary>
@@ -131,7 +131,7 @@ yazilim-ogrenelim/
     {
       "label": "derle",
       "type": "shell",
-      "command": "mkdir -p \"build/${relativeFileDirname}\" && gcc -std=c17 -Wall -Wextra -g \"${file}\" -o \"build/${relativeFileDirname}/${fileBasenameNoExtension}\"",
+      "command": "mkdir -p \"build/${relativeFileDirname}\" && clang -std=c17 -Wall -Wextra -g \"${file}\" -o \"build/${relativeFileDirname}/${fileBasenameNoExtension}\"",
       "group": { "kind": "build", "isDefault": true },
       "problemMatcher": "$gcc"
     }
@@ -169,15 +169,15 @@ yazilim-ogrenelim/
 
 ---
 
-## 4. Merhaba, dünya!
+## 4. Hello, world!
 
-`faz-02` klasöründe `merhaba.c` adında bir dosya oluştur:
+`faz-02` klasöründe `hello.c` adında bir dosya oluştur:
 
 ```c
 #include <stdio.h>
 
 int main(void) {
-    printf("Merhaba, dünya!\n");
+    printf("Hello, world!\n");
     return 0;
 }
 ```
@@ -185,7 +185,7 @@ int main(void) {
 `F5`'e bas. Alttaki terminalde şunu görmelisin:
 
 ```
-Merhaba, dünya!
+Hello, world!
 ```
 
 İlk C programın çalıştı. Satır satır ne olduğuna bakalım:
@@ -193,14 +193,14 @@ Merhaba, dünya!
 - `#include <stdio.h>`: `printf`'in nerede tanımlandığını derleyiciye söyler. `stdio`, "standart girdi/çıktı" demektir.
 - `int main(void)`: `main` adında bir fonksiyon. `int` döndürür, yani bir tamsayı geri verir. `void` "hiç girdi almaz" demektir. Her C programı buradan başlar.
 - `{` … `}`: Fonksiyonun gövdesi. Faz 1'deki sözde kodda girinti ne yapıyorsa, C'de süslü parantez onu yapar.
-- `printf("Merhaba, dünya!\n");`: Ekrana yazı yazar. `\n` satır sonudur. Sondaki noktalı virgül, C'de her komutun sonuna konur.
+- `printf("Hello, world!\n");`: Ekrana yazı yazar. `\n` satır sonudur. Sondaki noktalı virgül, C'de her komutun sonuna konur.
 - `return 0;`: Ders 1.1'deki `DÖNDÜR` ile aynı şey. Programı bitirir ve işletim sistemine 0 sayısını bırakır.
 
 `printf`'i şimdilik bir **kara kutu** olarak kullanacağız: ne yaptığını biliyoruz, nasıl yaptığını değil. Bu kitabın kuralı belli: önce kendin yaz. Ders 2.11'de `printf`'i bir kenara bırakıp sayı yazdıran fonksiyonu sıfırdan yazacağız.
 
 ### Programın sessiz cevabı: çıkış kodu
 
-`return 0;` satırındaki 0 nereye gitti? Görmek için ekrana hiçbir şey yazmayan bir program yazalım. `faz-02/ilk.c`:
+`return 0;` satırındaki 0 nereye gitti? Görmek için ekrana hiçbir şey yazmayan bir program yazalım. `faz-02/first.c`:
 
 ```c
 int main(void) {
@@ -208,10 +208,10 @@ int main(void) {
 }
 ```
 
-`ilk.c` açıkken `Ctrl+Shift+B` ile derle. Bu sefer programı terminalden çalıştıralım. VS Code'da terminali `` Ctrl+` `` ile aç:
+`first.c` açıkken `Ctrl+Shift+B` ile derle. Bu sefer programı terminalden çalıştıralım. VS Code'da terminali `` Ctrl+` `` ile aç:
 
 ```sh
-./build/faz-02/ilk
+./build/faz-02/first
 ```
 
 Hiçbir şey olmadı gibi görünüyor. Ama bir şey oldu. Şunu yaz:
@@ -224,7 +224,7 @@ echo $?
 42
 ```
 
-Her program bittiğinde işletim sistemine bir sayı bırakır: **çıkış kodu**. `return 42;` tam olarak bunu yaptı. `echo $?` ise "son çalışan programın çıkış kodunu göster" demektir. Geleneğe göre 0 "her şey yolunda", 0 dışındaki değerler "bir sorun oldu" anlamına gelir. Programlar birbirleriyle ilk olarak bu sayı üzerinden konuşur. `merhaba.c`'deki `return 0;` da "her şey yolunda" demekti.
+Her program bittiğinde işletim sistemine bir sayı bırakır: **çıkış kodu**. `return 42;` tam olarak bunu yaptı. `echo $?` ise "son çalışan programın çıkış kodunu göster" demektir. Geleneğe göre 0 "her şey yolunda", 0 dışındaki değerler "bir sorun oldu" anlamına gelir. Programlar birbirleriyle ilk olarak bu sayı üzerinden konuşur. `hello.c`'deki `return 0;` da "her şey yolunda" demekti.
 
 ---
 
@@ -246,7 +246,7 @@ Bu fikir C'den sonra gelen hemen her dile geçti:
 
 ```python
 def main():
-    print("Merhaba")
+    print("Hello")
 
 if __name__ == "__main__":
     main()
@@ -284,36 +284,36 @@ C'de `goto` hâlâ vardır ama nadiren, çok belli durumlarda kullanılır. Bu k
 
 ## 6. Derleme hattı: metinden programa
 
-Bu bölümdeki komutları VS Code'un terminalinde, çalışma alanının ana klasöründe (`~/yazilim-ogrenelim`) çalıştır; çıktılar yine `build/faz-02` klasörüne gidecek. `Ctrl+Shift+B` tek bir komut çalıştırıyor gibi görünüyor. Aslında arka arkaya dört ayrı iş yapıyor. gcc'ye her adımda durmasını söyleyerek bu dört işi tek tek görebiliriz.
+Bu bölümdeki komutları VS Code'un terminalinde, çalışma alanının ana klasöründe (`~/yazilim-ogrenelim`) çalıştır; çıktılar yine `build/faz-02` klasörüne gidecek. `Ctrl+Shift+B` tek bir komut çalıştırıyor gibi görünüyor. Aslında arka arkaya dört ayrı iş yapıyor. clang'e her adımda durmasını söyleyerek bu dört işi tek tek görebiliriz.
 
 ![Derleme hattı: ön işleme, derleme, assembly, bağlama](../../../assets/faz-02/derleme-hatti.svg)
 
-**1. Ön işleme: `gcc -E`**
+**1. Ön işleme: `clang -E`**
 
 ```sh
-gcc -E faz-02/merhaba.c -o build/faz-02/merhaba.i
+clang -E faz-02/hello.c -o build/faz-02/hello.i
 ```
 
 **Ön işlemci**, `#` ile başlayan satırları işler. `#include <stdio.h>` satırı, `stdio.h` dosyasının **içeriğiyle** değiştirilir. Çıktının satırlarını say:
 
 ```sh
-wc -l build/faz-02/merhaba.i
+wc -l build/faz-02/hello.i
 ```
 
-6 satırlık dosyan yaklaşık 800 satır olmuş olmalı (sayı sistemden sisteme değişir). Dosyanın en sonunda senin `main` fonksiyonun duruyor; üstündeki her şey `stdio.h`'den geldi.
+6 satırlık dosyan birkaç yüz satır olmuş olmalı (tam sayı sistemden sisteme değişir). Dosyanın en sonunda senin `main` fonksiyonun duruyor; üstündeki her şey `stdio.h`'den geldi.
 
-**2. Derleme: `gcc -S`**
+**2. Derleme: `clang -S`**
 
 ```sh
-gcc -S faz-02/merhaba.c -o build/faz-02/merhaba.s
+clang -S faz-02/hello.c -o build/faz-02/hello.s
 ```
 
-**Derleyici**, C kodunu **assembly**'ye çevirir. Assembly, işlemcinin anladığı komutların insanların okuyabileceği yazımıdır. Ortaya `merhaba.s` dosyası çıkar. İçinde ne olduğuna şimdilik bakmamıza gerek yok; assembly'yi Faz 7'de ayrıntısıyla öğreneceğiz. Şimdilik bilmen gereken: C kodu, işlemciye ulaşmadan önce bu ara dilden geçer.
+**Derleyici**, C kodunu **assembly**'ye çevirir. Assembly, işlemcinin anladığı komutların insanların okuyabileceği yazımıdır. Ortaya `hello.s` dosyası çıkar. İçinde ne olduğuna şimdilik bakmamıza gerek yok; assembly'yi Faz 7'de ayrıntısıyla öğreneceğiz. Şimdilik bilmen gereken: C kodu, işlemciye ulaşmadan önce bu ara dilden geçer.
 
-**3. Assembly: `gcc -c`**
+**3. Assembly: `clang -c`**
 
 ```sh
-gcc -c faz-02/merhaba.c -o build/faz-02/merhaba.o
+clang -c faz-02/hello.c -o build/faz-02/hello.o
 ```
 
 **Assembler**, assembly komutlarını işlemcinin anladığı sayılara, yani **makine koduna** çevirir. Çıkan `.o` dosyasına **nesne dosyası** denir. İçinde senin kodunun makine kodu var, ama henüz çalıştırılamaz: `printf`'in makine kodu nerede? O, senin dosyanda değil.
@@ -321,8 +321,8 @@ gcc -c faz-02/merhaba.c -o build/faz-02/merhaba.o
 **4. Bağlama**
 
 ```sh
-gcc build/faz-02/merhaba.o -o build/faz-02/merhaba
-./build/faz-02/merhaba
+clang build/faz-02/hello.o -o build/faz-02/hello
+./build/faz-02/hello
 ```
 
 **Bağlayıcı** (linker), senin nesne dosyanı C kütüphanesindeki `printf` ile birleştirir ve işletim sisteminin çalıştırabileceği tek bir dosya üretir.
@@ -333,31 +333,40 @@ VS Code'da `Ctrl+Shift+B`'ye bastığında da bu dört adım arka planda çalı�
 
 ## Alıştırmalar
 
-**1** `ilk.c`'de `return 42;` yerine `return 300;` yaz, derle, çalıştır ve `echo $?` ile çıkış koduna bak. Ne görüyorsun? Neden? (İpucu: Faz 0, Bölüm 4.)
+**1** `first.c`'de `return 42;` yerine `return 300;` yaz, derle, çalıştır ve `echo $?` ile çıkış koduna bak. Ne görüyorsun? Neden? (İpucu: Faz 0, Bölüm 4.)
 
-**2** `ilk.c`'de `return 42;` satırının sonundaki noktalı virgülü sil ve derle. Hata mesajını oku: hangi satırı ve hangi karakteri gösteriyor? Bu hata derleme hattının hangi adımında çıktı?
+**2** `first.c`'de `return 42;` satırının sonundaki noktalı virgülü sil ve derle. Hata mesajını oku: hangi satırı ve hangi karakteri gösteriyor? Bu hata derleme hattının hangi adımında çıktı?
 
-**3** `merhaba.c`'den `return 0;` satırını sil, derle, çalıştır ve çıkış koduna bak.
+**3** `hello.c`'den `return 0;` satırını sil, derle, çalıştır ve çıkış koduna bak.
 
-**4** `merhaba.c`'deki `#include <stdio.h>` satırını sil ve `gcc -E` çıktısının satır sayısına tekrar bak. Sonra programı derlemeyi dene. Ne oluyor?
+**4** `hello.c`'deki `#include <stdio.h>` satırını sil ve `clang -E` çıktısının satır sayısına tekrar bak. Sonra programı derlemeyi dene. Ne oluyor?
 
 <details>
 <summary>Cevaplar</summary>
 
 **1** Çıkış kodu **44** olur. Çıkış kodu 8 bitlik bir sayıdır, yani 0 ile 255 arasında olabilir. 300 sekiz bite sığmaz: 300 − 256 = 44. Faz 0'daki 8 bit taşmasının aynısı.
 
-**2** gcc şöyle der:
+**2** clang şöyle der:
 
 ```
-ilk.c: In function 'main':
-ilk.c:2:14: error: expected ';' before '}' token
+first.c:2:14: error: expected ';' after return statement
+    2 |     return 42
+      |              ^
+      |              ;
 ```
 
-(VS Code'da derlediysen dosya adının başında klasörün tam yolu da yazar.) `ilk.c:2:14` "dosya ilk.c, satır 2, karakter 14" demek: noktalı virgülün olması gereken yer. Hata **derleme** adımında çıktı; ön işlemci bu satırla ilgilenmez, derleyici ise C'nin yazım kurallarını denetler. (macOS'taki clang aynı hatayı biraz farklı cümleyle söyler: `expected ';' after return statement`.)
+(VS Code'da derlediysen dosya adının başında klasörün tam yolu da yazar.) `first.c:2:14` "dosya first.c, satır 2, karakter 14" demek: noktalı virgülün olması gereken yer. clang bir adım daha ileri gidip altına ne yazman gerektiğini de gösteriyor: `;`. Hata **derleme** adımında çıktı; ön işlemci bu satırla ilgilenmez, derleyici ise C'nin yazım kurallarını denetler.
 
 **3** Çıkış kodu **0** olur. C99'dan beri özel bir kural var: `main` fonksiyonu `return` yazmadan biterse 0 döndürmüş sayılır. Bu kural sadece `main` için geçerlidir. Yine de bu kitapta `return 0;` yazacağız; ne döndürdüğümüzü açıkça görmek istiyoruz.
 
-**4** `gcc -E` çıktısı birkaç satıra iner; `stdio.h`'nin içeriği artık eklenmiyor. Derlemeye çalıştığında gcc, `printf`'in tanımlı olmadığını söyler ve büyük ihtimalle hangi dosyayı eklemen gerektiğini de önerir. `#include`'un ne işe yaradığını şimdi gördün: derleyiciye `printf`'in var olduğunu ve nasıl çağrılacağını söylüyor.
+**4** `clang -E` çıktısı birkaç satıra iner; `stdio.h`'nin içeriği artık eklenmiyor. Derlemeye çalıştığında clang şöyle der:
+
+```
+hello.c:3:5: error: call to undeclared library function 'printf' ...
+note: include the header <stdio.h> or explicitly provide a declaration for 'printf'
+```
+
+Yani `printf`'in tanımlı olmadığını söylüyor ve hangi dosyayı eklemen gerektiğini de öneriyor. (clang'in eski sürümlerinde bu bir hata değil uyarıdır; ama uyarıları hata gibi ciddiye alıyoruz.) `#include`'un ne işe yaradığını şimdi gördün: derleyiciye `printf`'in var olduğunu ve nasıl çağrılacağını söylüyor.
 
 </details>
 
@@ -369,4 +378,4 @@ ilk.c:2:14: error: expected ';' before '}' token
 - Edsger Dijkstra, *Go To Statement Considered Harmful*, Communications of the ACM, 1968.
 - [VS Code belgeleri: C/C++ for Visual Studio Code](https://code.visualstudio.com/docs/languages/cpp)
 
-**Sıradaki ders:** Değişkenler, `int` ve aritmetik. Vücut kitle indeksini ilk kez C'de hesaplayacağız ve sadece tamsayılarla çalışmanın sürprizleriyle tanışacağız.
+**Sıradaki ders:** Programlamanın temelleri: değişkenler, kararlar, döngüler, fonksiyonlar ve yapılar.

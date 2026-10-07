@@ -1,0 +1,67 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1010 364' width='1010' height='364' role='img' aria-label='stack.c çalışırken çağrı yığınının altı anı'>
+<defs><marker id='u' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto-start-reverse'><path d='M0,0 L10,5 L0,10 z' fill='#94a3b8'/></marker></defs>
+<rect width='1010' height='364' rx='16' fill='#0f172a' stroke='#1e293b'/>
+<rect x='20' y='270' width='150' height='44' rx='6' fill='#34d39922' stroke='#34d399' stroke-width='2'/>
+<text x='95.0' y='284' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='700' fill='#34d399'>main</text>
+<text x='95.0' y='304' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>answer = ?</text>
+<line x1='20' y1='324' x2='170' y2='324' stroke='#94a3b8' stroke-width='2'/>
+<text x='95.0' y='344' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='12' font-weight='600' fill='#fbbf24'>1. main başladı</text>
+<rect x='184' y='270' width='150' height='44' rx='6' fill='#34d39922' stroke='#34d399' stroke-width='2'/>
+<text x='259.0' y='284' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='700' fill='#34d399'>main</text>
+<text x='259.0' y='304' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>answer = ?</text>
+<rect x='184' y='160' width='150' height='104' rx='6' fill='#818cf822' stroke='#818cf8' stroke-width='2'/>
+<text x='259.0' y='174' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='700' fill='#818cf8'>sum_of_squares</text>
+<text x='259.0' y='194' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>a = 3</text>
+<text x='259.0' y='214' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>b = 4</text>
+<text x='259.0' y='234' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>first = ?</text>
+<text x='259.0' y='254' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>second = ?</text>
+<line x1='184' y1='324' x2='334' y2='324' stroke='#94a3b8' stroke-width='2'/>
+<text x='259.0' y='344' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='12' font-weight='600' fill='#fbbf24'>2. sum_of_squares(3, 4)</text>
+<rect x='348' y='270' width='150' height='44' rx='6' fill='#34d39922' stroke='#34d399' stroke-width='2'/>
+<text x='423.0' y='284' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='700' fill='#34d399'>main</text>
+<text x='423.0' y='304' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>answer = ?</text>
+<rect x='348' y='160' width='150' height='104' rx='6' fill='#818cf822' stroke='#818cf8' stroke-width='2'/>
+<text x='423.0' y='174' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='700' fill='#818cf8'>sum_of_squares</text>
+<text x='423.0' y='194' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>a = 3</text>
+<text x='423.0' y='214' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>b = 4</text>
+<text x='423.0' y='234' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>first = ?</text>
+<text x='423.0' y='254' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>second = ?</text>
+<rect x='348' y='90' width='150' height='64' rx='6' fill='#22d3ee22' stroke='#22d3ee' stroke-width='2'/>
+<text x='423.0' y='104' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='700' fill='#22d3ee'>square</text>
+<text x='423.0' y='124' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>x = 3</text>
+<text x='423.0' y='144' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>result = 9</text>
+<line x1='348' y1='324' x2='498' y2='324' stroke='#94a3b8' stroke-width='2'/>
+<text x='423.0' y='344' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='12' font-weight='600' fill='#fbbf24'>3. square(3)</text>
+<rect x='512' y='270' width='150' height='44' rx='6' fill='#34d39922' stroke='#34d399' stroke-width='2'/>
+<text x='587.0' y='284' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='700' fill='#34d399'>main</text>
+<text x='587.0' y='304' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>answer = ?</text>
+<rect x='512' y='160' width='150' height='104' rx='6' fill='#818cf822' stroke='#818cf8' stroke-width='2'/>
+<text x='587.0' y='174' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='700' fill='#818cf8'>sum_of_squares</text>
+<text x='587.0' y='194' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>a = 3</text>
+<text x='587.0' y='214' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>b = 4</text>
+<text x='587.0' y='234' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>first = 9</text>
+<text x='587.0' y='254' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>second = ?</text>
+<line x1='512' y1='324' x2='662' y2='324' stroke='#94a3b8' stroke-width='2'/>
+<text x='587.0' y='344' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='12' font-weight='600' fill='#fbbf24'>4. square bitti</text>
+<rect x='676' y='270' width='150' height='44' rx='6' fill='#34d39922' stroke='#34d399' stroke-width='2'/>
+<text x='751.0' y='284' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='700' fill='#34d399'>main</text>
+<text x='751.0' y='304' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>answer = ?</text>
+<rect x='676' y='160' width='150' height='104' rx='6' fill='#818cf822' stroke='#818cf8' stroke-width='2'/>
+<text x='751.0' y='174' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='700' fill='#818cf8'>sum_of_squares</text>
+<text x='751.0' y='194' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>a = 3</text>
+<text x='751.0' y='214' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>b = 4</text>
+<text x='751.0' y='234' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>first = 9</text>
+<text x='751.0' y='254' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>second = ?</text>
+<rect x='676' y='90' width='150' height='64' rx='6' fill='#22d3ee22' stroke='#22d3ee' stroke-width='2'/>
+<text x='751.0' y='104' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='700' fill='#22d3ee'>square</text>
+<text x='751.0' y='124' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>x = 4</text>
+<text x='751.0' y='144' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>result = 16</text>
+<line x1='676' y1='324' x2='826' y2='324' stroke='#94a3b8' stroke-width='2'/>
+<text x='751.0' y='344' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='12' font-weight='600' fill='#fbbf24'>5. square(4)</text>
+<rect x='840' y='270' width='150' height='44' rx='6' fill='#34d39922' stroke='#34d399' stroke-width='2'/>
+<text x='915.0' y='284' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='700' fill='#34d399'>main</text>
+<text x='915.0' y='304' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#e2e8f0'>answer = 25</text>
+<line x1='840' y1='324' x2='990' y2='324' stroke='#94a3b8' stroke-width='2'/>
+<text x='915.0' y='344' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='12' font-weight='600' fill='#fbbf24'>6. answer = 25</text>
+<text x='20' y='24' text-anchor='start' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='12' font-weight='500' fill='#cbd5e1'>yığının tepesi = şu an çalışan fonksiyon ↑</text>
+</svg>

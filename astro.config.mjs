@@ -6,14 +6,10 @@ import { unified } from '@astrojs/markdown-remark';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import { FAZLAR } from './src/fazlar.mjs';
+import { SITE, BASE, DEPO_URL } from './src/site.mjs';
+import siteBaglantilari from './src/eklentiler/site-baglantilari.mjs';
 
-// ── Doldurman gereken tek yer ──────────────────────────────────────────────
-const GITHUB_KULLANICI = 'DirikTi';
-const DEPO = 'yazilim-ogrenelim';
-// ───────────────────────────────────────────────────────────────────────────
-
-const DEPO_URL = `https://github.com/${GITHUB_KULLANICI}/${DEPO}`;
-
+// GitHub kullanıcı adı ve depo adı src/site.mjs dosyasında.
 
 // src/content/docs/faz-NN klasörlerini tarar; içinde ders olan her faz menüye eklenir.
 // Fazın içindeki dersler dosya adına göre (01-, 02-, ...) sıralanır ve kendiliğinden listelenir.
@@ -37,11 +33,11 @@ function fazMenusu() {
 }
 
 export default defineConfig({
-	site: `https://${GITHUB_KULLANICI.toLowerCase()}.github.io`,
-	base: `/${DEPO}`,
+	site: SITE,
+	base: BASE,
 	markdown: {
 		// Formüller için: $...$ satır içi, $$...$$ blok (KaTeX ile çizilir)
-		processor: unified({ remarkPlugins: [remarkMath], rehypePlugins: [rehypeKatex] }),
+		processor: unified({ remarkPlugins: [remarkMath, siteBaglantilari], rehypePlugins: [rehypeKatex] }),
 	},
 	integrations: [
 		starlight({
@@ -54,6 +50,7 @@ export default defineConfig({
 			social: [{ icon: 'github', label: 'GitHub', href: DEPO_URL }],
 			editLink: { baseUrl: `${DEPO_URL}/edit/main/` },
 			lastUpdated: true,
+			routeMiddleware: './src/eklentiler/rota-ara-katmani.mjs',
 			customCss: ['katex/dist/katex.min.css', './src/styles/ozel.css'],
 			sidebar: [
 				{ label: 'Bu seri hakkında', link: '/' },

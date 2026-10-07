@@ -4,7 +4,7 @@
     {
       "label": "derle",
       "type": "shell",
-      "command": "mkdir -p \"build/${relativeFileDirname}\" && gcc -std=c17 -Wall -Wextra -g \"${file}\" -o \"build/${relativeFileDirname}/${fileBasenameNoExtension}\"",
+      "command": "mkdir -p \"build/${relativeFileDirname}\" && clang -std=c17 -Wall -Wextra -g \"${file}\" -o \"build/${relativeFileDirname}/${fileBasenameNoExtension}\"",
       "group": { "kind": "build", "isDefault": true },
       "problemMatcher": "$gcc"
     }
