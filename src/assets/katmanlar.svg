@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Temelden sisteme uzanan katmanlar">
+  <defs>
+    <linearGradient id="arka" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b1020"/>
+      <stop offset="1" stop-color="#111a33"/>
+    </linearGradient>
+    <linearGradient id="vurgu" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#818cf8"/>
+    </linearGradient>
+    <radialGradient id="parilti" cx="0.5" cy="0.9" r="0.6">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+    <style>
+      .k { fill: #1e293b; stroke: #334155; stroke-width: 1.5; }
+      .t { font: 600 15px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fill: #cbd5e1; }
+      .b { font: 13px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fill: #22d3ee; opacity: 0; animation: dus 6s linear infinite; }
+      .temel { stroke: url(#vurgu); stroke-width: 2; animation: nabiz 2.4s ease-in-out infinite; }
+      @keyframes dus { 0% { opacity: 0; transform: translateY(-20px); } 15% { opacity: 0.8; } 85% { opacity: 0.8; } 100% { opacity: 0; transform: translateY(300px); } }
+      @keyframes nabiz { 0%, 100% { stroke-opacity: 0.6; } 50% { stroke-opacity: 1; } }
+      @media (prefers-reduced-motion: reduce) { .b, .temel { animation: none; } .b { opacity: 0.4; } }
+    </style>
+  </defs>
+
+  <rect width="400" height="400" rx="28" fill="url(#arka)"/>
+  <rect width="400" height="400" rx="28" fill="url(#parilti)"/>
+
+  <!-- yağan bitler -->
+  <text class="b" x="30"  y="40" style="animation-delay:0s">1</text>
+  <text class="b" x="370" y="40" style="animation-delay:1.2s">0</text>
+  <text class="b" x="55"  y="40" style="animation-delay:2.6s">0</text>
+  <text class="b" x="345" y="40" style="animation-delay:3.4s">1</text>
+  <text class="b" x="20"  y="40" style="animation-delay:4.5s">1</text>
+  <text class="b" x="360" y="40" style="animation-delay:5.1s">0</text>
+
+  <!-- katmanlar: aşağıdan yukarı -->
+  <g class="katman" style="animation-delay:1.5s"><rect class="k" x="150" y="52"  width="100" height="36" rx="8"/><text class="t" x="200" y="75"  text-anchor="middle">sistem</text></g>
+  <g class="katman" style="animation-delay:1.25s"><rect class="k" x="130" y="96"  width="140" height="36" rx="8"/><text class="t" x="200" y="119" text-anchor="middle">algoritma</text></g>
+  <g class="katman" style="animation-delay:1.0s"><rect class="k" x="110" y="140" width="180" height="36" rx="8"/><text class="t" x="200" y="163" text-anchor="middle">C ve assembly</text></g>
+  <g class="katman" style="animation-delay:0.75s"><rect class="k" x="90"  y="184" width="220" height="36" rx="8"/><text class="t" x="200" y="207" text-anchor="middle">bellek ve pointer</text></g>
+  <g class="katman" style="animation-delay:0.5s"><rect class="k" x="70"  y="228" width="260" height="36" rx="8"/><text class="t" x="200" y="251" text-anchor="middle">veri tipleri</text></g>
+  <g class="katman" style="animation-delay:0.25s"><rect class="k" x="50"  y="272" width="300" height="36" rx="8"/><text class="t" x="200" y="295" text-anchor="middle">byte ve sayı sistemleri</text></g>
+  <g class="katman" style="animation-delay:0s">
+    <rect class="k temel" x="30" y="316" width="340" height="44" rx="10"/>
+    <text class="t" x="200" y="344" text-anchor="middle" style="fill:#e0f2fe">0 1 0 0 0 0 0 1  ←  bit</text>
+  </g>
+</svg>

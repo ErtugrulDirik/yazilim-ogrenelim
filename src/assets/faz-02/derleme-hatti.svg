@@ -1,0 +1,31 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 160' width='1000' height='160' role='img' aria-label='Derleme hattı: ön işleme, derleme, assembly, bağlama'>
+<defs><marker id='u' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto-start-reverse'><path d='M0,0 L10,5 L0,10 z' fill='#94a3b8'/></marker></defs>
+<rect width='1000' height='160' rx='16' fill='#0f172a' stroke='#1e293b'/>
+<rect x='18' y='48' width='124' height='44' rx='8' fill='#34d39922' stroke='#34d399' stroke-width='2'/>
+<text x='80' y='70' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='14' font-weight='700' fill='#e2e8f0'>merhaba.c</text>
+<text x='80' y='108' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='11' font-weight='500' fill='#cbd5e1'>kaynak kod</text>
+<polyline points='144,70 224,70' fill='none' stroke='#94a3b8' stroke-width='2' stroke-linejoin='round' marker-end='url(#u)'/>
+<text x='185.0' y='36' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='12' font-weight='600' fill='#cbd5e1'>ön işlemci</text>
+<text x='185.0' y='140' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#fbbf24'>gcc -E</text>
+<rect x='228' y='48' width='124' height='44' rx='8' fill='#22d3ee22' stroke='#22d3ee' stroke-width='2'/>
+<text x='290' y='70' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='14' font-weight='700' fill='#e2e8f0'>merhaba.i</text>
+<text x='290' y='108' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='11' font-weight='500' fill='#cbd5e1'>genişletilmiş kaynak</text>
+<polyline points='354,70 434,70' fill='none' stroke='#94a3b8' stroke-width='2' stroke-linejoin='round' marker-end='url(#u)'/>
+<text x='395.0' y='36' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='12' font-weight='600' fill='#cbd5e1'>derleyici</text>
+<text x='395.0' y='140' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#fbbf24'>gcc -S</text>
+<rect x='438' y='48' width='124' height='44' rx='8' fill='#22d3ee22' stroke='#22d3ee' stroke-width='2'/>
+<text x='500' y='70' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='14' font-weight='700' fill='#e2e8f0'>merhaba.s</text>
+<text x='500' y='108' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='11' font-weight='500' fill='#cbd5e1'>assembly</text>
+<polyline points='564,70 644,70' fill='none' stroke='#94a3b8' stroke-width='2' stroke-linejoin='round' marker-end='url(#u)'/>
+<text x='605.0' y='36' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='12' font-weight='600' fill='#cbd5e1'>assembler</text>
+<text x='605.0' y='140' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#fbbf24'>gcc -c</text>
+<rect x='648' y='48' width='124' height='44' rx='8' fill='#22d3ee22' stroke='#22d3ee' stroke-width='2'/>
+<text x='710' y='70' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='14' font-weight='700' fill='#e2e8f0'>merhaba.o</text>
+<text x='710' y='108' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='11' font-weight='500' fill='#cbd5e1'>nesne dosyası</text>
+<polyline points='774,70 854,70' fill='none' stroke='#94a3b8' stroke-width='2' stroke-linejoin='round' marker-end='url(#u)'/>
+<text x='815.0' y='36' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='12' font-weight='600' fill='#cbd5e1'>bağlayıcı</text>
+<text x='815.0' y='140' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#fbbf24'>gcc</text>
+<rect x='858' y='48' width='124' height='44' rx='8' fill='#34d39922' stroke='#34d399' stroke-width='2'/>
+<text x='920' y='70' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='14' font-weight='700' fill='#e2e8f0'>merhaba</text>
+<text x='920' y='108' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='11' font-weight='500' fill='#cbd5e1'>çalıştırılabilir</text>
+</svg>

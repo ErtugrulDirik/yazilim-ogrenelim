@@ -1,5 +1,5 @@
 ---
-title: "0.2 Bilgisayar nedir: bit, byte, sayı sistemleri"
+title: "0.1 Bilgisayar nedir: bit, byte, sayı sistemleri"
 ---
 
 Bu derste kod yazmıyoruz; kağıt ve kalem yeterli. Dört bölüm var:
@@ -17,7 +17,7 @@ Her bölümün sonunda alıştırmalar var. Cevaplar kapalı kutularda; önce ke
 
 **Hesap makinesi ile bilgisayarın farkı.** Hesap makinesi tek bir iş yapar. Bilgisayar ise kendisine verilen talimat listesine, yani programa göre her işi yapabilir. Fark *programlanabilirliktir*.
 
-**Girdi → işlem → çıktı.** Klavye ve dosyalar girdidir; ekran ve dosyalar çıktıdır; aradaki her şey işlemdir. Örneğin VKİ hesabında girdi kilo ve boy, işlem formül, çıktı ise sayı ve kategoridir.
+**Girdi → işlem → çıktı.** Klavye ve dosyalar girdidir; ekran ve dosyalar çıktıdır; aradaki her şey işlemdir. Örneğin vücut kitle indeksi hesabında girdi kilo ve boydur; işlem, kiloyu boyun karesine bölmektir; çıktı ise vücut kitle indeksi değeri ve bu değerin hangi gruba (zayıf, normal, fazla kilolu, obez) girdiğidir.
 
 **İşlemci ve bellek.** Belleği, numaralandırılmış kutulardan oluşan uzun bir raf gibi düşün. Her kutunun bir adresi ve içinde bir sayısı vardır. İşlemci (CPU) kutudan sayı okur, onu işler ve sonucu bir kutuya geri yazar.
 
@@ -34,12 +34,12 @@ Komutların ayrıntısı Faz 7'de gelecek. Şimdilik akılda kalması gereken te
 
 ### Alıştırma
 
-**1.1** Telefonunla bir fotoğraf çektin. Girdi ne, işlem ne, çıktı ne?
+**1.1** Hesap makinesinde `2`, `+`, `3` ve `=` tuşlarına bastın. Girdi ne, işlem ne, çıktı ne?
 
 <details>
 <summary>Cevap</summary>
 
-Girdi: kameraya gelen ışık ve ekrana dokunman. İşlem: ışığın sayılara çevrilmesi, renk düzeltme ve sıkıştırma. Çıktı: ekrandaki görüntü ve bellekte kaydedilen dosya.
+Girdi: bastığın `2` ve `3` sayıları ile `+` işareti. İşlem: iki sayının toplanması. Çıktı: ekranda görünen `5`.
 
 </details>
 

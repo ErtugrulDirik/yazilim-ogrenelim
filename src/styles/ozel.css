@@ -1,10 +1,32 @@
-/* Alıştırma cevapları: <details><summary>Cevap</summary> ... </details> */
+/* ── Renkler: camgöbeği → çivit ─────────────────────────────────────────── */
+:root {
+	--vurgu-1: #22d3ee;
+	--vurgu-2: #818cf8;
+	--sl-color-accent-low: #0b2b36;
+	--sl-color-accent: #0891b2;
+	--sl-color-accent-high: #a5f3fc;
+}
+
+:root[data-theme='light'] {
+	--vurgu-1: #0891b2;
+	--vurgu-2: #6366f1;
+	--sl-color-accent-low: #cffafe;
+	--sl-color-accent: #0e7490;
+	--sl-color-accent-high: #164e63;
+}
+
+/* ── Alıştırma cevapları: <details><summary>Cevap</summary> ... </details> ── */
 .sl-markdown-content details {
 	border: 1px solid var(--sl-color-gray-5);
 	border-left: 4px solid var(--sl-color-accent);
 	border-radius: 0.5rem;
 	background: var(--sl-color-gray-6);
 	padding: 0.75rem 1rem;
+	transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.sl-markdown-content details:hover {
+	box-shadow: 0 0 0 1px var(--sl-color-accent);
 }
 
 .sl-markdown-content details > summary {
@@ -31,4 +53,445 @@
 .sl-markdown-content .katex-display {
 	overflow-x: auto;
 	overflow-y: hidden;
+}
+
+/* ── Ana sayfa ──────────────────────────────────────────────────────────── */
+[data-has-hero] .page {
+	background:
+		radial-gradient(60rem 30rem at 85% -5%, color-mix(in srgb, var(--vurgu-2) 18%, transparent), transparent 70%),
+		radial-gradient(50rem 30rem at 0% 10%, color-mix(in srgb, var(--vurgu-1) 14%, transparent), transparent 70%);
+	background-repeat: no-repeat;
+}
+
+[data-has-hero] .hero h1 {
+	background: linear-gradient(100deg, var(--vurgu-1), var(--vurgu-2), var(--vurgu-1));
+	background-size: 200% auto;
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	animation: parla 8s linear infinite;
+}
+
+[data-has-hero] .hero > img {
+	border-radius: 28px;
+	box-shadow: 0 30px 80px -20px color-mix(in srgb, var(--vurgu-1) 45%, transparent);
+	animation: suzul 6s ease-in-out infinite;
+}
+
+/* Sayaçlar */
+.sayaclar {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1rem;
+	margin-bottom: 3rem;
+}
+
+@media (min-width: 50rem) {
+	.sayaclar {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+.sayaclar > div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 1.25rem 0.5rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 1rem;
+	background: color-mix(in srgb, var(--sl-color-gray-6) 70%, transparent);
+	margin: 0 !important;
+}
+
+.sayaclar strong {
+	font-size: 2.25rem;
+	line-height: 1.1;
+	font-family: var(--sl-font-mono);
+	background: linear-gradient(90deg, var(--vurgu-1), var(--vurgu-2));
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+.sayaclar span {
+	color: var(--sl-color-gray-3);
+	font-size: var(--sl-text-sm);
+}
+
+/* Kartlar: üzerine gelince hafifçe kalkar */
+[data-has-hero] .card {
+	transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+[data-has-hero] .card:hover {
+	transform: translateY(-4px);
+	border-color: var(--sl-color-accent);
+	box-shadow: 0 12px 30px -12px color-mix(in srgb, var(--vurgu-1) 50%, transparent);
+}
+
+/* Bölüm başlıklarının altında renkli çizgi */
+[data-has-hero] .sl-markdown-content h2::after {
+	content: '';
+	display: block;
+	width: 3rem;
+	height: 3px;
+	margin-top: 0.5rem;
+	border-radius: 3px;
+	background: linear-gradient(90deg, var(--vurgu-1), var(--vurgu-2));
+}
+
+/* Ders iskeleti: numaralı adımlar */
+.iskelet {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+	gap: 0.75rem;
+}
+
+.iskelet > div {
+	display: flex;
+	gap: 0.75rem;
+	align-items: flex-start;
+	padding: 0.9rem 1rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 0.75rem;
+	margin: 0 !important;
+}
+
+.iskelet b {
+	flex: none;
+	display: grid;
+	place-items: center;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	color: #fff;
+	font-family: var(--sl-font-mono);
+	background: linear-gradient(135deg, var(--vurgu-1), var(--vurgu-2));
+}
+
+.iskelet span {
+	display: flex;
+	flex-direction: column;
+	font-size: var(--sl-text-sm);
+	color: var(--sl-color-gray-2);
+}
+
+.iskelet strong {
+	color: var(--sl-color-white);
+	font-size: var(--sl-text-base);
+}
+
+/* Son çağrı */
+.son-cagri {
+	margin-top: 3rem !important;
+	padding: 2rem 1.5rem;
+	text-align: center;
+	border-radius: 1.25rem;
+	border: 1px solid var(--sl-color-gray-5);
+	background:
+		radial-gradient(30rem 12rem at 50% 120%, color-mix(in srgb, var(--vurgu-1) 25%, transparent), transparent),
+		var(--sl-color-gray-6);
+}
+
+.son-cagri p {
+	font-size: var(--sl-text-xl);
+	font-weight: 600;
+	color: var(--sl-color-white);
+}
+
+.son-cagri a {
+	display: inline-block;
+	margin-top: 1rem;
+	padding: 0.7rem 1.5rem;
+	border-radius: 999px;
+	color: #fff;
+	font-weight: 600;
+	text-decoration: none;
+	background: linear-gradient(90deg, var(--vurgu-1), var(--vurgu-2));
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.son-cagri a:hover {
+	transform: scale(1.04);
+	box-shadow: 0 10px 30px -8px color-mix(in srgb, var(--vurgu-2) 70%, transparent);
+}
+
+@keyframes parla {
+	to { background-position: 200% center; }
+}
+
+@keyframes suzul {
+	0%, 100% { transform: translateY(0); }
+	50% { transform: translateY(-10px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after {
+		animation: none !important;
+		transition: none !important;
+	}
+}
+
+/* Vecize: büyük, ortalanmış alıntı */
+.sl-markdown-content .vecize {
+	margin: 2rem 0;
+	padding: 1.5rem 1rem;
+	border: none;
+	text-align: center;
+}
+
+.sl-markdown-content .vecize p {
+	font-size: clamp(1.5rem, 4vw, 2.25rem);
+	font-weight: 700;
+	line-height: 1.2;
+	background: linear-gradient(90deg, var(--vurgu-1), var(--vurgu-2));
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+.sl-markdown-content .vecize p::before {
+	content: '“';
+}
+
+.sl-markdown-content .vecize p::after {
+	content: '”';
+}
+
+/* ── İçindekiler ağacı ──────────────────────────────────────────────────── */
+.agac-ozet {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.5rem 1.25rem;
+	color: var(--sl-color-gray-3);
+	font-size: var(--sl-text-sm);
+}
+
+.agac-ozet strong {
+	color: var(--sl-color-accent-high);
+	font-size: var(--sl-text-lg);
+}
+
+.agac-ozet-not {
+	flex-basis: 100%;
+}
+
+.sl-markdown-content .agac,
+.sl-markdown-content .agac ol {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.sl-markdown-content .agac li {
+	margin: 0;
+}
+
+/* Dikey çizgiler: her seviye bir öncekinin çizgisinden çıkar */
+.sl-markdown-content .agac ol {
+	margin-left: 0.85rem;
+	padding-left: 1.25rem;
+	border-left: 2px solid var(--sl-color-gray-5);
+}
+
+.sl-markdown-content .agac li li {
+	position: relative;
+}
+
+.sl-markdown-content .agac li li::before {
+	content: '';
+	position: absolute;
+	left: -1.25rem;
+	top: 1.1rem;
+	width: 1rem;
+	border-top: 2px solid var(--sl-color-gray-5);
+}
+
+.agac-durak + .agac-durak {
+	margin-top: 1.5rem !important;
+}
+
+.agac-durak-baslik {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	padding-bottom: 0.5rem;
+}
+
+.agac-durak-baslik div {
+	display: flex;
+	flex-direction: column;
+}
+
+.agac-durak-baslik strong {
+	font-size: var(--sl-text-xl);
+	color: var(--sl-color-white);
+}
+
+.agac-durak-baslik small {
+	color: var(--sl-color-gray-3);
+}
+
+.agac-durak-no {
+	flex: none;
+	display: grid;
+	place-items: center;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	color: #fff;
+	font-weight: 700;
+	font-family: var(--sl-font-mono);
+	background: linear-gradient(135deg, var(--vurgu-1), var(--vurgu-2));
+	box-shadow: 0 0 0 4px color-mix(in srgb, var(--vurgu-1) 20%, transparent);
+}
+
+.agac-faz {
+	padding-top: 0.5rem;
+}
+
+.agac-faz-baslik {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.3rem 0;
+}
+
+.agac-faz-baslik strong {
+	color: var(--sl-color-white);
+}
+
+.agac-faz-baslik small {
+	color: var(--sl-color-gray-3);
+}
+
+.agac-rozet {
+	padding: 0.1rem 0.55rem;
+	border-radius: 999px;
+	font-size: var(--sl-text-xs);
+	font-family: var(--sl-font-mono);
+	font-weight: 600;
+	color: var(--sl-color-accent-high);
+	background: var(--sl-color-accent-low);
+	border: 1px solid var(--sl-color-accent);
+}
+
+/* Ders kartı (içindeki <details> alıştırma kutusu stilini almasın) */
+.sl-markdown-content .agac-ders {
+	padding: 0.4rem 0;
+}
+
+.sl-markdown-content .agac-ders details {
+	border: 1px solid var(--sl-color-gray-5);
+	border-left: 1px solid var(--sl-color-gray-5);
+	border-radius: 0.75rem;
+	background: var(--sl-color-gray-6);
+	padding: 0.75rem 1rem;
+	transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.sl-markdown-content .agac-ders details:hover {
+	border-color: var(--sl-color-accent);
+	box-shadow: 0 8px 24px -14px color-mix(in srgb, var(--vurgu-1) 60%, transparent);
+}
+
+.sl-markdown-content .agac-ders details > summary {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+	color: inherit;
+}
+
+.sl-markdown-content .agac-ders summary > a {
+	margin-right: auto;
+}
+
+.sl-markdown-content .agac-ders details > summary::after,
+.sl-markdown-content .agac-ders details[open] > summary::after {
+	content: none;
+}
+
+.sl-markdown-content .agac-ders details[open] > summary {
+	margin-bottom: 0.25rem;
+}
+
+.sl-markdown-content .agac-ders summary > a {
+	font-weight: 600;
+	font-size: var(--sl-text-lg);
+	text-decoration: none;
+	color: var(--sl-color-white);
+}
+
+.sl-markdown-content .agac-ders summary > a:hover {
+	color: var(--sl-color-accent-high);
+}
+
+.agac-meta {
+	display: flex;
+	gap: 0.75rem;
+	font-size: var(--sl-text-xs);
+	font-family: var(--sl-font-mono);
+	color: var(--sl-color-gray-3);
+}
+
+.sl-markdown-content .agac-aciklama {
+	margin: 0.25rem 0 0;
+	font-size: var(--sl-text-sm);
+	color: var(--sl-color-gray-3);
+}
+
+/* Sayfa bölümleri */
+.sl-markdown-content .agac .agac-bolumler {
+	margin-top: 0.5rem;
+	margin-left: 0.25rem;
+	padding-left: 1rem;
+	border-left-style: dashed;
+}
+
+.sl-markdown-content .agac .agac-bolumler li::before {
+	left: -1rem;
+	width: 0.75rem;
+	top: 0.8rem;
+	border-top-style: dashed;
+}
+
+.agac-bolum,
+.agac-alt {
+	padding: 0.15rem 0;
+	font-size: var(--sl-text-sm);
+}
+
+.sl-markdown-content .agac-bolum > a,
+.sl-markdown-content .agac-alt > a {
+	color: var(--sl-color-gray-2);
+	text-decoration: none;
+}
+
+.sl-markdown-content .agac-bolum > a:hover,
+.sl-markdown-content .agac-alt > a:hover {
+	color: var(--sl-color-accent-high);
+	text-decoration: underline;
+}
+
+.sl-markdown-content .agac-bolum.tur-alistirma > a {
+	color: var(--sl-color-orange-high);
+}
+
+.sl-markdown-content .agac-bolum.tur-kaynak > a {
+	color: var(--sl-color-gray-3);
+	font-style: italic;
+}
+
+.sl-markdown-content .agac-etiket {
+	margin-left: 0.5rem;
+	padding: 0 0.45rem;
+	border-radius: 999px;
+	font-size: var(--sl-text-xs);
+	text-decoration: none;
+	color: var(--sl-color-orange-high);
+	background: var(--sl-color-orange-low);
+	border: 1px solid var(--sl-color-orange);
 }

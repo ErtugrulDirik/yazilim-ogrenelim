@@ -1,0 +1,132 @@
+---
+// İçindekiler ağacı: Durak → Faz → Ders → Sayfa bölümleri.
+// src/content/docs/faz-NN/ altındaki derslerden kendiliğinden üretilir; elle bir şey eklemek gerekmez.
+import { getCollection, render } from 'astro:content';
+import { FAZLAR, DURAKLAR } from '../fazlar.mjs';
+
+const kok = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+
+const dersler = (await getCollection('docs', ({ id }) => /^faz-\d{2}\//.test(id))).sort((a, b) =>
+	a.id.localeCompare(b.id),
+);
+
+// Bir dersin başlıklarını bölümlere ayırır; alıştırma başlıkları ait oldukları bölüme rozet olur.
+function bolumler(headings) {
+	const sonuc = [];
+	for (const h of headings) {
+		if (h.depth === 2) {
+			const tur = /kaynak/i.test(h.text) ? 'kaynak' : /alıştırma/i.test(h.text) ? 'alistirma' : 'bolum';
+			sonuc.push({ ...h, tur, alistirma: null, alt: [] });
+		} else if (h.depth === 3 && sonuc.length) {
+			const ust = sonuc[sonuc.length - 1];
+			if (/alıştırma/i.test(h.text)) ust.alistirma = h;
+			else ust.alt.push(h);
+		}
+	}
+	return sonuc;
+}
+
+const fazlar = new Map();
+for (const ders of dersler) {
+	const no = Number(ders.id.slice(4, 6));
+	const { headings } = await render(ders);
+	const kelime = (ders.body ?? '').split(/\s+/).filter(Boolean).length;
+	const b = bolumler(headings);
+	if (!fazlar.has(no)) fazlar.set(no, []);
+	fazlar.get(no).push({
+		url: `${kok}${ders.id}/`,
+		baslik: ders.data.title,
+		aciklama: ders.data.description,
+		dakika: Math.max(1, Math.round(kelime / 180)),
+		bolumler: b,
+		alistirmaSayisi: b.filter((x) => x.alistirma || x.tur === 'alistirma').length,
+	});
+}
+
+const duraklar = DURAKLAR.map((d, i) => {
+	const icerik = [];
+	for (let no = d.fazlar[0]; no <= d.fazlar[1]; no++) {
+		if (fazlar.has(no)) icerik.push({ no, ad: FAZLAR[no], dersler: fazlar.get(no) });
+	}
+	return { ...d, sira: i + 1, icerik };
+}).filter((d) => d.icerik.length);
+
+const toplamDers = dersler.length;
+const toplamFaz = fazlar.size;
+---
+
+<div class="agac-ozet">
+	<span><strong>{toplamFaz}</strong> faz</span>
+	<span><strong>{toplamDers}</strong> ders yayında</span>
+	<span class="agac-ozet-not">Yeni dersler eklendikçe bu ağaç kendiliğinden büyür.</span>
+</div>
+
+<ol class="agac">
+	{
+		duraklar.map((d) => (
+			<li class="agac-durak">
+				<div class="agac-durak-baslik">
+					<span class="agac-durak-no">{d.sira}</span>
+					<div>
+						<strong>{d.ad}</strong>
+						<small>
+							Faz {d.fazlar[0]}–{d.fazlar[1]} · {d.ozet}
+						</small>
+					</div>
+				</div>
+				<ol>
+					{d.icerik.map((f) => (
+						<li class="agac-faz">
+							<div class="agac-faz-baslik">
+								<span class="agac-rozet">Faz {f.no}</span>
+								<strong>{f.ad}</strong>
+								<small>{f.dersler.length} ders</small>
+							</div>
+							<ol>
+								{f.dersler.map((ders) => (
+									<li class="agac-ders">
+										<details open>
+											<summary>
+												<a href={ders.url}>{ders.baslik}</a>
+												<span class="agac-meta">
+													<span title="Tahmini okuma süresi">⏱ {ders.dakika} dk</span>
+													{ders.alistirmaSayisi > 0 && (
+														<span title="Alıştırma bölümü sayısı">✎ {ders.alistirmaSayisi}</span>
+													)}
+												</span>
+											</summary>
+											{ders.aciklama && <p class="agac-aciklama">{ders.aciklama}</p>}
+											{ders.bolumler.length > 0 && (
+												<ol class="agac-bolumler">
+													{ders.bolumler.map((b) => (
+														<li class={`agac-bolum tur-${b.tur}`}>
+															<a href={`${ders.url}#${b.slug}`}>{b.text}</a>
+															{b.alistirma && (
+																<a class="agac-etiket" href={`${ders.url}#${b.alistirma.slug}`}>
+																	alıştırma
+																</a>
+															)}
+															{b.alt.length > 0 && (
+																<ol>
+																	{b.alt.map((a) => (
+																		<li class="agac-alt">
+																			<a href={`${ders.url}#${a.slug}`}>{a.text}</a>
+																		</li>
+																	))}
+																</ol>
+															)}
+														</li>
+													))}
+												</ol>
+											)}
+										</details>
+									</li>
+								))}
+							</ol>
+						</li>
+					))}
+				</ol>
+			</li>
+		))
+	}
+</ol>

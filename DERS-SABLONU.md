@@ -7,7 +7,9 @@ description: "Arama motorlarında görünecek bir cümlelik özet."
   Bu dosyayı src/content/docs/faz-NN/MM-ders-adi.md olarak kopyala.
   - Dosya adının başındaki MM (01, 02, ...) menüdeki sırayı belirler.
   - Menüdeki ad yukarıdaki "title" satırından gelir; sayfada ayrıca "# Başlık" yazma.
-  - Faz klasörüne ilk dersi eklediğin anda faz menüde kendiliğinden belirir.
+  - Faz klasörüne ilk dersi eklediğin anda faz menüde ve İçindekiler sayfasında kendiliğinden belirir.
+  - "## Başlık"lar İçindekiler ağacında dersin bölümleri olarak, "### Alıştırma" başlıkları
+    ise ait oldukları bölümün yanında rozet olarak görünür.
 -->
 
 ## Kavram

@@ -1,0 +1,154 @@
+---
+title: Bu seri hakkında
+description: Yazılımı yüzeyden değil, temelden başlayarak derinliğine öğreten Türkçe açık kaynak kitap.
+template: splash
+hero:
+  title: "0'dan Yazılım Öğreniyorum"
+  tagline: Sıfırdan başlar, ama yüzeyde kalmaz. Yazılımın bildiğini sandığın her katmanını temelden başlayarak yeniden kurar.
+  image:
+    file: ../../assets/katmanlar.svg
+    alt: Temelden sisteme uzanan katmanlar
+  actions:
+    - text: Okumaya başla
+      link: icindekiler/
+      icon: right-arrow
+    - text: Neden bu kitap?
+      link: "#neden-bu-kitap"
+      icon: information
+      variant: minimal
+---
+
+import { Card, CardGrid, Aside } from '@astrojs/starlight/components';
+
+<div class="sayaclar">
+  <div><strong>23</strong><span>faz</span></div>
+  <div><strong>400+</strong><span>ders</span></div>
+  <div><strong>0</strong><span>hazır fonksiyon</span></div>
+  <div><strong>∞</strong><span>"neden?" sorusu</span></div>
+</div>
+
+## Neden bu kitap?
+
+İnternet yazılım anlatımıyla dolu, ve bu anlatımların büyük kısmı çöp.
+
+Sebebi basit: insanlar yarım yamalak öğrendikleri, hatta düpedüz yanlış bildikleri şeyleri doğru sanıyor. Kibirleri, bildiklerini bir kez olsun dönüp kontrol etmelerine izin vermiyor. Araştırmıyorlar, sorgulamıyorlar, emin olmadan anlatıyorlar. Sonra o yanlışı video çekiyor, yazı yazıyor, cevap diye yapıştırıyorlar. Bir başkası kopyalıyor, bir başkası daha. Yanlış, tekrarlandıkça doğru kılığına giriyor ve ortalık kirleniyor.
+
+Bu kirliliğin bedelini öğrenmeye çalışan öder. Yanlışı ezberler, üzerine bina kurar, yıllar sonra temelin çürük olduğunu fark eder.
+
+Bu kitap o gürültünün içinden **temiz ve güncel bir yol** çizmek için yazıldı. Ne öğreneceğini, hangi sırayla öğreneceğini ve neden öğrendiğini baştan sona gösterir. Sonra seni o yolda yürütür.
+
+## Bu kitap kimin için değil?
+
+Bu kitap "birkaç haftada yazılımcı ol" kursu değil. Yeni başlayanı yarı yolda bırakmaz, temelden başlar. Ama amacı başlangıç seviyesinde kalmak değil, seni **yazılımın derinliklerine** götürmek.
+
+Şunu bil: yazılımın temelini atmadan da ilerlemek mümkün. Framework öğrenilir, uygulama çıkarılır, iş bulunur. Hatta insan bir süre sonra yazılımı çok iyi bildiğini düşünmeye başlar. Ancak temel eksik kaldıkça şu sorular hep cevapsız kalır:
+
+- Bitlerle doğrudan çalışmak, yani bir sayıyı döngü kullanmadan maskelemek, kaydırmak, test etmek.
+- Bir kodun gerçekten **hızlı** olması için ne gerektiği: hangi kodun neden yavaş kaldığı.
+- Belleğin nasıl kullanıldığı, nerede israf edildiği ve bunun nasıl izleneceği.
+- Bir hata çıktığında, işin içinde gerçekte neyin olup bittiği.
+
+Bunlar bilinmeden yazılan kod çalışır, ama nasıl çalıştığı bilinmez. Bu kitap tam olarak o boşluğu doldurur.
+
+### Egonu kapıda bırak
+
+Bu kitap egoyla okunmaz.
+
+Ego herkeste vardır; birkaç yıl kod yazmış, birkaç proje çıkarmış herkeste biraz daha fazla vardır. "Ben bunu zaten biliyorum" deyip bir dersi atlamak, "bu basit konu" deyip alıştırmayı geçmek çok kolaydır. Ama burada ego seni ileri götürmez, sadece **aptal gösterir**: bildiğini sandığın yerde takılırsın, atladığın konu üç faz sonra karşına çıkar ve o zaman neyi kaçırdığını bile bilemezsin.
+
+Bildiğini düşündüğün konuyu da baştan oku. Kolay görünen alıştırmayı da çöz. Yanıldığın yeri gördüğünde savunmaya geçme, düzelt. Öğrenmek, önce bilmediğini kabul etmekle başlar.
+
+## Erken konuşma
+
+Kendini yazılımda iyi biri olarak görüyorsan, şu sorulara kağıt üzerinde, hiçbir şeye bakmadan cevap vermeyi dene:
+
+<CardGrid>
+  <Card title="0.1 + 0.2" icon="warning">
+    Neden `0.3` etmiyor? Bilgisayar bu sayıyı bellekte tam olarak nasıl tutuyor?
+  </Card>
+  <Card title="x & (x - 1)" icon="seti:c">
+    Bu ifade bir sayıya ne yapar? Bir sayının 2'nin kuvveti olup olmadığını döngüsüz nasıl anlarsın?
+  </Card>
+  <Card title="Aynı algoritma, 10 kat fark" icon="rocket">
+    Aynı işi yapan iki döngüden biri neden on kat daha yavaş? Cevap algoritmada değil, verinin bellekte diziliş sırasında.
+  </Card>
+  <Card title="strlen" icon="pencil">
+    Hiçbir kütüphane kullanmadan yazabilir misin? Peki `printf`'i?
+  </Card>
+</CardGrid>
+
+Hepsine rahatça cevap verebiliyorsan, bu kitabın ileri fazları seni yine şaşırtacak. Veremiyorsan endişelenme: çoğu kişi veremez. Ama bu kitabı bitirdiğinde "aslında hiçbir şey bilmiyormuşum" dediğin anı da geride bırakmış olacaksın. O yüzden erken konuşma. **Önce oku.**
+
+## "Zaten yapay zeka var, bunlar nerede lazım olacak?"
+
+Bu soruyu sormak çok doğal. Cevabı için önce yapay zekanın nasıl çalıştığına kısaca bakmak gerekiyor.
+
+Bugünkü yapay zeka modelleri, insanların yazdığı devasa miktarda metin ve kodu görerek **bir sonraki en olası parçayı** tahmin etmeyi öğrenir. Ürettiği şey, gördüklerinin istatistiksel bir özetidir. Bu yüzden yapay zekanın varsayılan cevabı genelde **en yaygın** cevaptır, ama en yaygın cevap her zaman en doğru ya da en iyi cevap değildir. İnternetteki eskimiş ve yanlış bilgiler de o yaygınlığın bir parçasıdır.
+
+Bir de şu var: yapay zeka sana sorulmayanı söylemez.
+
+- Senin programının belleği nasıl kullandığını kendiliğinden ölçmez.
+- "Bu veri yapısını yeniden düzenlersen önbellek daha verimli kullanılır" diye kendiliğinden araya girmez.
+- "Bu dallanmayı bit işlemiyle kaldırabilirsin" demez; sen ne isteyeceğini bilirsen yapar.
+
+Yani yapay zeka güçlü bir araçtır, ama **ona doğru bilgiyi veren kişinin elinde güçlüdür**. Ne isteyeceğini bilen biri, yapay zekaya çok daha iyi işler yaptırır. O bilgi ise yalnızca öğrenerek, deneyerek ve zamanla oluşan **sezgiyle** kazanılır. Bu kitap o sezgiyi kurmak için var.
+
+Geleceğin yazılım konuları da tam bu bölgede yoğunlaşıyor: performans, bellek, sistem, kod üreten kod. Bunlar yapay zekaya bırakılarak öğrenilemez.
+
+<blockquote class="vecize">
+  <p>Kontrolsüz güç, güç değildir.</p>
+</blockquote>
+
+Yapay zeka büyük bir güç. Ama onu yönlendirecek bilgin yoksa, ürettiğinin doğru mu yanlış mı olduğunu ayırt edemiyorsan, o güç senin değildir. Yapay zeka senin yerine düşünmez; senin düşündüğünü hızlandırır. Ne kadar derin düşünebilirsen o kadar ileri gidersin.
+
+## Amerika'yı yeniden keşfetmek
+
+Bu kitapta `strlen`'i, `printf`'i, sayı çevirmeyi ve daha nicelerini **kendin yazacaksın**. "Bunlar zaten var, Amerika'yı yeniden mi keşfedeceğiz?" diyebilirsin.
+
+O zaman şuna bak:
+
+- Google, ortada çalışan JavaScript motorları varken Chrome için **kendi motorunu** (V8) yazdı.
+- Apple, yıllarca Intel işlemci kullandıktan sonra **kendi işlemcisini** tasarladı.
+- Facebook, PHP zaten çalışırken onu çalıştıran **kendi sanal makinesini** (HHVM) yazdı.
+- Netflix, hazır içerik dağıtım ağları varken **kendi ağını** kurdu.
+- Büyük oyun stüdyoları, satın alınabilecek oyun motorları varken **kendi motorlarını** yazıyor.
+
+Bunlar salak firmalar mı? Var olan teknolojiyi neden tekrar yazıyorlar?
+
+Çünkü hazır olan her şey **herkes için** yazılmıştır. Herkesin ihtiyacını karşılamaya çalışan bir araç, kimsenin ihtiyacını tam karşılamaz. Kullanmadığın özelliklerin bedelini performansla, bellekle, karmaşıklıkla ödersin. Kendi verine, kendi donanımına, kendi problemine göre yazılmış bir motor ise **sadece senin sisteminde** ve orada herkesinkinden iyi çalışır. Kendi Amerika'nı keşfetmek budur: hazır çözümün tavanına çarptığın yerde, kendi yolunu açabilmek.
+
+Ama kendi Amerika'nı keşfedebilmek için önce var olan Amerika'nın nasıl keşfedildiğini bilmen gerekir. `strlen`'i kendi yazmamış biri, kendi string kütüphanesini yazamaz. Bellek ayırmanın nasıl çalıştığını bilmeyen, kendi bellek yöneticisini kuramaz. Hazır bir fonksiyonu kullanan kişi sonucu bilir; onu sıfırdan yazan kişi ise **neden öyle olduğunu** bilir. Kendi motorunu yazacağın gün, ayağının altındaki zeminin ne kadar sağlam olduğu her şeyi belirler.
+
+## Kolay olmayacak
+
+Dürüst olalım: bu zor bir yolculuk.
+
+Hızlı sonuç vaat etmiyoruz. Bazı derslerde kağıt kalemle saatlerce iz süreceksin, bazı alıştırmalarda takılıp kalacaksın, bazı konuları ikinci, üçüncü kez okuman gerekecek. Bu normal. Derinlik zahmetsiz kazanılmaz.
+
+Ama yolun sonunda, bilgisayara bakışın değişmiş olacak. Kodu yazan değil, **kodun ne yaptığını gerçekten bilen** biri olacaksın.
+
+## Kurallar
+
+- **Önce kendin yaz.** `printf`, `strlen`, `strcmp` gibi hazır fonksiyonların her biri önce sıfırdan yazılır, sonra kütüphanedeki hali kullanılır.
+- **Atlama yok.** Her faz bir sonrakinin zeminidir.
+- **"Neden?" sorusu her zaman cevaplanır.** Hiçbir şey "böyle kabul et" diye geçilmez.
+
+## Her dersin iskeleti
+
+<div class="iskelet">
+  <div><b>1</b><span><strong>Kavram</strong> Ne ve neden?</span></div>
+  <div><b>2</b><span><strong>Matematik</strong> Gerekiyorsa formül ve ispat.</span></div>
+  <div><b>3</b><span><strong>C kodu</strong> Sıfırdan, hazır fonksiyon olmadan.</span></div>
+  <div><b>4</b><span><strong>İz sürme</strong> Değişkenlerin adım adım değeri.</span></div>
+  <div><b>5</b><span><strong>Assembly</strong> Kodun makinede neye dönüştüğü.</span></div>
+  <div><b>6</b><span><strong>Alıştırma</strong> Önce sen dene, sonra çözüme bak.</span></div>
+</div>
+
+Alıştırmaların cevapları her sayfada kapalı kutuların içindedir. Kutuyu açmadan önce kendin çözmeyi dene.
+
+Dersler faz içinde numaralanır: **2.3**, Faz 2'nin 3. dersidir.
+
+<div class="son-cagri">
+  <p>Hazırsan, temelden başlayalım.</p>
+  <a href="icindekiler/">Yolculuğa başla →</a>
+</div>

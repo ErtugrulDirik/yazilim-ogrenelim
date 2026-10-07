@@ -1,0 +1,22 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 420 600' width='420' height='600' role='img' aria-label='Basamak sayısı akış diyagramı'>
+<defs><marker id='u' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto-start-reverse'><path d='M0,0 L10,5 L0,10 z' fill='#94a3b8'/></marker></defs>
+<rect width='420' height='600' rx='16' fill='#0f172a' stroke='#1e293b'/>
+<rect x='155.0' y='21.0' width='110' height='38' rx='19.0' fill='#22d3ee22' stroke='#22d3ee' stroke-width='2'/><text x='210' y='40' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='14' font-weight='700' fill='#e2e8f0'>BAŞLA</text>
+<polyline points='210,59 210,85' fill='none' stroke='#94a3b8' stroke-width='2' stroke-linejoin='round' marker-end='url(#u)'/>
+<polygon points='159.0,85.0 289.0,85.0 261.0,125.0 131.0,125.0' fill='#34d39922' stroke='#34d399' stroke-width='2'/><text x='210' y='105' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='14' font-weight='500' fill='#e2e8f0'>Oku: n</text>
+<polyline points='210,125 210,150' fill='none' stroke='#94a3b8' stroke-width='2' stroke-linejoin='round' marker-end='url(#u)'/>
+<rect x='120.0' y='150.0' width='180' height='40' rx='4' fill='#818cf822' stroke='#818cf8' stroke-width='2'/><text x='210' y='170' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='14' font-weight='500' fill='#e2e8f0'>sayaç ← 0</text>
+<polyline points='210,190 210,218' fill='none' stroke='#94a3b8' stroke-width='2' stroke-linejoin='round' marker-end='url(#u)'/>
+<rect x='120.0' y='220.0' width='180' height='40' rx='4' fill='#818cf822' stroke='#818cf8' stroke-width='2'/><text x='210' y='240' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='14' font-weight='500' fill='#e2e8f0'>n ← n ÷ 10</text>
+<polyline points='210,260 210,283' fill='none' stroke='#94a3b8' stroke-width='2' stroke-linejoin='round' marker-end='url(#u)'/>
+<rect x='115.0' y='285.0' width='190' height='40' rx='4' fill='#818cf822' stroke='#818cf8' stroke-width='2'/><text x='210' y='305' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='14' font-weight='500' fill='#e2e8f0'>sayaç ← sayaç + 1</text>
+<polyline points='210,325 210,352' fill='none' stroke='#94a3b8' stroke-width='2' stroke-linejoin='round' marker-end='url(#u)'/>
+<polygon points='210,352.0 285.0,390 210,428.0 135.0,390' fill='#fbbf2422' stroke='#fbbf24' stroke-width='2'/><text x='210' y='390' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='14' font-weight='500' fill='#e2e8f0'>n = 0?</text>
+<polyline points='135,390 50,390 50,240 120,240' fill='none' stroke='#94a3b8' stroke-width='2' stroke-linejoin='round' marker-end='url(#u)'/>
+<text x='105' y='378' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='12' font-weight='600' fill='#cbd5e1'>hayır</text>
+<polyline points='210,428 210,470' fill='none' stroke='#94a3b8' stroke-width='2' stroke-linejoin='round' marker-end='url(#u)'/>
+<text x='234' y='446' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='12' font-weight='600' fill='#cbd5e1'>evet</text>
+<polygon points='149.0,470.0 299.0,470.0 271.0,510.0 121.0,510.0' fill='#34d39922' stroke='#34d399' stroke-width='2'/><text x='210' y='490' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='14' font-weight='500' fill='#e2e8f0'>Yaz: sayaç</text>
+<polyline points='210,510 210,541' fill='none' stroke='#94a3b8' stroke-width='2' stroke-linejoin='round' marker-end='url(#u)'/>
+<rect x='155.0' y='541.0' width='110' height='38' rx='19.0' fill='#22d3ee22' stroke='#22d3ee' stroke-width='2'/><text x='210' y='560' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='14' font-weight='700' fill='#e2e8f0'>BİTİR</text>
+</svg>
