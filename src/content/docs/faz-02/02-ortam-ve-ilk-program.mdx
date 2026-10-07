@@ -25,7 +25,7 @@ Her programlama yolculuğu aynı cümleyle başlar: **Merhaba, dünya!** Bu ders
 
     ```sh
     sudo apt update
-    sudo apt install build-essential lldb
+    sudo apt install build-essential lldb curl
     ```
 
     **2. VS Code.** [code.visualstudio.com](https://code.visualstudio.com) adresinden `.deb` paketini indirip çift tıklayarak kur.
@@ -45,7 +45,7 @@ Her programlama yolculuğu aynı cümleyle başlar: **Merhaba, dünya!** Bu ders
 
     ```sh
     sudo apt update
-    sudo apt install build-essential lldb
+    sudo apt install build-essential lldb curl
     ```
 
     **3. VS Code.** [code.visualstudio.com](https://code.visualstudio.com) adresinden **Windows** sürümünü indirip kur. Ardından VS Code'da sol kenardaki Eklentiler simgesine (`Ctrl+Shift+X`) tıkla ve **WSL** eklentisini (Microsoft) kur. Bu eklenti, VS Code'un Windows'ta açılıp Ubuntu'nun içinde çalışmasını sağlar.
@@ -78,15 +78,18 @@ lldb --version
 
 ## 3. Çalışma alanını hazırla
 
-Bu kitap boyunca yazacağın bütün kodlar **tek bir klasörde**, fazlara göre ayrılmış alt klasörlerde duracak. Terminalde:
+Bu kitap boyunca yazacağın bütün kodlar **tek bir klasörde**, fazlara göre ayrılmış alt klasörlerde duracak. Klasörü oluşturmak ve VS Code'un ayar dosyalarını indirmek için terminale şu satırları yapıştır:
 
 ```sh
-mkdir -p ~/yazilim-ogrenelim/faz-02
+mkdir -p ~/yazilim-ogrenelim/faz-02 ~/yazilim-ogrenelim/.vscode
 cd ~/yazilim-ogrenelim
+ADRES=https://dirikti.github.io/yazilim-ogrenelim/kurulum
+curl -fsSL $ADRES/tasks.json -o .vscode/tasks.json
+curl -fsSL $ADRES/launch.json -o .vscode/launch.json
 code .
 ```
 
-VS Code bu klasörü açar. (Windows'ta bu komutları Ubuntu penceresinde yaz; VS Code otomatik olarak WSL'e bağlanır, sol altta **WSL: Ubuntu** yazısını görürsün.)
+İndirilen iki dosya VS Code'a C kodunu **nasıl derleyeceğini** (`tasks.json`) ve **nasıl çalıştıracağını** (`launch.json`) söyler. VS Code klasörü açar. (Windows'ta bu satırları Ubuntu penceresinde yaz; VS Code otomatik olarak WSL'e bağlanır, sol altta **WSL: Ubuntu** yazısını görürsün.)
 
 **Eklentiler.** `Ctrl+Shift+X` (macOS'ta `Cmd+Shift+X`) ile eklentiler panelini aç ve iki eklenti kur:
 
@@ -95,85 +98,74 @@ VS Code bu klasörü açar. (Windows'ta bu komutları Ubuntu penceresinde yaz; V
 
 Windows'ta eklentilerin yanında **Install in WSL** düğmesi çıkarsa ona bas; eklentilerin Ubuntu tarafında çalışması gerekiyor.
 
-**Ayar dosyaları.** Klasörün içinde `.vscode` adında bir klasör oluştur ve içine üç dosya koy. Bu dosyalar VS Code'a C kodunu nasıl derleyeceğini ve nasıl çalıştıracağını söyler.
+**İki kısayol.** Artık her şey iki tuşta:
 
-`.vscode/tasks.json`: **derleme** ayarı.
+- `Ctrl+Shift+B` (macOS'ta `Cmd+Shift+B`): Açık olan `.c` dosyasını **derler**.
+- `F5`: Derler ve **çalıştırır**. Satır numarasının soluna tıklayıp kırmızı nokta koyduysan program orada durur ve değişkenleri gösterir.
+
+**Çıktılar `build` klasörüne gider.** Derlediğin her program, kaynak dosyanın yanına değil, `build` klasörünün içine, aynı alt klasör adıyla yazılır. Kodlarının yanında sadece kendi yazdığın `.c` dosyaları durur:
+
+```txt
+yazilim-ogrenelim/
+├── .vscode/
+│   ├── launch.json
+│   └── tasks.json
+├── build/
+│   └── faz-02/
+│       └── merhaba        ← derlenmiş program
+└── faz-02/
+    └── merhaba.c          ← senin kodun
+```
+
+`build` klasörünü istediğin zaman silebilirsin; bir sonraki derlemede yeniden oluşur. (macOS'ta programın yanında bir de `merhaba.dSYM` klasörü görürsün; hata ayıklayıcının kullandığı bilgiler orada durur.)
+
+<details class="bilgi">
+<summary>Ayar dosyalarının içinde ne var?</summary>
+
+`.vscode/tasks.json`:
 
 ```json
 {
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "C: derle",
+      "label": "derle",
       "type": "shell",
-      "command": "gcc",
-      "args": [
-        "-std=c17",
-        "-Wall",
-        "-Wextra",
-        "-g",
-        "${file}",
-        "-o",
-        "${fileDirname}/${fileBasenameNoExtension}"
-      ],
+      "command": "mkdir -p \"build/${relativeFileDirname}\" && gcc -std=c17 -Wall -Wextra -g \"${file}\" -o \"build/${relativeFileDirname}/${fileBasenameNoExtension}\"",
       "group": { "kind": "build", "isDefault": true },
-      "problemMatcher": ["$gcc"]
+      "problemMatcher": "$gcc"
     }
   ]
 }
 ```
 
-`.vscode/launch.json`: **çalıştırma ve hata ayıklama** ayarı.
+`.vscode/launch.json`:
 
 ```json
 {
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "çalıştır",
       "type": "lldb",
       "request": "launch",
-      "name": "C: çalıştır",
-      "program": "${fileDirname}/${fileBasenameNoExtension}",
-      "cwd": "${fileDirname}",
-      "terminal": "integrated",
-      "preLaunchTask": "C: derle"
+      "program": "${workspaceFolder}/build/${relativeFileDirname}/${fileBasenameNoExtension}",
+      "preLaunchTask": "derle"
     }
   ]
 }
 ```
 
-`.vscode/settings.json`: **editör** ayarı.
-
-```json
-{
-  "C_Cpp.default.cStandard": "c17",
-  "C_Cpp.default.compilerPath": "/usr/bin/gcc"
-}
-```
-
-Klasörün son hali şöyle görünmeli:
-
-```txt
-yazilim-ogrenelim/
-├── .vscode/
-│   ├── launch.json
-│   ├── settings.json
-│   └── tasks.json
-└── faz-02/
-```
-
-**Derleme ayarları ne anlama geliyor?** `tasks.json`'daki her bayrağın bir sebebi var:
+İndirmek yerine bu iki dosyayı elle de oluşturabilirsin. Derleme komutundaki her bayrağın bir sebebi var:
 
 | Bayrak | Anlamı | Neden? |
 | --- | --- | --- |
 | `-std=c17` | C17 standardına göre derle | Herkesin aynı kurallarla çalışması için. C17, C99 ve C11'in bütün özelliklerini içerir. |
 | `-Wall -Wextra` | Bütün önemli uyarıları aç | Derleyici şüpheli gördüğü her yeri söyler. **Uyarıları hata gibi ciddiye al.** Çoğu hata, önce bir uyarı olarak belirir. |
 | `-g` | Hata ayıklama bilgisi ekle | LLDB'nin satır numaralarını ve değişken adlarını tanıması için |
+| `-o build/…` | Çıktıyı `build` klasörüne yaz | Kaynak kodla derlenmiş program birbirine karışmasın diye |
 
-Artık iki kısayolun var:
-
-- `Ctrl+Shift+B` (macOS'ta `Cmd+Shift+B`): Açık olan `.c` dosyasını **derler**.
-- `F5`: Derler, **çalıştırır**; satır numarasının soluna tıklayıp kırmızı nokta koyduysan program orada durur ve değişkenleri gösterir.
+</details>
 
 ---
 
@@ -216,12 +208,10 @@ int main(void) {
 }
 ```
 
-Bu sefer terminalden derleyip çalıştıralım. VS Code'da terminali `` Ctrl+` `` ile aç:
+`ilk.c` açıkken `Ctrl+Shift+B` ile derle. Bu sefer programı terminalden çalıştıralım. VS Code'da terminali `` Ctrl+` `` ile aç:
 
 ```sh
-cd faz-02
-gcc ilk.c -o ilk
-./ilk
+./build/faz-02/ilk
 ```
 
 Hiçbir şey olmadı gibi görünüyor. Ama bir şey oldu. Şunu yaz:
@@ -294,20 +284,20 @@ C'de `goto` hâlâ vardır ama nadiren, çok belli durumlarda kullanılır. Bu k
 
 ## 6. Derleme hattı: metinden programa
 
-Bu bölümdeki komutları VS Code'un terminalinde, `merhaba.c` ile `ilk.c`'nin bulunduğu `faz-02` klasöründe çalıştır (`cd faz-02`). `gcc merhaba.c -o merhaba` tek bir komut gibi görünüyor. Aslında arka arkaya dört ayrı iş yapıyor. gcc'ye her adımda durmasını söyleyerek bu dört işi tek tek görebiliriz.
+Bu bölümdeki komutları VS Code'un terminalinde, çalışma alanının ana klasöründe (`~/yazilim-ogrenelim`) çalıştır; çıktılar yine `build/faz-02` klasörüne gidecek. `Ctrl+Shift+B` tek bir komut çalıştırıyor gibi görünüyor. Aslında arka arkaya dört ayrı iş yapıyor. gcc'ye her adımda durmasını söyleyerek bu dört işi tek tek görebiliriz.
 
 ![Derleme hattı: ön işleme, derleme, assembly, bağlama](../../../assets/faz-02/derleme-hatti.svg)
 
 **1. Ön işleme: `gcc -E`**
 
 ```sh
-gcc -E merhaba.c -o merhaba.i
+gcc -E faz-02/merhaba.c -o build/faz-02/merhaba.i
 ```
 
 **Ön işlemci**, `#` ile başlayan satırları işler. `#include <stdio.h>` satırı, `stdio.h` dosyasının **içeriğiyle** değiştirilir. Çıktının satırlarını say:
 
 ```sh
-wc -l merhaba.i
+wc -l build/faz-02/merhaba.i
 ```
 
 6 satırlık dosyan yaklaşık 800 satır olmuş olmalı (sayı sistemden sisteme değişir). Dosyanın en sonunda senin `main` fonksiyonun duruyor; üstündeki her şey `stdio.h`'den geldi.
@@ -315,7 +305,7 @@ wc -l merhaba.i
 **2. Derleme: `gcc -S`**
 
 ```sh
-gcc -S merhaba.c -o merhaba.s
+gcc -S faz-02/merhaba.c -o build/faz-02/merhaba.s
 ```
 
 **Derleyici**, C kodunu **assembly**'ye çevirir. Assembly, işlemcinin anladığı komutların insanların okuyabileceği yazımıdır. Ortaya `merhaba.s` dosyası çıkar. İçinde ne olduğuna şimdilik bakmamıza gerek yok; assembly'yi Faz 7'de ayrıntısıyla öğreneceğiz. Şimdilik bilmen gereken: C kodu, işlemciye ulaşmadan önce bu ara dilden geçer.
@@ -323,7 +313,7 @@ gcc -S merhaba.c -o merhaba.s
 **3. Assembly: `gcc -c`**
 
 ```sh
-gcc -c merhaba.c -o merhaba.o
+gcc -c faz-02/merhaba.c -o build/faz-02/merhaba.o
 ```
 
 **Assembler**, assembly komutlarını işlemcinin anladığı sayılara, yani **makine koduna** çevirir. Çıkan `.o` dosyasına **nesne dosyası** denir. İçinde senin kodunun makine kodu var, ama henüz çalıştırılamaz: `printf`'in makine kodu nerede? O, senin dosyanda değil.
@@ -331,7 +321,8 @@ gcc -c merhaba.c -o merhaba.o
 **4. Bağlama**
 
 ```sh
-gcc merhaba.o -o merhaba
+gcc build/faz-02/merhaba.o -o build/faz-02/merhaba
+./build/faz-02/merhaba
 ```
 
 **Bağlayıcı** (linker), senin nesne dosyanı C kütüphanesindeki `printf` ile birleştirir ve işletim sisteminin çalıştırabileceği tek bir dosya üretir.
@@ -362,7 +353,7 @@ ilk.c: In function 'main':
 ilk.c:2:14: error: expected ';' before '}' token
 ```
 
-`ilk.c:2:14` "dosya ilk.c, satır 2, karakter 14" demek: noktalı virgülün olması gereken yer. Hata **derleme** adımında çıktı; ön işlemci bu satırla ilgilenmez, derleyici ise C'nin yazım kurallarını denetler. (macOS'taki clang aynı hatayı biraz farklı cümleyle söyler: `expected ';' after return statement`.)
+(VS Code'da derlediysen dosya adının başında klasörün tam yolu da yazar.) `ilk.c:2:14` "dosya ilk.c, satır 2, karakter 14" demek: noktalı virgülün olması gereken yer. Hata **derleme** adımında çıktı; ön işlemci bu satırla ilgilenmez, derleyici ise C'nin yazım kurallarını denetler. (macOS'taki clang aynı hatayı biraz farklı cümleyle söyler: `expected ';' after return statement`.)
 
 **3** Çıkış kodu **0** olur. C99'dan beri özel bir kural var: `main` fonksiyonu `return` yazmadan biterse 0 döndürmüş sayılır. Bu kural sadece `main` için geçerlidir. Yine de bu kitapta `return 0;` yazacağız; ne döndürdüğümüzü açıkça görmek istiyoruz.
 

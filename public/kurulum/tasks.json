@@ -1,0 +1,12 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "derle",
+      "type": "shell",
+      "command": "mkdir -p \"build/${relativeFileDirname}\" && gcc -std=c17 -Wall -Wextra -g \"${file}\" -o \"build/${relativeFileDirname}/${fileBasenameNoExtension}\"",
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": "$gcc"
+    }
+  ]
+}

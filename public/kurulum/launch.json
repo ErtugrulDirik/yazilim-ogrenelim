@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "çalıştır",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/${relativeFileDirname}/${fileBasenameNoExtension}",
+      "preLaunchTask": "derle"
+    }
+  ]
+}
