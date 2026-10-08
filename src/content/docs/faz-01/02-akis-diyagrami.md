@@ -72,7 +72,7 @@ Kilo 70, boy 1,75 için: 1,75 × 1,75 = 3,0625 ve 70 / 3,0625 ≈ 22,86. Diyagra
 
 ### Alıştırma
 
-**3.1** Celsius cinsinden bir sıcaklığı Fahrenheit'a çeviren algoritmanın akış diyagramını çiz. Formül: F = C × 9 / 5 + 32. Diyagramını C = 100 ile dene.
+**3.1** – Celsius cinsinden bir sıcaklığı Fahrenheit'a çeviren algoritmanın akış diyagramını çiz. Formül: F = C × 9 / 5 + 32. Diyagramını C = 100 ile dene.
 
 <details>
 <summary>Cevap</summary>
@@ -108,16 +108,16 @@ Kilo 70, boy 1,75 için vki ≈ 22,86. İlk karar: 22,86 < 18,5? Hayır. İkinci
 
 ### Alıştırmalar
 
-**4.1** Vücut kitle indeksi **tam olarak 25** olan biri hangi gruba düşer? Okları tek tek takip ederek bul.
+**4.1** – Vücut kitle indeksi **tam olarak 25** olan biri hangi gruba düşer? Okları tek tek takip ederek bul.
 
-**4.2** İki sayıdan büyüğünü yazan algoritmanın akış diyagramını çiz (Ders 1.1, Alıştırma 4.2).
+**4.2** – İki sayıdan büyüğünü yazan algoritmanın akış diyagramını çiz (Ders 1.1, Alıştırma 4.2).
 
-**4.3** Vücut kitle indeksi diyagramında kararların sırasını ters çevirdiğimizi düşün: önce "vki < 30?", sonra "vki < 25?", sonra "vki < 18,5?" soruluyor ve her "evet" kendi grubuna gidiyor. vki = 22,86 için ne yazılır? Neden?
+**4.3** – Vücut kitle indeksi diyagramında kararların sırasını ters çevirdiğimizi düşün: önce "vki < 30?", sonra "vki < 25?", sonra "vki < 18,5?" soruluyor ve her "evet" kendi grubuna gidiyor. vki = 22,86 için ne yazılır? Neden?
 
 <details>
 <summary>Cevaplar</summary>
 
-**4.1** 25 < 18,5? Hayır. 25 < 25? **Hayır** (25, kendisinden küçük değildir). 25 < 30? Evet. Sonuç: **fazla kilolu**. Ders 1.1'de "25 ve üstü fazla kilolu" diye yazdığımız sınır, diyagramda tam olarak böyle çalışıyor.
+**4.1** – 25 < 18,5? Hayır. 25 < 25? **Hayır** (25, kendisinden küçük değildir). 25 < 30? Evet. Sonuç: **fazla kilolu**. Ders 1.1'de "25 ve üstü fazla kilolu" diye yazdığımız sınır, diyagramda tam olarak böyle çalışıyor.
 
 **4.2**
 
@@ -128,7 +128,7 @@ Kilo 70, boy 1,75 için vki ≈ 22,86. İlk karar: 22,86 < 18,5? Hayır. İkinci
    - hayır → **Yaz: b**
 4. İki yol da **BİTİR**'e gider.
 
-**4.3** İlk karar: 22,86 < 30? **Evet**, ve bu "evet" fazla kilolu grubuna gider. Yanlış sonuç! Ters sırada, 30'dan küçük olan **herkes** ilk kararda yakalanır; diğer kararlara hiç sıra gelmez. Zincir kararlarda sıra önemlidir: her karar, kendinden öncekilerin "hayır" cevaplarına güvenir.
+**4.3** – İlk karar: 22,86 < 30? **Evet**, ve bu "evet" fazla kilolu grubuna gider. Yanlış sonuç! Ters sırada, 30'dan küçük olan **herkes** ilk kararda yakalanır; diğer kararlara hiç sıra gelmez. Zincir kararlarda sıra önemlidir: her karar, kendinden öncekilerin "hayır" cevaplarına güvenir.
 
 </details>
 
@@ -156,11 +156,11 @@ n = 4 için okları takip ederek:
 | Tur | i ≤ n? | s | i |
 | --- | --- | --- | --- |
 | başlangıç | — | 0 | 1 |
-| 1 | 1 ≤ 4 evet | 1 | 2 |
-| 2 | 2 ≤ 4 evet | 3 | 3 |
-| 3 | 3 ≤ 4 evet | 6 | 4 |
-| 4 | 4 ≤ 4 evet | 10 | 5 |
-| — | 5 ≤ 4 **hayır** | 10 | 5 |
+| 1. | 1 ≤ 4 evet | 1 | 2 |
+| 2. | 2 ≤ 4 evet | 3 | 3 |
+| 3. | 3 ≤ 4 evet | 6 | 4 |
+| 4. | 4 ≤ 4 evet | 10 | 5 |
+| bitiş | 5 ≤ 4 **hayır** | 10 | 5 |
 
 Sonuç: 10. Kontrol: 1 + 2 + 3 + 4 = 10.
 
@@ -173,38 +173,38 @@ Aradaki fark, diyagramda kararın **nerede** durduğundan ibarettir. Bunu aşağ
 
 ### Alıştırmalar
 
-**5.1** n! (n faktöriyel), 1'den n'e kadar olan sayıların çarpımıdır: 5! = 1 × 2 × 3 × 4 × 5 = 120. Tanım gereği 0! = 1'dir. n!'i hesaplayan algoritmanın akış diyagramını çiz. (İpucu: toplam diyagramına çok benzer.)
+**5.1** – n! (n faktöriyel), 1'den n'e kadar olan sayıların çarpımıdır: 5! = 1 × 2 × 3 × 4 × 5 = 120. Tanım gereği 0! = 1'dir. n!'i hesaplayan algoritmanın akış diyagramını çiz. (İpucu: toplam diyagramına çok benzer.)
 
-**5.2** Diyagramını n = 0 ile dene. Doğru sonucu veriyor mu?
+**5.2** – Diyagramını n = 0 ile dene. Doğru sonucu veriyor mu?
 
-**5.3** Aşağıdaki diyagram ne yazar? Okları takip ederek bul. Kararın içindeki 50 yerine 100 yazsaydık sonuç ne olurdu?
+**5.3** – Aşağıdaki diyagram ne yazar? Okları takip ederek bul. Kararın içindeki 50 yerine 100 yazsaydık sonuç ne olurdu?
 
 ![x'i 3 ile çarparak ilerleyen bir döngünün akış diyagramı](../../../assets/faz-01/gizem.svg)
 
-**5.4** Ders 1.1'deki BasamakSayısı algoritmasının düzeltilmiş, `TEKRARLA … OLANA KADAR` kullanan halini akış diyagramı olarak çiz. Karar nerede durmalı?
+**5.4** – Ders 1.1'deki BasamakSayısı algoritmasının düzeltilmiş, `TEKRARLA … OLANA KADAR` kullanan halini akış diyagramı olarak çiz. Karar nerede durmalı?
 
 <details>
 <summary>Cevaplar</summary>
 
-**5.1** Toplam diyagramındaki iki değişiklik yeterli: başlangıçta **f ← 1** (toplamada 0'dan, çarpmada 1'den başlanır; 0 ile çarpılan her şey 0 olur), döngü içinde **f ← f × i**.
+**5.1** – Toplam diyagramındaki iki değişiklik yeterli: başlangıçta **f ← 1** (toplamada 0'dan, çarpmada 1'den başlanır; 0 ile çarpılan her şey 0 olur), döngü içinde **f ← f × i**.
 
 ![Faktöriyel akış diyagramı](../../../assets/faz-01/faktoriyel.svg)
 
-**5.2** n = 0 için: f ← 1, i ← 1. Karar: 1 ≤ 0? Hayır. Döngü hiç çalışmaz, f = 1 yazılır. 0! = 1 olduğu için **doğru**. Burada "önce sor" döngüsü tam istediğimiz şeyi yapıyor.
+**5.2** – n = 0 için: f ← 1, i ← 1. Karar: 1 ≤ 0? Hayır. Döngü hiç çalışmaz, f = 1 yazılır. 0! = 1 olduğu için **doğru**. Burada "önce sor" döngüsü tam istediğimiz şeyi yapıyor.
 
 **5.3**
 
-| x | x < 50? |
-| --- | --- |
-| 1 | evet |
-| 3 | evet |
-| 9 | evet |
-| 27 | evet |
-| 81 | **hayır** |
+| Adım | x | x < 50? |
+| --- | --- | --- |
+| 1. | 1 | evet |
+| 2. | 3 | evet |
+| 3. | 9 | evet |
+| 4. | 27 | evet |
+| 5. | 81 | **hayır** |
 
 Diyagram **81** yazar. Karar 100 olsaydı 81 < 100 evet olurdu, bir tur daha dönülürdü: x = 243 ve 243 < 100 hayır. Sonuç **243**. Döngü, 3'ün kuvvetlerinden sınırı ilk geçeni buluyor.
 
-**5.4** Karar döngünün **sonunda** durur: önce bölme ve sayma yapılır, sonra "n = 0?" diye sorulur. "Hayır" ise ok yukarı, bölme adımına döner; "evet" ise sonuç yazılır.
+**5.4** – Karar döngünün **sonunda** durur: önce bölme ve sayma yapılır, sonra "n = 0?" diye sorulur. "Hayır" ise ok yukarı, bölme adımına döner; "evet" ise sonuç yazılır.
 
 ![Basamak sayısı akış diyagramı](../../../assets/faz-01/basamak.svg)
 

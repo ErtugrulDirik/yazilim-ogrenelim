@@ -1,0 +1,142 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 968 348' width='968' height='348' role='img' aria-label='Dört platformda C tiplerinin byte cinsinden boyutları'>
+<rect width='968' height='348' rx='16' fill='#0f172a' stroke='#1e293b'/>
+<text x='301.0' y='38' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='13' font-weight='700' fill='#64748b'>char</text>
+<text x='419.0' y='38' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='13' font-weight='700' fill='#818cf8'>short</text>
+<text x='537.0' y='38' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='13' font-weight='700' fill='#22d3ee'>int</text>
+<text x='655.0' y='38' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='13' font-weight='700' fill='#fbbf24'>long</text>
+<text x='773.0' y='38' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='13' font-weight='700' fill='#34d399'>long long</text>
+<text x='891.0' y='38' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='13' font-weight='700' fill='#f472b6'>pointer</text>
+<text x='24' y='78' text-anchor='start' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='13' font-weight='700' fill='#e2e8f0'>Linux, macOS (64 bit)</text>
+<text x='24' y='98' text-anchor='start' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#cbd5e1'>LP64</text>
+<rect x='250' y='70' width='11' height='22' rx='2' fill='#64748b55' stroke='#64748b' stroke-width='1.5'/>
+<text x='301.0' y='108' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='500' fill='#cbd5e1'>1 byte</text>
+<rect x='368' y='70' width='11' height='22' rx='2' fill='#818cf855' stroke='#818cf8' stroke-width='1.5'/>
+<rect x='381' y='70' width='11' height='22' rx='2' fill='#818cf855' stroke='#818cf8' stroke-width='1.5'/>
+<text x='419.0' y='108' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='500' fill='#cbd5e1'>2 byte</text>
+<rect x='486' y='70' width='11' height='22' rx='2' fill='#22d3ee55' stroke='#22d3ee' stroke-width='1.5'/>
+<rect x='499' y='70' width='11' height='22' rx='2' fill='#22d3ee55' stroke='#22d3ee' stroke-width='1.5'/>
+<rect x='512' y='70' width='11' height='22' rx='2' fill='#22d3ee55' stroke='#22d3ee' stroke-width='1.5'/>
+<rect x='525' y='70' width='11' height='22' rx='2' fill='#22d3ee55' stroke='#22d3ee' stroke-width='1.5'/>
+<text x='537.0' y='108' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='500' fill='#cbd5e1'>4 byte</text>
+<rect x='604' y='70' width='11' height='22' rx='2' fill='#fbbf2455' stroke='#fbbf24' stroke-width='1.5'/>
+<rect x='617' y='70' width='11' height='22' rx='2' fill='#fbbf2455' stroke='#fbbf24' stroke-width='1.5'/>
+<rect x='630' y='70' width='11' height='22' rx='2' fill='#fbbf2455' stroke='#fbbf24' stroke-width='1.5'/>
+<rect x='643' y='70' width='11' height='22' rx='2' fill='#fbbf2455' stroke='#fbbf24' stroke-width='1.5'/>
+<rect x='656' y='70' width='11' height='22' rx='2' fill='#fbbf2455' stroke='#fbbf24' stroke-width='1.5'/>
+<rect x='669' y='70' width='11' height='22' rx='2' fill='#fbbf2455' stroke='#fbbf24' stroke-width='1.5'/>
+<rect x='682' y='70' width='11' height='22' rx='2' fill='#fbbf2455' stroke='#fbbf24' stroke-width='1.5'/>
+<rect x='695' y='70' width='11' height='22' rx='2' fill='#fbbf2455' stroke='#fbbf24' stroke-width='1.5'/>
+<text x='655.0' y='108' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='500' fill='#cbd5e1'>8 byte</text>
+<rect x='722' y='70' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='735' y='70' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='748' y='70' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='761' y='70' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='774' y='70' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='787' y='70' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='800' y='70' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='813' y='70' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<text x='773.0' y='108' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='500' fill='#cbd5e1'>8 byte</text>
+<rect x='840' y='70' width='11' height='22' rx='2' fill='#f472b655' stroke='#f472b6' stroke-width='1.5'/>
+<rect x='853' y='70' width='11' height='22' rx='2' fill='#f472b655' stroke='#f472b6' stroke-width='1.5'/>
+<rect x='866' y='70' width='11' height='22' rx='2' fill='#f472b655' stroke='#f472b6' stroke-width='1.5'/>
+<rect x='879' y='70' width='11' height='22' rx='2' fill='#f472b655' stroke='#f472b6' stroke-width='1.5'/>
+<rect x='892' y='70' width='11' height='22' rx='2' fill='#f472b655' stroke='#f472b6' stroke-width='1.5'/>
+<rect x='905' y='70' width='11' height='22' rx='2' fill='#f472b655' stroke='#f472b6' stroke-width='1.5'/>
+<rect x='918' y='70' width='11' height='22' rx='2' fill='#f472b655' stroke='#f472b6' stroke-width='1.5'/>
+<rect x='931' y='70' width='11' height='22' rx='2' fill='#f472b655' stroke='#f472b6' stroke-width='1.5'/>
+<text x='891.0' y='108' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='500' fill='#cbd5e1'>8 byte</text>
+<text x='24' y='140' text-anchor='start' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='13' font-weight='700' fill='#e2e8f0'>Windows (64 bit)</text>
+<text x='24' y='160' text-anchor='start' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#cbd5e1'>LLP64</text>
+<rect x='250' y='132' width='11' height='22' rx='2' fill='#64748b55' stroke='#64748b' stroke-width='1.5'/>
+<text x='301.0' y='170' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='500' fill='#cbd5e1'>1 byte</text>
+<rect x='368' y='132' width='11' height='22' rx='2' fill='#818cf855' stroke='#818cf8' stroke-width='1.5'/>
+<rect x='381' y='132' width='11' height='22' rx='2' fill='#818cf855' stroke='#818cf8' stroke-width='1.5'/>
+<text x='419.0' y='170' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='500' fill='#cbd5e1'>2 byte</text>
+<rect x='486' y='132' width='11' height='22' rx='2' fill='#22d3ee55' stroke='#22d3ee' stroke-width='1.5'/>
+<rect x='499' y='132' width='11' height='22' rx='2' fill='#22d3ee55' stroke='#22d3ee' stroke-width='1.5'/>
+<rect x='512' y='132' width='11' height='22' rx='2' fill='#22d3ee55' stroke='#22d3ee' stroke-width='1.5'/>
+<rect x='525' y='132' width='11' height='22' rx='2' fill='#22d3ee55' stroke='#22d3ee' stroke-width='1.5'/>
+<text x='537.0' y='170' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='500' fill='#cbd5e1'>4 byte</text>
+<rect x='604' y='132' width='11' height='22' rx='2' fill='#fbbf2455' stroke='#fbbf24' stroke-width='1.5'/>
+<rect x='617' y='132' width='11' height='22' rx='2' fill='#fbbf2455' stroke='#fbbf24' stroke-width='1.5'/>
+<rect x='630' y='132' width='11' height='22' rx='2' fill='#fbbf2455' stroke='#fbbf24' stroke-width='1.5'/>
+<rect x='643' y='132' width='11' height='22' rx='2' fill='#fbbf2455' stroke='#fbbf24' stroke-width='1.5'/>
+<text x='655.0' y='170' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='700' fill='#fbbf24'>4 byte</text>
+<rect x='722' y='132' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='735' y='132' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='748' y='132' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='761' y='132' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='774' y='132' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='787' y='132' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='800' y='132' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='813' y='132' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<text x='773.0' y='170' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='500' fill='#cbd5e1'>8 byte</text>
+<rect x='840' y='132' width='11' height='22' rx='2' fill='#f472b655' stroke='#f472b6' stroke-width='1.5'/>
+<rect x='853' y='132' width='11' height='22' rx='2' fill='#f472b655' stroke='#f472b6' stroke-width='1.5'/>
+<rect x='866' y='132' width='11' height='22' rx='2' fill='#f472b655' stroke='#f472b6' stroke-width='1.5'/>
+<rect x='879' y='132' width='11' height='22' rx='2' fill='#f472b655' stroke='#f472b6' stroke-width='1.5'/>
+<rect x='892' y='132' width='11' height='22' rx='2' fill='#f472b655' stroke='#f472b6' stroke-width='1.5'/>
+<rect x='905' y='132' width='11' height='22' rx='2' fill='#f472b655' stroke='#f472b6' stroke-width='1.5'/>
+<rect x='918' y='132' width='11' height='22' rx='2' fill='#f472b655' stroke='#f472b6' stroke-width='1.5'/>
+<rect x='931' y='132' width='11' height='22' rx='2' fill='#f472b655' stroke='#f472b6' stroke-width='1.5'/>
+<text x='891.0' y='170' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='500' fill='#cbd5e1'>8 byte</text>
+<text x='24' y='202' text-anchor='start' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='13' font-weight='700' fill='#e2e8f0'>32 bit sistemler</text>
+<text x='24' y='222' text-anchor='start' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#cbd5e1'>ILP32</text>
+<rect x='250' y='194' width='11' height='22' rx='2' fill='#64748b55' stroke='#64748b' stroke-width='1.5'/>
+<text x='301.0' y='232' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='500' fill='#cbd5e1'>1 byte</text>
+<rect x='368' y='194' width='11' height='22' rx='2' fill='#818cf855' stroke='#818cf8' stroke-width='1.5'/>
+<rect x='381' y='194' width='11' height='22' rx='2' fill='#818cf855' stroke='#818cf8' stroke-width='1.5'/>
+<text x='419.0' y='232' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='500' fill='#cbd5e1'>2 byte</text>
+<rect x='486' y='194' width='11' height='22' rx='2' fill='#22d3ee55' stroke='#22d3ee' stroke-width='1.5'/>
+<rect x='499' y='194' width='11' height='22' rx='2' fill='#22d3ee55' stroke='#22d3ee' stroke-width='1.5'/>
+<rect x='512' y='194' width='11' height='22' rx='2' fill='#22d3ee55' stroke='#22d3ee' stroke-width='1.5'/>
+<rect x='525' y='194' width='11' height='22' rx='2' fill='#22d3ee55' stroke='#22d3ee' stroke-width='1.5'/>
+<text x='537.0' y='232' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='500' fill='#cbd5e1'>4 byte</text>
+<rect x='604' y='194' width='11' height='22' rx='2' fill='#fbbf2455' stroke='#fbbf24' stroke-width='1.5'/>
+<rect x='617' y='194' width='11' height='22' rx='2' fill='#fbbf2455' stroke='#fbbf24' stroke-width='1.5'/>
+<rect x='630' y='194' width='11' height='22' rx='2' fill='#fbbf2455' stroke='#fbbf24' stroke-width='1.5'/>
+<rect x='643' y='194' width='11' height='22' rx='2' fill='#fbbf2455' stroke='#fbbf24' stroke-width='1.5'/>
+<text x='655.0' y='232' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='500' fill='#cbd5e1'>4 byte</text>
+<rect x='722' y='194' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='735' y='194' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='748' y='194' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='761' y='194' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='774' y='194' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='787' y='194' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='800' y='194' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='813' y='194' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<text x='773.0' y='232' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='500' fill='#cbd5e1'>8 byte</text>
+<rect x='840' y='194' width='11' height='22' rx='2' fill='#f472b655' stroke='#f472b6' stroke-width='1.5'/>
+<rect x='853' y='194' width='11' height='22' rx='2' fill='#f472b655' stroke='#f472b6' stroke-width='1.5'/>
+<rect x='866' y='194' width='11' height='22' rx='2' fill='#f472b655' stroke='#f472b6' stroke-width='1.5'/>
+<rect x='879' y='194' width='11' height='22' rx='2' fill='#f472b655' stroke='#f472b6' stroke-width='1.5'/>
+<text x='891.0' y='232' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='500' fill='#cbd5e1'>4 byte</text>
+<text x='24' y='264' text-anchor='start' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='13' font-weight='700' fill='#e2e8f0'>Arduino Uno (AVR)</text>
+<text x='24' y='284' text-anchor='start' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='12' font-weight='500' fill='#cbd5e1'>16 bit</text>
+<rect x='250' y='256' width='11' height='22' rx='2' fill='#64748b55' stroke='#64748b' stroke-width='1.5'/>
+<text x='301.0' y='294' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='500' fill='#cbd5e1'>1 byte</text>
+<rect x='368' y='256' width='11' height='22' rx='2' fill='#818cf855' stroke='#818cf8' stroke-width='1.5'/>
+<rect x='381' y='256' width='11' height='22' rx='2' fill='#818cf855' stroke='#818cf8' stroke-width='1.5'/>
+<text x='419.0' y='294' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='500' fill='#cbd5e1'>2 byte</text>
+<rect x='486' y='256' width='11' height='22' rx='2' fill='#22d3ee55' stroke='#22d3ee' stroke-width='1.5'/>
+<rect x='499' y='256' width='11' height='22' rx='2' fill='#22d3ee55' stroke='#22d3ee' stroke-width='1.5'/>
+<text x='537.0' y='294' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='700' fill='#fbbf24'>2 byte</text>
+<rect x='604' y='256' width='11' height='22' rx='2' fill='#fbbf2455' stroke='#fbbf24' stroke-width='1.5'/>
+<rect x='617' y='256' width='11' height='22' rx='2' fill='#fbbf2455' stroke='#fbbf24' stroke-width='1.5'/>
+<rect x='630' y='256' width='11' height='22' rx='2' fill='#fbbf2455' stroke='#fbbf24' stroke-width='1.5'/>
+<rect x='643' y='256' width='11' height='22' rx='2' fill='#fbbf2455' stroke='#fbbf24' stroke-width='1.5'/>
+<text x='655.0' y='294' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='500' fill='#cbd5e1'>4 byte</text>
+<rect x='722' y='256' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='735' y='256' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='748' y='256' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='761' y='256' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='774' y='256' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='787' y='256' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='800' y='256' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<rect x='813' y='256' width='11' height='22' rx='2' fill='#34d39955' stroke='#34d399' stroke-width='1.5'/>
+<text x='773.0' y='294' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='500' fill='#cbd5e1'>8 byte</text>
+<rect x='840' y='256' width='11' height='22' rx='2' fill='#f472b655' stroke='#f472b6' stroke-width='1.5'/>
+<rect x='853' y='256' width='11' height='22' rx='2' fill='#f472b655' stroke='#f472b6' stroke-width='1.5'/>
+<text x='891.0' y='294' text-anchor='middle' dominant-baseline='central' font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size='11' font-weight='500' fill='#cbd5e1'>2 byte</text>
+<text x='604' y='322' text-anchor='middle' dominant-baseline='central' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' font-size='12' font-weight='500' fill='#cbd5e1'>her kutu 1 byte (8 bit) · ölçümler: clang ile her platform için ayrı derleme</text>
+</svg>

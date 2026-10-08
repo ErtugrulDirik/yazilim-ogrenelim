@@ -30,7 +30,7 @@ int main(void) {
 
 ## Alıştırma
 
-**1** Soru metni.
+**1** – Soru metni.
 
 <details>
 <summary>Cevap</summary>

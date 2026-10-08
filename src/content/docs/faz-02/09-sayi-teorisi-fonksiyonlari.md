@@ -167,13 +167,13 @@ Bu yönteme **kare al–çarp** (square-and-multiply) denir. `half`'i bir kez he
 
 **İz: `power(3, 13)`.** İniş 13 → 6 → 3 → 1 → 0. Çıkarken:
 
-| `exp` | `half` | `half * half` | Tek mi? | Sonuç |
-| --- | --- | --- | --- | --- |
-| 0 | — | — | — | 1 |
-| 1 | 1 | 1 | evet, × 3 | 3 |
-| 3 | 3 | 9 | evet, × 3 | 27 |
-| 6 | 27 | 729 | hayır | 729 |
-| 13 | 729 | 531.441 | evet, × 3 | **1.594.323** |
+| Adım | `exp` | `half` | `half * half` | Tek mi? | Sonuç |
+| --- | --- | --- | --- | --- | --- |
+| 1. | 0 | — | — | — | 1 |
+| 2. | 1 | 1 | 1 | evet, × 3 | 3 |
+| 3. | 3 | 3 | 9 | evet, × 3 | 27 |
+| 4. | 6 | 27 | 729 | hayır | 729 |
+| 5. | 13 | 729 | 531.441 | evet, × 3 | **1.594.323** |
 
 Faz 0'dan bir bağlantı: 13'ün ikilik gösterimi **1101**. Tablodaki "evet, × 3" ve "hayır" sütununu aşağıdan yukarı oku: evet, hayır, evet, evet → 1, 0, 1, 1. Bu, 13'ün bitlerinin sağdan sola sırası. Hızlı üs alma, aslında üssün bitleri üzerinde yürüyor.
 

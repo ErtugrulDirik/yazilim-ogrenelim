@@ -383,10 +383,10 @@ Toplam: 0
 
 | Tur | `n` | `result` |
 | --- | --- | --- |
-| 1 | 1234 | 0 |
-| 2 | 123 | 4 |
-| 3 | 12 | 43 |
-| — | 1 | 432 |
+| 1. | 1234 | 0 |
+| 2. | 123 | 4 |
+| 3. | 12 | 43 |
+| bitiş | 1 | 432 |
 
 `n` 1 olunca `1 > 10` yanlış oluyor ve döngü bitiyor; son basamak (1) hiç eklenmiyor. Koşul `n > 0` olmalı. Yine bir sınır hatası: Ders 2.5'teki ters çevirme çözümüyle karşılaştır.
 

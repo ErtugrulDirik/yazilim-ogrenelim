@@ -53,10 +53,10 @@ DÖNDÜR a
 
 | Tur | a | b | b ≠ 0? | r ← a mod b |
 | --- | --- | --- | --- | --- |
-| 1 | 1071 | 462 | evet | 147 |
-| 2 | 462 | 147 | evet | 21 |
-| 3 | 147 | 21 | evet | 0 |
-| — | 21 | 0 | **hayır** | — |
+| 1. | 1071 | 462 | evet | 147 |
+| 2. | 462 | 147 | evet | 21 |
+| 3. | 147 | 21 | evet | 0 |
+| bitiş | 21 | 0 | **hayır** | — |
 
 Sonuç: **21**. Sadece üç turda. Kontrol: 1071 = 21 × 51 ve 462 = 21 × 22.
 
@@ -66,29 +66,29 @@ Sonuç: **21**. Sadece üç turda. Kontrol: 1071 = 21 × 51 ve 462 = 21 × 22.
 
 ### Alıştırmalar
 
-**2.1** EBOB(48, 18)'i trace table ile bul.
+**2.1** – EBOB(48, 18)'i trace table ile bul.
 
-**2.2** EBOB(18, 48)'i bul. Sayıların sırası ters olunca ne oldu?
+**2.2** – EBOB(18, 48)'i bul. Sayıların sırası ters olunca ne oldu?
 
-**2.3** EBOB(17, 5) kaçtır? Bu sonuç 17 ve 5 hakkında ne söyler?
+**2.3** – EBOB(17, 5) kaçtır? Bu sonuç 17 ve 5 hakkında ne söyler?
 
 <details>
 <summary>Cevaplar</summary>
 
 **2.1**
 
-| a | b | r |
-| --- | --- | --- |
-| 48 | 18 | 12 |
-| 18 | 12 | 6 |
-| 12 | 6 | 0 |
-| 6 | 0 | — |
+| Adım | a | b | r |
+| --- | --- | --- | --- |
+| 1. | 48 | 18 | 12 |
+| 2. | 18 | 12 | 6 |
+| 3. | 12 | 6 | 0 |
+| bitiş | 6 | 0 | — |
 
 EBOB = **6**.
 
-**2.2** İlk turda 18 mod 48 = 18 olur, yani a ← 48, b ← 18. Algoritma sayıların yerini **kendiliğinden** değiştirdi ve bir tur fazlasıyla aynı sonuca vardı: **6**. Sırayı dert etmene gerek yok.
+**2.2** – İlk turda 18 mod 48 = 18 olur, yani a ← 48, b ← 18. Algoritma sayıların yerini **kendiliğinden** değiştirdi ve bir tur fazlasıyla aynı sonuca vardı: **6**. Sırayı dert etmene gerek yok.
 
-**2.3** 17 mod 5 = 2, 5 mod 2 = 1, 2 mod 1 = 0. EBOB = **1**. 1'den başka ortak böleni olmayan sayılara **aralarında asal** denir.
+**2.3** – 17 mod 5 = 2, 5 mod 2 = 1, 2 mod 1 = 0. EBOB = **1**. 1'den başka ortak böleni olmayan sayılara **aralarında asal** denir.
 
 </details>
 
@@ -113,13 +113,13 @@ Bakınca doğru görünüyor. Trace edelim:
 
 | Tur | i ≠ 10? | s | i |
 | --- | --- | --- | --- |
-| — | — | 0 | 0 |
-| 1 | evet | 0 | 3 |
-| 2 | evet | 3 | 6 |
-| 3 | evet | 9 | 9 |
-| 4 | evet | 18 | 12 |
-| 5 | evet | 30 | 15 |
-| 6 | evet | 45 | 18 |
+| başlangıç | — | 0 | 0 |
+| 1. | evet | 0 | 3 |
+| 2. | evet | 3 | 6 |
+| 3. | evet | 9 | 9 |
+| 4. | evet | 18 | 12 |
+| 5. | evet | 30 | 15 |
+| 6. | evet | 45 | 18 |
 
 i'nin değerlerine bak: 0, 3, 6, 9, 12, 15, … **10'un üstünden atladı.** i hiçbir zaman tam olarak 10 olmayacak; "i ≠ 10?" sorusunun cevabı sonsuza kadar "evet" kalacak. Bu algoritma **bitmez**. Ders 1.1'deki sonluluk özelliği bozuk.
 
@@ -131,7 +131,7 @@ Tabloya bakmadan, sadece koda bakarak bu hatayı görmek zordur. Tabloda ise iki
 
 ### Alıştırma
 
-**3.1** Aşağıdaki algoritma 1'den n'e kadar toplamı hesaplamak için yazılmış ama bir hatası var. n = 3 için trace et ve hatayı bul.
+**3.1** – Aşağıdaki algoritma 1'den n'e kadar toplamı hesaplamak için yazılmış ama bir hatası var. n = 3 için trace et ve hatayı bul.
 
 ```
 s ← 0
@@ -146,11 +146,11 @@ DÖNDÜR s
 
 | Tur | i ≤ n? | s | i |
 | --- | --- | --- | --- |
-| — | — | 0 | 1 |
-| 1 | evet | 1 | 1 |
-| 2 | evet | 2 | 1 |
-| 3 | evet | 3 | 1 |
-| 4 | evet | 4 | 1 |
+| başlangıç | — | 0 | 1 |
+| 1. | evet | 1 | 1 |
+| 2. | evet | 2 | 1 |
+| 3. | evet | 3 | 1 |
+| 4. | evet | 4 | 1 |
 
 i hiç değişmiyor! Döngü içinde `i ← i + 1` unutulmuş. i hep 1 kaldığı için koşul hep doğru, algoritma bitmiyor. Tabloda i sütununun **hiç değişmemesi** hatanın kendisi.
 
@@ -170,13 +170,13 @@ Ders 1.2'deki 1'den n'e toplam algoritmasına geri dönelim. Değişmez şu:
 
 n = 4 için trace table'a bakıp kontrol edelim:
 
-| i | s | 1 + … + (i − 1) | Doğru mu? |
-| --- | --- | --- | --- |
-| 1 | 0 | (hiç sayı yok) = 0 | ✓ |
-| 2 | 1 | 1 | ✓ |
-| 3 | 3 | 1 + 2 | ✓ |
-| 4 | 6 | 1 + 2 + 3 | ✓ |
-| 5 | 10 | 1 + 2 + 3 + 4 | ✓ |
+| Adım | i | s | 1 + … + (i − 1) | Doğru mu? |
+| --- | --- | --- | --- | --- |
+| 1. | 1 | 0 | (hiç sayı yok) = 0 | ✓ |
+| 2. | 2 | 1 | 1 | ✓ |
+| 3. | 3 | 3 | 1 + 2 | ✓ |
+| 4. | 4 | 6 | 1 + 2 + 3 | ✓ |
+| çıkış | 5 | 10 | 1 + 2 + 3 + 4 | ✓ |
 
 Ama bu yine sadece n = 4. Asıl güç, değişmezin **üç adımda** her n için gösterilebilmesinde:
 
@@ -188,16 +188,18 @@ Bu üç adım, algoritmanın **her n için** doğru olduğunun ispatıdır. Şim
 
 ### Alıştırmalar
 
-**4.1** Ders 1.2'deki faktöriyel algoritmasının loop invariant'ı yaz.
+**4.1** – Ders 1.2'deki faktöriyel algoritmasının loop invariant'ı yaz. Algoritma hatırlatma olarak aşağıda:
 
-**4.2** Öklid algoritmasında her turda değişmeyen şey ne? (İpucu: Bölüm 2'deki "Neden çalışıyor?" kısmına bak.)
+![Faktöriyel akış diyagramı](../../../assets/faz-01/faktoriyel.svg)
+
+**4.2** – Öklid algoritmasında her turda değişmeyen şey ne? (İpucu: Bölüm 2'deki "Neden çalışıyor?" kısmına bak.)
 
 <details>
 <summary>Cevaplar</summary>
 
-**4.1** Her turun başında **f = 1 × 2 × … × (i − 1)**, yani f = (i − 1)!. Başlangıçta i = 1, f = 1 = 0! ✓. Döngü i = n + 1 olunca biter ve f = n! olur.
+**4.1** – Her turun başında **f = 1 × 2 × … × (i − 1)**, yani f = (i − 1)!. Başlangıçta i = 1, f = 1 = 0! ✓. Döngü i = n + 1 olunca biter ve f = n! olur.
 
-**4.2** **EBOB(a, b)** değeri. a ve b her turda değişir, ama ikisinin EBOB'u en baştaki sayıların EBOB'una her zaman eşittir. Döngü bittiğinde b = 0 ve EBOB(a, 0) = a olduğu için, döndürülen a aradığımız sonuçtur.
+**4.2** – **EBOB(a, b)** değeri. a ve b her turda değişir, ama ikisinin EBOB'u en baştaki sayıların EBOB'una her zaman eşittir. Döngü bittiğinde b = 0 ve EBOB(a, 0) = a olduğu için, döndürülen a aradığımız sonuçtur.
 
 </details>
 
@@ -229,20 +231,20 @@ State machine'de trace etmek, tabloda satır satır ilerlemektir. Olaylar: jeton
 
 | Adım | Olay | Önceki durum | Sonraki durum |
 | --- | --- | --- | --- |
-| 1 | jeton | Kilitli | Açık |
-| 2 | it | Açık | Kilitli |
-| 3 | it | Kilitli | Kilitli |
-| 4 | jeton | Kilitli | Açık |
-| 5 | jeton | Açık | Açık |
-| 6 | it | Açık | Kilitli |
+| 1. | jeton | Kilitli | Açık |
+| 2. | it | Açık | Kilitli |
+| 3. | it | Kilitli | Kilitli |
+| 4. | jeton | Kilitli | Açık |
+| 5. | jeton | Açık | Açık |
+| 6. | it | Açık | Kilitli |
 
 **Neden önemli?** Etrafındaki pek çok sistem aslında bir state machine: trafik ışığı, asansör, çamaşır makinesi, bir oyundaki karakterin "yürüyor / zıplıyor / düşüyor" halleri. Metni harf harf okuyup "bu geçerli bir sayı mı?" diye karar veren programlar da öyle. Aşağıdaki ikinci alıştırma tam olarak bunu yapıyor. State machine ilerideki fazlarda en sık geri döneceğimiz fikirlerden biri.
 
 ### Alıştırmalar
 
-**5.1** Bir trafik ışığının state machine'i çiz. Durumlar: Kırmızı, Yeşil, Sarı. Tek olay var: "süre doldu". Işık kırmızıdan yeşile, yeşilden sarıya, sarıdan kırmızıya geçer. Geçiş tablosunu da yaz.
+**5.1** – Bir trafik ışığının state machine'i çiz. Durumlar: Kırmızı, Yeşil, Sarı. Tek olay var: "süre doldu". Işık kırmızıdan yeşile, yeşilden sarıya, sarıdan kırmızıya geçer. Geçiş tablosunu da yaz.
 
-**5.2** Aşağıdaki state machine, bir metnin **geçerli bir tamsayı** olup olmadığına karar veriyor. Metin soldan sağa, karakter karakter okunur; her karakter bir olaydır. Başlangıç durumu **Başla**. Metin bittiğinde makine **Sayı** durumundaysa metin geçerlidir, değilse geçersizdir.
+**5.2** – Aşağıdaki state machine, bir metnin **geçerli bir tamsayı** olup olmadığına karar veriyor. Metin soldan sağa, karakter karakter okunur; her karakter bir olaydır. Başlangıç durumu **Başla**. Metin bittiğinde makine **Sayı** durumundaysa metin geçerlidir, değilse geçersizdir.
 
 | Şu anki durum | `-` | rakam (0–9) | başka karakter |
 | --- | --- | --- | --- |
@@ -319,30 +321,30 @@ Diyagramda yeni bir şey var: döngünün **içinden** dışarı çıkan bir yol
 
 **İz: n = 91**
 
-| d | d × d ≤ 91? | 91 mod d | Sonuç |
-| --- | --- | --- | --- |
-| 2 | 4, evet | 1 | devam |
-| 3 | 9, evet | 1 | devam |
-| 4 | 16, evet | 3 | devam |
-| 5 | 25, evet | 1 | devam |
-| 6 | 36, evet | 1 | devam |
-| 7 | 49, evet | **0** | **asal değil** |
+| Adım | d | d × d ≤ 91? | 91 mod d | Sonuç |
+| --- | --- | --- | --- | --- |
+| 1. | 2 | 4, evet | 1 | devam |
+| 2. | 3 | 9, evet | 1 | devam |
+| 3. | 4 | 16, evet | 3 | devam |
+| 4. | 5 | 25, evet | 1 | devam |
+| 5. | 6 | 36, evet | 1 | devam |
+| 6. | 7 | 49, evet | **0** | **asal değil** |
 
 91 = 7 × 13. İlk bakışta asal gibi görünür ama değildir.
 
 **İz: n = 97**
 
-| d | d × d ≤ 97? | 97 mod d |
-| --- | --- | --- |
-| 2 | 4, evet | 1 |
-| 3 | 9, evet | 1 |
-| 4 | 16, evet | 1 |
-| 5 | 25, evet | 2 |
-| 6 | 36, evet | 1 |
-| 7 | 49, evet | 6 |
-| 8 | 64, evet | 1 |
-| 9 | 81, evet | 7 |
-| 10 | 100, **hayır** | — |
+| Adım | d | d × d ≤ 97? | 97 mod d |
+| --- | --- | --- | --- |
+| 1. | 2 | 4, evet | 1 |
+| 2. | 3 | 9, evet | 1 |
+| 3. | 4 | 16, evet | 1 |
+| 4. | 5 | 25, evet | 2 |
+| 5. | 6 | 36, evet | 1 |
+| 6. | 7 | 49, evet | 6 |
+| 7. | 8 | 64, evet | 1 |
+| 8. | 9 | 81, evet | 7 |
+| bitiş | 10 | 100, **hayır** | — |
 
 Hiç bölen bulunamadı: **asal**. 95 sayı yerine sadece 8 sayı denedik.
 
@@ -381,12 +383,12 @@ DÖNDÜR t
 
 | Tur | n > 0? | n mod 10 | t | n |
 | --- | --- | --- | --- | --- |
-| — | — | — | 0 | 2026 |
-| 1 | evet | 6 | 6 | 202 |
-| 2 | evet | 2 | 8 | 20 |
-| 3 | evet | 0 | 8 | 2 |
-| 4 | evet | 2 | 10 | 0 |
-| — | **hayır** | — | 10 | 0 |
+| başlangıç | — | — | 0 | 2026 |
+| 1. | evet | 6 | 6 | 202 |
+| 2. | evet | 2 | 8 | 20 |
+| 3. | evet | 0 | 8 | 2 |
+| 4. | evet | 2 | 10 | 0 |
+| bitiş | **hayır** | — | 10 | 0 |
 
 Sonuç: **10**.
 

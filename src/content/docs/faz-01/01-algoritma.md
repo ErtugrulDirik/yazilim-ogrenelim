@@ -28,11 +28,20 @@ Kelime, 9. yüzyılda Bağdat'ta yaşamış matematikçi **el-Harezmî**'nin ad�
 
 "Kararınca" ne kadardır? "Kıvam" ne zaman alınmış sayılır? İki farklı kişi bu adımları farklı uygular ve farklı sonuç alır. Bilgisayar ise "kararınca"yı anlamaz; ona her adımı tek bir anlama gelecek şekilde söylemek zorundayız. Algoritmayı tariften ayıran şey budur.
 
-**Bilgisayar sadece algoritma çalıştırır.** Faz 0'da bilgisayarın bir talimat listesini, yani programı izlediğini gördük. Program, bir algoritmanın bilgisayarın anlayacağı dille yazılmış halidir. Önce algoritmayı kağıtta doğru kurarız, sonra onu bir programlama diline çeviririz. Bu fazın tamamı birinci adım üzerine.
+:::note[Bilgisayar sadece algoritma çalıştırır]
+Faz 0'da bilgisayarın bir talimat listesini, yani **programı** izlediğini gördük. Program, bir algoritmanın bilgisayarın anlayacağı dille yazılmış halidir.
+
+Her program iki adımda yazılır:
+
+1. **Algoritmayı kağıtta doğru kur.**
+2. **Onu bir programlama diline çevir.**
+
+Bu fazın tamamı birinci adım üzerine. Birinci adım yanlışsa, ikinci adım ne kadar iyi yapılırsa yapılsın program yanlış çalışır.
+:::
 
 ### Alıştırma
 
-**1.1** Aşağıdakilerden hangileri bir bilgisayarın uygulayabileceği kadar açık bir talimattır?
+**1.1** – Aşağıdakilerden hangileri bir bilgisayarın uygulayabileceği kadar açık bir talimattır?
 
 - a) "Sayıyı 2 ile çarp."
 - b) "Odayı biraz toparla."
@@ -116,15 +125,15 @@ Aşağıdaki talimat listelerinin her biri Knuth'un beş özelliğinden hangisin
 <details>
 <summary>Cevaplar</summary>
 
-**2.1** **Çıktı** yok. Sayı çarpılıyor ama sonuç hiçbir yere yazılmıyor.
+**2.1** – **Çıktı** yok. Sayı çarpılıyor ama sonuç hiçbir yere yazılmıyor.
 
-**2.2** **Kesinlik** bozuk. "Yeterince büyük" hangi sayı? Her okuyan başka bir sayı seçer.
+**2.2** – **Kesinlik** bozuk. "Yeterince büyük" hangi sayı? Her okuyan başka bir sayı seçer.
 
-**2.3** **Geçerli.** n = 10 olduğu için "n sıfır olduğu sürece" koşulu en baştan yanlıştır; 2. adım hiç çalışmaz, 3. adım 10 yazar ve algoritma biter. Garip görünse de beş özelliğin hepsini taşır.
+**2.3** – **Geçerli.** n = 10 olduğu için "n sıfır olduğu sürece" koşulu en baştan yanlıştır; 2. adım hiç çalışmaz, 3. adım 10 yazar ve algoritma biter. Garip görünse de beş özelliğin hepsini taşır.
 
-**2.4** **Sonluluk** bozuk. n 10'dan başlayıp hep artar, hiçbir zaman 0 olmaz; algoritma bitmez. (Faz 0'daki 8 bit overflow'unu hatırlarsan, gerçek bir bilgisayarda bu sayı bir gün "dönüp" 0'a gelebilir. Bunu Faz 3'te göreceğiz.)
+**2.4** – **Sonluluk** bozuk. n 10'dan başlayıp hep artar, hiçbir zaman 0 olmaz; algoritma bitmez. (Faz 0'daki 8 bit overflow'unu hatırlarsan, gerçek bir bilgisayarda bu sayı bir gün "dönüp" 0'a gelebilir. Bunu Faz 3'te göreceğiz.)
 
-**2.5** **Sonluluk** ve **etkinlik** bozuk. 1/3 = 0,333…; basamaklar sonsuza kadar sürer, iş hiç bitmez.
+**2.5** – **Sonluluk** ve **etkinlik** bozuk. 1/3 = 0,333…; basamaklar sonsuza kadar sürer, iş hiç bitmez.
 
 </details>
 
@@ -159,20 +168,20 @@ n ≥ 1 koşulu neden var? Çünkü hiç sayı yoksa "en büyüğü" diye bir ş
 
 Aşağıdaki problemlerin girdisini, çıktısını ve koşulunu yaz. En az bir edge case belirt.
 
-**3.1** İki tamsayıdan büyük olanı bulmak.
+**3.1** – İki tamsayıdan büyük olanı bulmak.
 
-**3.2** Bir yılın artık yıl olup olmadığını bulmak. (Kural: 4'e bölünen yıllar artık yıldır; ama 100'e bölünüp 400'e bölünmeyenler artık yıl değildir.)
+**3.2** – Bir yılın artık yıl olup olmadığını bulmak. (Kural: 4'e bölünen yıllar artık yıldır; ama 100'e bölünüp 400'e bölünmeyenler artık yıl değildir.)
 
-**3.3** Bir sınıftaki öğrencilerin not ortalamasını bulmak.
+**3.3** – Bir sınıftaki öğrencilerin not ortalamasını bulmak.
 
 <details>
 <summary>Cevaplar</summary>
 
-**3.1** Girdi: a ve b tamsayıları. Çıktı: a ile b'den büyük olanı. Koşul: çıktı a ≥ b ise a, değilse b. Edge case: a = b. İkisi eşitse hangisini döndürdüğün fark etmez, ama tanımda bunu düşünmüş olmalısın.
+**3.1** – Girdi: a ve b tamsayıları. Çıktı: a ile b'den büyük olanı. Koşul: çıktı a ≥ b ise a, değilse b. Edge case: a = b. İkisi eşitse hangisini döndürdüğün fark etmez, ama tanımda bunu düşünmüş olmalısın.
 
-**3.2** Girdi: yıl (pozitif tamsayı). Çıktı: "evet" ya da "hayır". Koşul: yıl 400'e bölünüyorsa evet; değilse ve 100'e bölünüyorsa hayır; değilse ve 4'e bölünüyorsa evet; hiçbiri değilse hayır. Edge case'ler: 1900 (4'e ve 100'e bölünür ama 400'e bölünmez → hayır), 2000 (400'e bölünür → evet).
+**3.2** – Girdi: yıl (pozitif tamsayı). Çıktı: "evet" ya da "hayır". Koşul: yıl 400'e bölünüyorsa evet; değilse ve 100'e bölünüyorsa hayır; değilse ve 4'e bölünüyorsa evet; hiçbiri değilse hayır. Edge case'ler: 1900 (4'e ve 100'e bölünür ama 400'e bölünmez → hayır), 2000 (400'e bölünür → evet).
 
-**3.3** Girdi: n öğrencinin notları (her biri 0 ile 100 arasında). Çıktı: notların toplamının n'ye bölümü. Koşul: n ≥ 1. Edge case: n = 0. Sınıfta hiç öğrenci yoksa sıfıra bölme olur; bu durumda ne yapılacağına önceden karar verilmelidir.
+**3.3** – Girdi: n öğrencinin notları (her biri 0 ile 100 arasında). Çıktı: notların toplamının n'ye bölümü. Koşul: n ≥ 1. Edge case: n = 0. Sınıfta hiç öğrenci yoksa sıfıra bölme olur; bu durumda ne yapılacağına önceden karar verilmelidir.
 
 </details>
 
@@ -219,22 +228,22 @@ Fikir basit: ilk sayıyı "şimdiye kadarki en büyük" kabul et, sonra kalan sa
 
 Girdi 4, 9, 2, 7 için adım adım:
 
-| i | aᵢ | aᵢ > enb? | enb |
-| --- | --- | --- | --- |
-| — | — | — | 4 |
-| 2 | 9 | evet | 9 |
-| 3 | 2 | hayır | 9 |
-| 4 | 7 | hayır | 9 |
+| Adım | i | aᵢ | aᵢ > enb? | enb |
+| --- | --- | --- | --- | --- |
+| başlangıç | — | — | — | 4 |
+| 1. | 2 | 9 | evet | 9 |
+| 2. | 3 | 2 | hayır | 9 |
+| 3. | 4 | 7 | hayır | 9 |
 
 i = 5 olunca `i ≤ n` yanlış olur, döngü biter ve 9 döndürülür. Bu tür tablolara Faz 0'da *tracing tablosu* demiştik; Ders 1.3'te bu konuyu derinleştireceğiz.
 
 ### Alıştırmalar
 
-**4.1** Bir sayının çift mi tek mi olduğunu bulan pseudocode'u yaz.
+**4.1** – Bir sayının çift mi tek mi olduğunu bulan pseudocode'u yaz.
 
-**4.2** İki sayıdan büyüğünü döndüren pseudocode'u yaz (Alıştırma 3.1).
+**4.2** – İki sayıdan büyüğünü döndüren pseudocode'u yaz (Alıştırma 3.1).
 
-**4.3** Aşağıdaki pseudocode 5 girdisi için ne döndürür? Bu algoritma genel olarak ne hesaplıyor?
+**4.3** – Aşağıdaki pseudocode 5 girdisi için ne döndürür? Bu algoritma genel olarak ne hesaplıyor?
 
 ```
 ALGORİTMA Gizem
@@ -276,16 +285,16 @@ DEĞİLSE
     DÖNDÜR b
 ```
 
-**4.3** 15 döndürür.
+**4.3** – 15 döndürür.
 
-| i | s |
-| --- | --- |
-| — | 0 |
-| 1 | 1 |
-| 2 | 3 |
-| 3 | 6 |
-| 4 | 10 |
-| 5 | 15 |
+| Adım | i | s |
+| --- | --- | --- |
+| başlangıç | — | 0 |
+| 1. | 1 | 1 |
+| 2. | 2 | 3 |
+| 3. | 3 | 6 |
+| 4. | 4 | 10 |
+| 5. | 5 | 15 |
 
 Algoritma 1'den n'e kadar olan sayıların toplamını hesaplar: 1 + 2 + … + n.
 
@@ -333,10 +342,10 @@ DÖNDÜR sayaç
 | Adım | n | sayaç |
 | --- | --- | --- |
 | başlangıç | 2026 | 0 |
-| 1 | 202 | 1 |
-| 2 | 20 | 2 |
-| 3 | 2 | 3 |
-| 4 | 0 | 4 |
+| 1. | 202 | 1 |
+| 2. | 20 | 2 |
+| 3. | 2 | 3 |
+| 4. | 0 | 4 |
 
 n = 0 olunca döngü biter; sonuç 4. Doğru.
 
@@ -361,11 +370,11 @@ DÖNDÜR sayaç
 
 ### Alıştırmalar
 
-**5.1** Pólya'nın dört adımını kullanarak bir sayının ikilikteki gösteriminde kaç tane **1** olduğunu bulan algoritmayı yaz. Örnek: 13 = 1101₂ → üç tane 1. (İpucu: Faz 0'daki bölme–kalan yöntemini hatırla.)
+**5.1** – Pólya'nın dört adımını kullanarak bir sayının ikilikteki gösteriminde kaç tane **1** olduğunu bulan algoritmayı yaz. Örnek: 13 = 1101₂ → üç tane 1. (İpucu: Faz 0'daki bölme–kalan yöntemini hatırla.)
 
-**5.2** Yazdığın algoritmayı 0 ve 255 için dene. Sonuçlar doğru mu?
+**5.2** – Yazdığın algoritmayı 0 ve 255 için dene. Sonuçlar doğru mu?
 
-**5.3** BasamakSayısı algoritmasının ilk halini düşün. n = 0 dışında yanlış sonuç verdiği başka bir girdi var mı?
+**5.3** – BasamakSayısı algoritmasının ilk halini düşün. n = 0 dışında yanlış sonuç verdiği başka bir girdi var mı?
 
 <details>
 <summary>Cevaplar</summary>
@@ -392,17 +401,17 @@ DÖNDÜR birler
 
 13 için iz:
 
-| n | n mod 2 | birler |
-| --- | --- | --- |
-| 13 | 1 | 1 |
-| 6 | 0 | 1 |
-| 3 | 1 | 2 |
-| 1 | 1 | 3 |
-| 0 | — | 3 |
+| Adım | n | n mod 2 | birler |
+| --- | --- | --- | --- |
+| 1. | 13 | 1 | 1 |
+| 2. | 6 | 0 | 1 |
+| 3. | 3 | 1 | 2 |
+| 4. | 1 | 1 | 3 |
+| bitiş | 0 | — | 3 |
 
-**5.2** n = 0: döngü hiç çalışmaz, sonuç 0. Doğru, çünkü 0'da hiç 1 yoktur. Burada `OLDUĞU SÜRECE` döngüsü doğru seçimdir; BasamakSayısı'ndaki hata bu problemde ortaya çıkmaz. n = 255 = 11111111₂: sekiz bölmenin hepsinde kalan 1'dir, sonuç 8. Doğru.
+**5.2** – n = 0: döngü hiç çalışmaz, sonuç 0. Doğru, çünkü 0'da hiç 1 yoktur. Burada `OLDUĞU SÜRECE` döngüsü doğru seçimdir; BasamakSayısı'ndaki hata bu problemde ortaya çıkmaz. n = 255 = 11111111₂: sekiz bölmenin hepsinde kalan 1'dir, sonuç 8. Doğru.
 
-**5.3** Hayır. n ≥ 1 olan her sayı için döngü en az bir kez çalışır ve doğru sonucu verir; hata yalnızca n = 0'da ortaya çıkar. Bu yüzden edge case'ler ayrıca denenmelidir: "çoğu örnekte çalışıyor" demek "doğru" demek değildir.
+**5.3** – Hayır. n ≥ 1 olan her sayı için döngü en az bir kez çalışır ve doğru sonucu verir; hata yalnızca n = 0'da ortaya çıkar. Bu yüzden edge case'ler ayrıca denenmelidir: "çoğu örnekte çalışıyor" demek "doğru" demek değildir.
 
 </details>
 

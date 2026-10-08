@@ -34,7 +34,7 @@ Komutların ayrıntısı Faz 7'de gelecek. Şimdilik akılda kalması gereken te
 
 ### Alıştırma
 
-**1.1** Hesap makinesinde `2`, `+`, `3` ve `=` tuşlarına bastın. Girdi ne, işlem ne, çıktı ne?
+**1.1** – Hesap makinesinde `2`, `+`, `3` ve `=` tuşlarına bastın. Girdi ne, işlem ne, çıktı ne?
 
 <details>
 <summary>Cevap</summary>
@@ -86,20 +86,20 @@ Girdi: bastığın `2` ve `3` sayıları ile `+` işareti. İşlem: iki sayını
 
 ### Alıştırmalar
 
-**2.1** 1 ile 1000 arasında tutulan bir sayı en fazla kaç soruda bulunur?
+**2.1** – 1 ile 1000 arasında tutulan bir sayı en fazla kaç soruda bulunur?
 
-**2.2** 16 bit ile kaç farklı değer temsil edilebilir?
+**2.2** – 16 bit ile kaç farklı değer temsil edilebilir?
 
-**2.3** "Hi" kelimesi bellekte hangi iki sayı olarak durur?
+**2.3** – "Hi" kelimesi bellekte hangi iki sayı olarak durur?
 
 <details>
 <summary>Cevaplar</summary>
 
-**2.1** 10 soru, çünkü 2¹⁰ = 1024 ≥ 1000.
+**2.1** – 10 soru, çünkü 2¹⁰ = 1024 ≥ 1000.
 
-**2.2** 2¹⁶ = 65.536.
+**2.2** – 2¹⁶ = 65.536.
 
-**2.3** `H` = 72, `i` = 105.
+**2.3** – `H` = 72, `i` = 105.
 
 </details>
 
@@ -119,10 +119,10 @@ Genel kural: bir sayı, her basamağın tabanın kuvvetiyle çarpılıp toplanma
 
 | Adım | Bölünen | ÷ 2 | Kalan |
 | --- | --- | --- | --- |
-| 1 | 13 | 6 | 1 |
-| 2 | 6 | 3 | 0 |
-| 3 | 3 | 1 | 1 |
-| 4 | 1 | 0 | 1 |
+| 1. | 13 | 6 | 1 |
+| 2. | 6 | 3 | 0 |
+| 3. | 3 | 1 | 1 |
+| 4. | 1 | 0 | 1 |
 
 Kalanları **aşağıdan yukarı** oku: **1101₂**. Bu tabloya *trace table* (iz tablosu) denir; Faz 1'de çok kullanacağız.
 
@@ -154,32 +154,32 @@ Sonuç: **0,101₂**. Kontrol: 1/2 + 0/4 + 1/8 = 0,625.
 
 ### Alıştırmalar
 
-**3.1** 25'i ikiliğe çevir.
+**3.1** – 25'i ikiliğe çevir.
 
-**3.2** 100'ü ikiliğe, sonra hex'e çevir.
+**3.2** – 100'ü ikiliğe, sonra hex'e çevir.
 
-**3.3** 10110110₂ kaçtır? Hex karşılığı nedir?
+**3.3** – 10110110₂ kaçtır? Hex karşılığı nedir?
 
-**3.4** 0x1F kaçtır?
+**3.4** – 0x1F kaçtır?
 
-**3.5** 777₈ kaçtır?
+**3.5** – 777₈ kaçtır?
 
-**3.6** 0,75'i ikiliğe çevir.
+**3.6** – 0,75'i ikiliğe çevir.
 
 <details>
 <summary>Cevaplar</summary>
 
-**3.1** 11001₂
+**3.1** – 11001₂
 
-**3.2** 1100100₂ = 0x64
+**3.2** – 1100100₂ = 0x64
 
-**3.3** 182 = 0xB6
+**3.3** – 182 = 0xB6
 
-**3.4** 31
+**3.4** – 31
 
-**3.5** 7·64 + 7·8 + 7 = 511
+**3.5** – 7·64 + 7·8 + 7 = 511
 
-**3.6** 0,75 × 2 = 1,5 → 1; 0,5 × 2 = 1,0 → 1. Sonuç: 0,11₂
+**3.6** – 0,75 × 2 = 1,5 → 1; 0,5 × 2 = 1,0 → 1. Sonuç: 0,11₂
 
 </details>
 
@@ -223,58 +223,58 @@ Elde, sağdan sola bit bit ilerler. Bu örnekte arka arkaya altı bit boyunca el
 
 Arabanın kilometre sayacını düşün: 999999'dan sonra 000000'a döner. Aynı şekilde 8 bitte 200 + 100, 300 değil 44 eder (300 − 256). Negatif sayılar ve overflow'un ayrıntıları Faz 3'te.
 
-**Mantık işlemleri.**
+**Mantık işlemleri:** AND (ve), OR (veya), XOR (ya biri ya öbürü) ve NOT (değil).
 
-| A | B | A VE B | A VEYA B | A XOR B |
+| A | B | A AND B | A OR B | A XOR B |
 | --- | --- | --- | --- | --- |
 | 0 | 0 | 0 | 0 | 0 |
 | 0 | 1 | 0 | 1 | 1 |
 | 1 | 0 | 0 | 1 | 1 |
 | 1 | 1 | 1 | 1 | 0 |
 
-DEĞİL ise biti tersine çevirir: DEĞİL 0 = 1, DEĞİL 1 = 0.
+NOT ise biti tersine çevirir: NOT 0 = 1, NOT 1 = 0.
 
 **Bit bit uygulama.** a = 11001010 (0xCA), b = 10100110 (0xA6) için:
 
 | İşlem | Sonuç | Hex |
 | --- | --- | --- |
-| a VE b | 10000010 | 0x82 |
-| a VEYA b | 11101110 | 0xEE |
+| a AND b | 10000010 | 0x82 |
+| a OR b | 11101110 | 0xEE |
 | a XOR b | 01101100 | 0x6C |
-| DEĞİL a | 00110101 | 0x35 |
+| NOT a | 00110101 | 0x35 |
 
 **De Morgan kuralları.**
 
-- DEĞİL (A VE B) = (DEĞİL A) VEYA (DEĞİL B)
-- DEĞİL (A VEYA B) = (DEĞİL A) VE (DEĞİL B)
+- NOT (A AND B) = (NOT A) OR (NOT B)
+- NOT (A OR B) = (NOT A) AND (NOT B)
 
 Dört satırlık bir doğruluk tablosu yazarak ikisini de kendin kontrol et.
 
 **İki küçük uygulama.**
 
-- **Büyük harfi küçük harfe çevirmek:** `A` (01000001) VEYA 00100000 = 01100001 = `a`. Bölüm 2'deki "32 farkı" burada tek bir bit olarak karşımıza çıkıyor.
+- **Büyük harfi küçük harfe çevirmek:** `A` (01000001) OR 00100000 = 01100001 = `a`. Bölüm 2'deki "32 farkı" burada tek bir bit olarak karşımıza çıkıyor.
 - **XOR ile gizlemek:** `A` (65) XOR 42 = 107 (`k`). `k` (107) XOR 42 = 65 (`A`). Aynı anahtarla iki kez XOR yapmak başa döndürür. Bu şifrelemenin en basit fikridir ama gerçek bir güvenlik sağlamaz.
 
 ### Alıştırmalar
 
-**4.1** 00110101 + 00011110 = ? Onluk karşılıklarıyla kontrol et.
+**4.1** – 00110101 + 00011110 = ? Onluk karşılıklarıyla kontrol et.
 
-**4.2** 8 bitte 250 + 10 işleminin sonucu ne olur?
+**4.2** – 8 bitte 250 + 10 işleminin sonucu ne olur?
 
-**4.3** 0x0F VE 0x3C, 0x0F VEYA 0x3C ve 0x0F XOR 0x3C işlemlerinin sonuçları nedir?
+**4.3** – 0x0F AND 0x3C, 0x0F OR 0x3C ve 0x0F XOR 0x3C işlemlerinin sonuçları nedir?
 
-**4.4** `z` harfini büyük harfe çevirmek için hangi bit kapatılmalıdır? Sonuç ne olur?
+**4.4** – `z` harfini büyük harfe çevirmek için hangi bit kapatılmalıdır? Sonuç ne olur?
 
 <details>
 <summary>Cevaplar</summary>
 
-**4.1** 01010011₂ = 83 (53 + 30)
+**4.1** – 01010011₂ = 83 (53 + 30)
 
-**4.2** 260 sekiz bite sığmaz; sonuç 260 − 256 = 4 (00000100) olur ve elde dışarı taşar.
+**4.2** – 260 sekiz bite sığmaz; sonuç 260 − 256 = 4 (00000100) olur ve elde dışarı taşar.
 
-**4.3** VE: 0x0C, VEYA: 0x3F, XOR: 0x33
+**4.3** – AND: 0x0C, OR: 0x3F, XOR: 0x33
 
-**4.4** `z` = 122 = 01111010. Değeri 32 olan bit kapatılır: 01011010 = 90 = `Z`.
+**4.4** – `z` = 122 = 01111010. Değeri 32 olan bit kapatılır: 01011010 = 90 = `Z`.
 
 </details>
 

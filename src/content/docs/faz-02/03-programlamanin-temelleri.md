@@ -188,11 +188,11 @@ Soruları birleştirmek için:
 
 | Anlamı | C'de | Örnek |
 | --- | --- | --- |
-| VE: ikisi de doğru mu? | `&&` | `age >= 18 && age <= 65` |
-| VEYA: en az biri doğru mu? | `\|\|` | `day == 6 \|\| day == 7` |
-| DEĞİL: tersi | `!` | `!(a == b)` |
+| AND: ikisi de doğru mu? | `&&` | `age >= 18 && age <= 65` |
+| OR: en az biri doğru mu? | `\|\|` | `day == 6 \|\| day == 7` |
+| NOT: tersi | `!` | `!(a == b)` |
 
-Faz 0'daki VE, VEYA ve DEĞİL'i hatırla: aynı mantık.
+Faz 0'daki AND, OR ve NOT'u hatırla: aynı mantık.
 
 ---
 
@@ -250,7 +250,7 @@ BB
 
 Kontrol yukarıdan aşağıya yapılır ve **ilk doğru olan** çalışır, gerisine bakılmaz. 78, 85'ten büyük değil; 70'ten büyük, o yüzden "BB" yazılır ve zincir biter.
 
-**Örnek: VE ile aralık kontrolü.**
+**Örnek: AND ile aralık kontrolü.**
 
 ```c
 #include <stdio.h>
@@ -824,11 +824,11 @@ void stars(int count) {
 
 ### Isınma
 
-**10.1** Bir sayının mutlak değerini döndüren `int absolute(int x)` fonksiyonunu yaz. `absolute(-7)` 7, `absolute(3)` 3 döndürmeli.
+**10.1** – Bir sayının mutlak değerini döndüren `int absolute(int x)` fonksiyonunu yaz. `absolute(-7)` 7, `absolute(3)` 3 döndürmeli.
 
-**10.2** Üç sayının en büyüğünü bulan `int largest(int a, int b, int c)` fonksiyonunu yaz. (İpucu: Bölüm 8'deki `larger` fonksiyonunu kullanabilirsin.)
+**10.2** – Üç sayının en büyüğünü bulan `int largest(int a, int b, int c)` fonksiyonunu yaz. (İpucu: Bölüm 8'deki `larger` fonksiyonunu kullanabilirsin.)
 
-**10.3** Bir saati tutan `struct Time { int hours; int minutes; };` yapısını tanımla. Bir saate dakika ekleyen `struct Time add_minutes(struct Time s, int mins)` fonksiyonunu yaz. 23:50'ye 25 dakika eklenince 00:15 olmalı.
+**10.3** – Bir saati tutan `struct Time { int hours; int minutes; };` yapısını tanımla. Bir saate dakika ekleyen `struct Time add_minutes(struct Time s, int mins)` fonksiyonunu yaz. 23:50'ye 25 dakika eklenince 00:15 olmalı.
 
 <details>
 <summary>Cevaplar</summary>
@@ -872,7 +872,7 @@ Fikir: önce her şeyi dakikaya çevir, ekle, bir günü (1440 dakika) aşarsa `
 
 ### Çarpım tablosu
 
-**10.4** 1'den 10'a kadar çarpım tablosunu yazdır. Her sayı 4 karakterlik bir alana yazılsın ki sütunlar hizalı dursun. (İpucu: `%4d`, sayıyı 4 karakterlik bir alana sağa yaslayarak yazar.)
+**10.4** – 1'den 10'a kadar çarpım tablosunu yazdır. Her sayı 4 karakterlik bir alana yazılsın ki sütunlar hizalı dursun. (İpucu: `%4d`, sayıyı 4 karakterlik bir alana sağa yaslayarak yazar.)
 
 ```
    1   2   3   4   5   6   7   8   9  10

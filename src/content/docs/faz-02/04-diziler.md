@@ -914,13 +914,13 @@ Array'ler bu kitabın geri kalanında her yerde karşına çıkacak. Alıştırm
 
 ### Array'ler
 
-**9.1** Bir array'deki **en küçük** elemanı ve onun **indeksini** bulan programı yaz. Array: `{42, 17, 8, 99, 23}`. Beklenen: "En küçük: 8, indeks: 2".
+**9.1** – Bir array'deki **en küçük** elemanı ve onun **indeksini** bulan programı yaz. Array: `{42, 17, 8, 99, 23}`. Beklenen: "En küçük: 8, indeks: 2".
 
-**9.2** Bir sayının array'de olup olmadığını bulan `int find(int numbers[], int size, int target)` fonksiyonunu yaz. Sayı varsa indeksini, yoksa -1 döndürsün.
+**9.2** – Bir sayının array'de olup olmadığını bulan `int find(int numbers[], int size, int target)` fonksiyonunu yaz. Sayı varsa indeksini, yoksa -1 döndürsün.
 
-**9.3** Bir array'i **ters çeviren** `void reverse(int numbers[], int size)` fonksiyonunu yaz. `{1, 2, 3, 4, 5}` → `{5, 4, 3, 2, 1}`. İkinci bir array kullanma; elemanların yerini değiştir. (İpucu: ilk elemanla sonuncuyu, ikinciyle sondan ikinciyi değiştir… Nerede durmalısın?)
+**9.3** – Bir array'i **ters çeviren** `void reverse(int numbers[], int size)` fonksiyonunu yaz. `{1, 2, 3, 4, 5}` → `{5, 4, 3, 2, 1}`. İkinci bir array kullanma; elemanların yerini değiştir. (İpucu: ilk elemanla sonuncuyu, ikinciyle sondan ikinciyi değiştir… Nerede durmalısın?)
 
-**9.4** Bölüm 7'deki sinema salonunda, **en çok boş koltuğu olan sırayı** bulan programı yaz.
+**9.4** – Bölüm 7'deki sinema salonunda, **en çok boş koltuğu olan sırayı** bulan programı yaz.
 
 <details>
 <summary>Cevaplar</summary>
@@ -995,20 +995,20 @@ Bölüm 7'deki salon için cevap: 2. sıra, 5 boş koltuk. `empty` her sıranın
 
 ### Labirent
 
-**9.5** Haritanın kenarındaki bir duvarı boşlukla değiştir, örneğin `map[1][10]`'u 0 yap. Oyuncuyla o boşluğa gidip bir adım daha sağa gitmeye çalış. Ne olabilir? Neden?
+**9.5** – Haritanın kenarındaki bir duvarı boşlukla değiştir, örneğin `map[1][10]`'u 0 yap. Oyuncuyla o boşluğa gidip bir adım daha sağa gitmeye çalış. Ne olabilir? Neden?
 
-**9.6** Oyuna bir **hamle sınırı** ekle: oyuncu 30 hamlede çıkışa ulaşamazsa "Süren doldu!" yazıp oyun bitsin.
+**9.6** – Oyuna bir **hamle sınırı** ekle: oyuncu 30 hamlede çıkışa ulaşamazsa "Süren doldu!" yazıp oyun bitsin.
 
-**9.7** Kendi haritanı çiz: 10 satır, 20 sütun. Neleri değiştirmen gerekti?
+**9.7** – Kendi haritanı çiz: 10 satır, 20 sütun. Neleri değiştirmen gerekti?
 
 **9.8 (Bonus) Anahtar.** Haritaya `K` ile gösterilen bir anahtar ekle (haritada 3). Çıkış, oyuncu anahtarı almadan **kapalı** olsun: anahtarsız çıkışa gelince "Kapı kilitli!" yazsın. Anahtarın üstüne gelince anahtar alınsın ve haritadan silinsin.
 
 <details>
 <summary>Cevaplar</summary>
 
-**9.5** Oyuncu 10. sütuna geçebilir; bir adım daha sağa gitmek, 11. sütuna, yani **array'in dışına** bakmak demektir. `is_wall` array'in dışındaki belleği okur. Bölüm 4'te gördüğümüz gibi sonuç belli değildir: oyuncu görünmez bir yere kaybolabilir, oyun saçma davranabilir ya da çökebilir. Kenarları duvarla çevirmek bu yüzden önemliydi. Kenarda bir açıklık istiyorsan, hareketten önce yeni konumun 0 ile `ROWS - 1` ve 0 ile `COLS - 1` arasında olduğunu kontrol etmen gerekir.
+**9.5** – Oyuncu 10. sütuna geçebilir; bir adım daha sağa gitmek, 11. sütuna, yani **array'in dışına** bakmak demektir. `is_wall` array'in dışındaki belleği okur. Bölüm 4'te gördüğümüz gibi sonuç belli değildir: oyuncu görünmez bir yere kaybolabilir, oyun saçma davranabilir ya da çökebilir. Kenarları duvarla çevirmek bu yüzden önemliydi. Kenarda bir açıklık istiyorsan, hareketten önce yeni konumun 0 ile `ROWS - 1` ve 0 ile `COLS - 1` arasında olduğunu kontrol etmen gerekir.
 
-**9.6** `main`'de, `moves++;` satırının ardından ve çıkış kontrolünden sonra:
+**9.6** – `main`'de, `moves++;` satırının ardından ve çıkış kontrolünden sonra:
 
 ```c
         if (moves >= 30) {
@@ -1019,9 +1019,9 @@ Bölüm 7'deki salon için cevap: 2. sıra, 5 boş koltuk. `empty` her sıranın
 
 Sıra önemli: önce çıkışa ulaşıp ulaşmadığına bak. Yoksa tam 30. hamlede çıkışa ulaşan oyuncu, kazanmak yerine kaybeder.
 
-**9.7** Sadece `ROWS`, `COLS` ve haritanın kendisi. Başka hiçbir yere dokunmadın. `#define` ile boyutu tek bir yerde tutmanın ve kodu fonksiyonlara ayırmanın faydası bu.
+**9.7** – Sadece `ROWS`, `COLS` ve haritanın kendisi. Başka hiçbir yere dokunmadın. `#define` ile boyutu tek bir yerde tutmanın ve kodu fonksiyonlara ayırmanın faydası bu.
 
-**9.8** Değişmesi gerekenler:
+**9.8** – Değişmesi gerekenler:
 
 - Yeni bir sabit: `#define KEY 3`.
 - `draw_map`'e bir dal: `else if (map[row][col] == KEY) { printf("K"); }`.

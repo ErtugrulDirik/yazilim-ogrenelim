@@ -208,10 +208,10 @@ Her turda `n`'nin son basamağını kopar, `result`'ın sonuna ekle.
 
 | Tur | `n` | `digit` | `result` | yeni `n` |
 | --- | --- | --- | --- | --- |
-| 1 | 1234 | 4 | 4 | 123 |
-| 2 | 123 | 3 | 43 | 12 |
-| 3 | 12 | 2 | 432 | 1 |
-| 4 | 1 | 1 | 4321 | 0 |
+| 1. | 1234 | 4 | 4 | 123 |
+| 2. | 123 | 3 | 43 | 12 |
+| 3. | 12 | 2 | 432 | 1 |
+| 4. | 1 | 1 | 4321 | 0 |
 
 **Edge case:** 1200'ün tersi 0021 olmalı, ama bir tamsayının başında sıfır olmaz: sonuç 21. Bu bir hata değil, sayıların doğası. Sıfırları korumak gerekseydi sayıyı rakam rakam yazdırmamız gerekirdi.
 
@@ -331,10 +331,10 @@ int main(void) {
 
 `is_prime(15)` için iz:
 
-| `d` | `d * d <= 15`? | `15 % d` | Sonuç |
-| --- | --- | --- | --- |
-| 2 | 4, evet | 1 | devam |
-| 3 | 9, evet | **0** | asal değil |
+| Adım | `d` | `d * d <= 15`? | `15 % d` | Sonuç |
+| --- | --- | --- | --- | --- |
+| 1. | 2 | 4, evet | 1 | devam |
+| 2. | 3 | 9, evet | **0** | asal değil |
 
 Neden `d * d <= n`? Ders 1.3'te gördük: bir sayının bir böleni varsa, karekökünden küçük ya da ona eşit bir böleni mutlaka vardır. 97'yi test etmek için 95 değil, sadece 8 sayı denememiz yetiyor.
 
@@ -578,14 +578,14 @@ int main(void) {
 
 | Adım | `n` | Çift mi? | yeni `n` | `highest` |
 | --- | --- | --- | --- | --- |
-| 1 | 6 | evet | 3 | 6 |
-| 2 | 3 | hayır | 10 | 10 |
-| 3 | 10 | evet | 5 | 10 |
-| 4 | 5 | hayır | 16 | 16 |
-| 5 | 16 | evet | 8 | 16 |
-| 6 | 8 | evet | 4 | 16 |
-| 7 | 4 | evet | 2 | 16 |
-| 8 | 2 | evet | 1 | 16 |
+| 1. | 6 | evet | 3 | 6 |
+| 2. | 3 | hayır | 10 | 10 |
+| 3. | 10 | evet | 5 | 10 |
+| 4. | 5 | hayır | 16 | 16 |
+| 5. | 16 | evet | 8 | 16 |
+| 6. | 8 | evet | 4 | 16 |
+| 7. | 4 | evet | 2 | 16 |
+| 8. | 2 | evet | 1 | 16 |
 
 `n`'yi 27 yap ve dene: 27 gibi küçük bir sayı **111 adım** sürüyor ve yolda **9232**'ye kadar çıkıyor. Bu dizinin bu kadar şaşırtıcı olmasının sebebi bu.
 
@@ -657,12 +657,12 @@ int main(void) {
 
 `print_binary(13)`: ilk döngü `power`'ı 1 → 2 → 4 → 8 yapar (16 > 13 olduğu için durur). İkinci döngü:
 
-| `power` | `n >= power`? | Yazılan | yeni `n` |
-| --- | --- | --- | --- |
-| 8 | 13 ≥ 8 evet | 1 | 5 |
-| 4 | 5 ≥ 4 evet | 1 | 1 |
-| 2 | 1 ≥ 2 hayır | 0 | 1 |
-| 1 | 1 ≥ 1 evet | 1 | 0 |
+| Adım | `power` | `n >= power`? | Yazılan | yeni `n` |
+| --- | --- | --- | --- | --- |
+| 1. | 8 | 13 ≥ 8 evet | 1 | 5 |
+| 2. | 4 | 5 ≥ 4 evet | 1 | 1 |
+| 3. | 2 | 1 ≥ 2 hayır | 0 | 1 |
+| 4. | 1 | 1 ≥ 1 evet | 1 | 0 |
 
 Sonuç: **1101**. `power` 1'den sonra 1 / 2 = 0 olur ve döngü biter.
 

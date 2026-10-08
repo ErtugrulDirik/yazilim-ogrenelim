@@ -333,20 +333,20 @@ VS Code'da `Ctrl+Shift+B`'ye bastığında da bu dört adım arka planda çalı�
 
 ## Alıştırmalar
 
-**1** `first.c`'de `return 42;` yerine `return 300;` yaz, derle, çalıştır ve `echo $?` ile çıkış koduna bak. Ne görüyorsun? Neden? (İpucu: Faz 0, Bölüm 4.)
+**1** – `first.c`'de `return 42;` yerine `return 300;` yaz, derle, çalıştır ve `echo $?` ile çıkış koduna bak. Ne görüyorsun? Neden? (İpucu: Faz 0, Bölüm 4.)
 
-**2** `first.c`'de `return 42;` satırının sonundaki noktalı virgülü sil ve derle. Hata mesajını oku: hangi satırı ve hangi karakteri gösteriyor? Bu hata derleme hattının hangi adımında çıktı?
+**2** – `first.c`'de `return 42;` satırının sonundaki noktalı virgülü sil ve derle. Hata mesajını oku: hangi satırı ve hangi karakteri gösteriyor? Bu hata derleme hattının hangi adımında çıktı?
 
-**3** `hello.c`'den `return 0;` satırını sil, derle, çalıştır ve çıkış koduna bak.
+**3** – `hello.c`'den `return 0;` satırını sil, derle, çalıştır ve çıkış koduna bak.
 
-**4** `hello.c`'deki `#include <stdio.h>` satırını sil ve `clang -E` çıktısının satır sayısına tekrar bak. Sonra programı derlemeyi dene. Ne oluyor?
+**4** – `hello.c`'deki `#include <stdio.h>` satırını sil ve `clang -E` çıktısının satır sayısına tekrar bak. Sonra programı derlemeyi dene. Ne oluyor?
 
 <details>
 <summary>Cevaplar</summary>
 
-**1** Çıkış kodu **44** olur. Çıkış kodu 8 bitlik bir sayıdır, yani 0 ile 255 arasında olabilir. 300 sekiz bite sığmaz: 300 − 256 = 44. Faz 0'daki 8 bit overflow'unun aynısı.
+**1** – Çıkış kodu **44** olur. Çıkış kodu 8 bitlik bir sayıdır, yani 0 ile 255 arasında olabilir. 300 sekiz bite sığmaz: 300 − 256 = 44. Faz 0'daki 8 bit overflow'unun aynısı.
 
-**2** clang şöyle der:
+**2** – clang şöyle der:
 
 ```
 first.c:2:14: error: expected ';' after return statement
@@ -357,9 +357,9 @@ first.c:2:14: error: expected ';' after return statement
 
 (VS Code'da derlediysen dosya adının başında klasörün tam yolu da yazar.) `first.c:2:14` "dosya first.c, satır 2, karakter 14" demek: noktalı virgülün olması gereken yer. clang bir adım daha ileri gidip altına ne yazman gerektiğini de gösteriyor: `;`. Hata **derleme** adımında çıktı; preprocessor bu satırla ilgilenmez, compiler ise C'nin yazım kurallarını denetler.
 
-**3** Çıkış kodu **0** olur. C99'dan beri özel bir kural var: `main` fonksiyonu `return` yazmadan biterse 0 döndürmüş sayılır. Bu kural sadece `main` için geçerlidir. Yine de bu kitapta `return 0;` yazacağız; ne döndürdüğümüzü açıkça görmek istiyoruz.
+**3** – Çıkış kodu **0** olur. C99'dan beri özel bir kural var: `main` fonksiyonu `return` yazmadan biterse 0 döndürmüş sayılır. Bu kural sadece `main` için geçerlidir. Yine de bu kitapta `return 0;` yazacağız; ne döndürdüğümüzü açıkça görmek istiyoruz.
 
-**4** `clang -E` çıktısı birkaç satıra iner; `stdio.h`'nin içeriği artık eklenmiyor. Derlemeye çalıştığında clang şöyle der:
+**4** – `clang -E` çıktısı birkaç satıra iner; `stdio.h`'nin içeriği artık eklenmiyor. Derlemeye çalıştığında clang şöyle der:
 
 ```
 hello.c:3:5: error: call to undeclared library function 'printf' ...
