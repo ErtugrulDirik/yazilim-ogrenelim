@@ -124,7 +124,7 @@ Genel kural: bir sayı, her basamağın tabanın kuvvetiyle çarpılıp toplanma
 | 3 | 3 | 1 | 1 |
 | 4 | 1 | 0 | 1 |
 
-Kalanları **aşağıdan yukarı** oku: **1101₂**. Bu tabloya *iz sürme tablosu* denir; Faz 1'de çok kullanacağız.
+Kalanları **aşağıdan yukarı** oku: **1101₂**. Bu tabloya *trace table* (iz tablosu) denir; Faz 1'de çok kullanacağız.
 
 **Onaltılık (hex) sistem.** 16 basamak vardır: 0–9 ve A–F (A = 10, …, F = 15). 4 bit tam olarak 1 hex basamağa denk gelir; bu yüzden ikilikten hex'e çevirmek sadece 4'erli gruplamaktır:
 
@@ -212,7 +212,7 @@ Elde, sağdan sola bit bit ilerler. Bu örnekte arka arkaya altı bit boyunca el
 
 **Çıkarma ve ödünç.** 1010 (10) − 0011 (3) = 0111 (7). 0'dan 1 çıkarılamadığında soldaki bitten ödünç alınır, tıpkı onluk sistemde olduğu gibi.
 
-**Sabit genişlik ve taşma.** Bilgisayar sınırsız sayıda bit tutmaz. 8 bit ile:
+**Sabit genişlik ve overflow (taşma).** Bilgisayar sınırsız sayıda bit tutmaz. 8 bit ile:
 
 ```
    11111111   (255)
@@ -221,7 +221,7 @@ Elde, sağdan sola bit bit ilerler. Bu örnekte arka arkaya altı bit boyunca el
  1 00000000   → 9. bit sığmaz, sonuç 0
 ```
 
-Arabanın kilometre sayacını düşün: 999999'dan sonra 000000'a döner. Aynı şekilde 8 bitte 200 + 100, 300 değil 44 eder (300 − 256). Negatif sayılar ve taşmanın ayrıntıları Faz 3'te.
+Arabanın kilometre sayacını düşün: 999999'dan sonra 000000'a döner. Aynı şekilde 8 bitte 200 + 100, 300 değil 44 eder (300 − 256). Negatif sayılar ve overflow'un ayrıntıları Faz 3'te.
 
 **Mantık işlemleri.**
 

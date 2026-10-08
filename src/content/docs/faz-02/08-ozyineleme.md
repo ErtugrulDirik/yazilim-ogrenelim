@@ -1,11 +1,11 @@
 ---
-title: "2.8 Özyineleme"
-description: "Kendini çağıran fonksiyonlar: durma koşulu, çağrı yığınında iniş ve çıkış, faktöriyel ve Fibonacci, çağrı ağacı, özyinelemeden döngüye çevirme ve Hanoi kuleleri."
+title: "2.8 Recursion"
+description: "Kendini çağıran fonksiyonlar: base case, call stack'te iniş ve çıkış, faktöriyel ve Fibonacci, çağrı ağacı, recursion'dan döngüye çevirme ve Hanoi kuleleri."
 ---
 
-Ders 2.7'de bir fonksiyonun başka bir fonksiyonu çağırdığını ve her çağrının yığında kendi kutusunu açtığını gördük. Peki bir fonksiyon **kendisini** çağırırsa ne olur?
+Ders 2.7'de bir fonksiyonun başka bir fonksiyonu çağırdığını ve her çağrının stack'te kendi frame'ini açtığını gördük. Peki bir fonksiyon **kendisini** çağırırsa ne olur?
 
-Kulağa garip geliyor ama hiçbir kural bunu yasaklamıyor. Bir fonksiyonun kendisini çağırmasına **özyineleme** (recursion) denir. Bu derste özyinelemenin nasıl çalıştığını, ne zaman işe yaradığını ve ne zaman başını ağrıttığını göreceğiz.
+Kulağa garip geliyor ama hiçbir kural bunu yasaklamıyor. Bir fonksiyonun kendisini çağırmasına **recursion** (özyineleme) denir. Bu derste recursion'ın nasıl çalıştığını, ne zaman işe yaradığını ve ne zaman başını ağrıttığını göreceğiz.
 
 ---
 
@@ -49,28 +49,28 @@ int main(void) {
 5! = 120
 ```
 
-Her özyinelemeli fonksiyonun iki parçası vardır:
+Her recursive fonksiyonun iki parçası vardır:
 
-1. **Durma koşulu** (base case): Problemin artık bölünmeyecek kadar küçük olduğu, cevabın doğrudan bilindiği durum. Burada `n == 0` ise 1.
-2. **Özyinelemeli adım**: Problemi kendisinin **daha küçük** bir haline indirip, o küçük problemi çözmek için fonksiyonu tekrar çağırmak. Burada `n * factorial(n - 1)`.
+1. **Base case** (durma koşulu): Problemin artık bölünmeyecek kadar küçük olduğu, cevabın doğrudan bilindiği durum. Burada `n == 0` ise 1.
+2. **Recursive adım**: Problemi kendisinin **daha küçük** bir haline indirip, o küçük problemi çözmek için fonksiyonu tekrar çağırmak. Burada `n * factorial(n - 1)`.
 
 İkincisi olmadan fonksiyon hiçbir şey çözemez. Birincisi olmadan da asla durmaz. Biraz sonra göreceğiz.
 
 ---
 
-## 2. Yığında iniş ve çıkış
+## 2. Stack'te iniş ve çıkış
 
-`factorial(4)` çağrıldığında perde arkasında ne olur? Ders 2.7'deki çağrı yığını tam olarak bunu gösterir:
+`factorial(4)` çağrıldığında perde arkasında ne olur? Ders 2.7'deki call stack tam olarak bunu gösterir:
 
-![factorial(4) çağrısında yığının inişi ve dönüş değerleriyle çıkışı](../../../assets/faz-02/faktoriyel-yigini.svg)
+![factorial(4) çağrısında stack'in inişi ve dönüş değerleriyle çıkışı](../../../assets/faz-02/faktoriyel-yigini.svg)
 
-**İniş.** `factorial(4)`, sonucunu hesaplayabilmek için `factorial(3)`'ün cevabına ihtiyaç duyar ve onu çağırır; kendisi beklemeye geçer. `factorial(3)` de `factorial(2)`'yi çağırır ve bekler… Bu, `factorial(0)`'a kadar sürer. Yığında **beş ayrı** `factorial` kutusu üst üste durur ve her birinin kendi `n`'i vardır: 4, 3, 2, 1, 0. Aynı fonksiyon, ama beş ayrı çağrı, beş ayrı kutu.
+**İniş.** `factorial(4)`, sonucunu hesaplayabilmek için `factorial(3)`'ün cevabına ihtiyaç duyar ve onu çağırır; kendisi beklemeye geçer. `factorial(3)` de `factorial(2)`'yi çağırır ve bekler… Bu, `factorial(0)`'a kadar sürer. Stack'te **beş ayrı** `factorial` frame'i üst üste durur ve her birinin kendi `n`'i vardır: 4, 3, 2, 1, 0. Aynı fonksiyon, ama beş ayrı çağrı, beş ayrı frame.
 
-**Dip.** `factorial(0)` durma koşuluna takılır ve hiçbir şey çağırmadan 1 döndürür.
+**Dip.** `factorial(0)` base case'e takılır ve hiçbir şey çağırmadan 1 döndürür.
 
-**Çıkış.** Şimdi bekleyenler sırayla uyanır. `factorial(1)` bekliyordu: 1 × 1 = 1 döndürür. `factorial(2)`: 2 × 1 = 2. `factorial(3)`: 3 × 2 = 6. `factorial(4)`: 4 × 6 = **24**. Her kutu, işi bitince yığından kaldırılır.
+**Çıkış.** Şimdi bekleyenler sırayla uyanır. `factorial(1)` bekliyordu: 1 × 1 = 1 döndürür. `factorial(2)`: 2 × 1 = 2. `factorial(3)`: 3 × 2 = 6. `factorial(4)`: 4 × 6 = **24**. Her frame, işi bitince stack'ten kaldırılır.
 
-Bunu kendi gözünle görebilirsin. Ders 2.6'daki gibi `return 1;` satırına bir kesme noktası koy ve programı başlat. `main`'deki döngü 0'dan başladığı için program bu satırda beş kez duracak: `factorial(0)`, `factorial(1)`, …, `factorial(4)` çağrılarının her birinin dibinde. `continue` ile dört kez devam et; beşinci duruşta `factorial(4)`'ün dibindesin. Şimdi `bt` yaz:
+Bunu kendi gözünle görebilirsin. Ders 2.6'daki gibi `return 1;` satırına bir breakpoint koy ve programı başlat. `main`'deki döngü 0'dan başladığı için program bu satırda beş kez duracak: `factorial(0)`, `factorial(1)`, …, `factorial(4)` çağrılarının her birinin dibinde. `continue` ile dört kez devam et; beşinci duruşta `factorial(4)`'ün dibindesin. Şimdi `bt` yaz:
 
 ```
 (lldb) breakpoint set --file factorial.c --line 5
@@ -90,9 +90,9 @@ Bunu kendi gözünle görebilirsin. Ders 2.6'daki gibi `return 1;` satırına bi
 
 VS Code'da da aynı şeyi CALL STACK panelinde görürsün: alt alta beş `factorial` satırı. Birine tıklarsan, VARIABLES panelinde o çağrının `n`'ini görürsün.
 
-**Özyinelemeyi anlamanın sırrı:** Fonksiyonun içindeki `factorial(n - 1)` çağrısını okurken, perde arkasındaki bütün bu iniş çıkışı düşünmeye çalışma. Sadece şuna güven: "`factorial(n - 1)` doğru cevabı verecek." Bu güvenle bakınca fonksiyon tek satırlık bir matematik tanımına dönüşür: n! = n × (n − 1)!. Bu güven ilk başta zor gelir; birkaç örnekten sonra alışırsın.
+**Recursion'ı anlamanın sırrı:** Fonksiyonun içindeki `factorial(n - 1)` çağrısını okurken, perde arkasındaki bütün bu iniş çıkışı düşünmeye çalışma. Sadece şuna güven: "`factorial(n - 1)` doğru cevabı verecek." Bu güvenle bakınca fonksiyon tek satırlık bir matematik tanımına dönüşür: n! = n × (n − 1)!. Bu güven ilk başta zor gelir; birkaç örnekten sonra alışırsın.
 
-### Bir uyarı: taşma
+### Bir uyarı: overflow
 
 ```c
 printf("12! = %d\n", factorial(12));
@@ -104,13 +104,13 @@ printf("13! = %d\n", factorial(13));
 13! = 1932053504
 ```
 
-13! aslında 6.227.020.800. Program saçma bir sayı verdi, çünkü bu sayı bir `int`'e sığmıyor. Faz 0'daki 8 bit taşmasını hatırla: aynı şey burada 32 bitte oluyor. `int`'in sınırlarını ve taşmanın tehlikelerini Faz 3'te ve Ders 2.14'te ayrıntısıyla göreceğiz; şimdilik faktöriyeli 12'ye kadar kullan.
+13! aslında 6.227.020.800. Program saçma bir sayı verdi, çünkü bu sayı bir `int`'e sığmıyor. Faz 0'daki 8 bit overflow'unu hatırla: aynı şey burada 32 bitte oluyor. `int`'in sınırlarını ve overflow'un tehlikelerini Faz 3'te ve Ders 2.14'te ayrıntısıyla göreceğiz; şimdilik faktöriyeli 12'ye kadar kullan.
 
 ---
 
-## 3. Durma koşulunu unutursan
+## 3. Base case'i unutursan
 
-Durma koşulunu sil:
+Base case'i sil:
 
 ```c
 int factorial(int n) {
@@ -130,17 +130,17 @@ warning: all paths through this function will call itself [-Winfinite-recursion]
 Segmentation fault
 ```
 
-Ne oldu? `factorial(5)`, `factorial(4)`'ü çağırdı, o `factorial(3)`'ü, sonra 2, 1, 0, -1, -2, … Hiçbir çağrı bitmiyor, her çağrı yığına yeni bir kutu ekliyor. Yığın sonsuz değil; bir noktada dolar ve işletim sistemi programı durdurur. Bu duruma **yığın taşması** (stack overflow) denir. Ünlü programcı soru-cevap sitesinin adı da buradan gelir.
+Ne oldu? `factorial(5)`, `factorial(4)`'ü çağırdı, o `factorial(3)`'ü, sonra 2, 1, 0, -1, -2, … Hiçbir çağrı bitmiyor, her çağrı stack'e yeni bir frame ekliyor. Stack sonsuz değil; bir noktada dolar ve işletim sistemi programı durdurur. Bu duruma **stack overflow** (yığın taşması) denir. Ünlü programcı soru-cevap sitesinin adı da buradan gelir.
 
-Ders 1.1'deki **sonluluk** özelliğini hatırla: her özyinelemeli adım, problemi durma koşuluna **gerçekten yaklaştırmalı**. `factorial(n - 1)` her seferinde `n`'yi bir azaltıyor ve sonunda 0'a ulaşıyor. Ama `factorial(-3)` çağırırsan `n` 0'dan uzaklaşır ve yine yığın taşar. Sağlam bir durma koşulu `n == 0` yerine `n <= 0` olabilirdi.
+Ders 1.1'deki **sonluluk** özelliğini hatırla: her recursive adım, problemi base case'e **gerçekten yaklaştırmalı**. `factorial(n - 1)` her seferinde `n`'yi bir azaltıyor ve sonunda 0'a ulaşıyor. Ama `factorial(-3)` çağırırsan `n` 0'dan uzaklaşır ve yine stack overflow olur. Sağlam bir base case `n == 0` yerine `n <= 0` olabilirdi.
 
 ---
 
 ## 4. Daha fazla örnek
 
-Özyinelemeli düşünmenin kalıbı her zaman aynı: **"En küçük durumda cevap ne? Problemi bir adım küçültürsem, küçüğün cevabından büyüğün cevabını nasıl kurarım?"**
+Recursive düşünmenin kalıbı her zaman aynı: **"En küçük durumda cevap ne? Problemi bir adım küçültürsem, küçüğün cevabından büyüğün cevabını nasıl kurarım?"**
 
-**Basamak toplamı.** Ders 1.3'te döngüyle yapmıştık. Özyinelemeli düşünelim: 2026'nın basamak toplamı = son basamak (6) + 202'nin basamak toplamı. Tek basamaklı bir sayının basamak toplamı kendisidir.
+**Basamak toplamı.** Ders 1.3'te döngüyle yapmıştık. Recursive düşünelim: 2026'nın basamak toplamı = son basamak (6) + 202'nin basamak toplamı. Tek basamaklı bir sayının basamak toplamı kendisidir.
 
 ```c
 int digit_sum(int n) {
@@ -153,7 +153,7 @@ int digit_sum(int n) {
 
 `digit_sum(2026)` = 6 + `digit_sum(202)` = 6 + 2 + `digit_sum(20)` = 6 + 2 + 0 + `digit_sum(2)` = 6 + 2 + 0 + 2 = **10**.
 
-**Sıra önemli.** Bir sayının rakamlarını yazdıran iki fonksiyona bak. Tek farkları, `printf`'in özyinelemeli çağrıdan **önce** mi **sonra** mı olduğu:
+**Sıra önemli.** Bir sayının rakamlarını yazdıran iki fonksiyona bak. Tek farkları, `printf`'in recursive çağrıdan **önce** mi **sonra** mı olduğu:
 
 ```c
 void print_reversed(int n) {
@@ -176,13 +176,13 @@ void print_in_order(int n) {
 - `print_reversed`, rakamı **inerken** yazar: önce 6'yı yazar, sonra kalanını (202) halletmesi için kendini çağırır.
 - `print_in_order`, önce kalanın halledilmesini bekler, rakamını **çıkarken** yazar. İniş 2026 → 202 → 20 → 2 diye gider; yazma ise dipten yukarı doğru olur: 2, 0, 2, 6.
 
-Faz 0'daki bölme–kalan yönteminin sorunu buydu: rakamlar sağdan sola çıkıyordu ama soldan sağa yazmak istiyorduk. Ders 2.5'te bunu 2'nin kuvvetleriyle çözdük. Özyineleme aynı sorunu çok daha kısa çözüyor: yığın, rakamları ters sırada bizim için saklıyor. Bu fikri Ders 2.11'de `printf` kullanmadan sayı yazdırırken tekrar kullanacağız.
+Faz 0'daki bölme–kalan yönteminin sorunu buydu: rakamlar sağdan sola çıkıyordu ama soldan sağa yazmak istiyorduk. Ders 2.5'te bunu 2'nin kuvvetleriyle çözdük. Recursion aynı sorunu çok daha kısa çözüyor: stack, rakamları ters sırada bizim için saklıyor. Bu fikri Ders 2.11'de `printf` kullanmadan sayı yazdırırken tekrar kullanacağız.
 
 ---
 
 ## 5. Fibonacci ve çağrı ağacı
 
-Fibonacci dizisinin tanımı zaten özyinelemelidir: her terim, kendinden önceki iki terimin toplamı; ilk iki terim 1.
+Fibonacci dizisinin tanımı zaten recursive'dir: her terim, kendinden önceki iki terimin toplamı; ilk iki terim 1.
 
 ```c
 int fib(int n) {
@@ -213,9 +213,9 @@ Ders 2.5'te Fibonacci'yi döngüyle, iki değişkenle hesaplamıştık. O çöz�
 
 ---
 
-## 6. Özyinelemeden döngüye
+## 6. Recursion'dan döngüye
 
-Her özyinelemeli fonksiyon bir döngüyle de yazılabilir; her döngü de özyinelemeyle. Faktöriyel ve Fibonacci'nin döngülü halleri:
+Her recursive fonksiyon bir döngüyle de yazılabilir; her döngü de recursion ile. Faktöriyel ve Fibonacci'nin döngülü halleri:
 
 ```c
 int factorial(int n) {
@@ -240,23 +240,23 @@ int fib(int n) {
 
 Hangisini seçmeli?
 
-| | Özyineleme | Döngü |
+| | Recursion | Döngü |
 | --- | --- | --- |
 | **Okunabilirlik** | Problem doğal olarak kendine benzer parçalara bölünüyorsa çok kısa ve açık | Adım adım, ne olduğu hemen belli |
-| **Bellek** | Her çağrı yığında yeni bir kutu açar; çok derinse yığın taşar | Sabit, birkaç değişken |
+| **Bellek** | Her çağrı stack'te yeni bir frame açar; çok derinse stack overflow olur | Sabit, birkaç değişken |
 | **Hız** | Çağrı açmanın bir maliyeti var; Fibonacci gibi tekrarlı hesaplarda çok yavaş olabilir | Genelde daha hızlı |
 
-**Kural:** Problem kendisinin küçük kopyalarına doğal olarak bölünüyorsa ve derinlik makul ise özyineleme harika bir araçtır. Faktöriyel gibi düz bir döngüyle rahatça yazılabilen problemlerde döngüyü tercih et.
+**Kural:** Problem kendisinin küçük kopyalarına doğal olarak bölünüyorsa ve derinlik makul ise recursion harika bir araçtır. Faktöriyel gibi düz bir döngüyle rahatça yazılabilen problemlerde döngüyü tercih et.
 
-Özyinelemenin gerçekten parladığı yerler ileride gelecek: bir dosya sistemindeki iç içe klasörleri gezmek, bir matematiksel ifadeyi parçalarına ayırmak, ağaç veri yapıları (Faz 8), hızlı sıralama algoritmaları (Faz 9)… Bunların döngüyle yazılması çok daha zordur. Bunlardan birini, Hanoi kulelerini, aşağıdaki alıştırmada çözeceksin.
+Recursion'ın gerçekten parladığı yerler ileride gelecek: bir dosya sistemindeki iç içe klasörleri gezmek, bir matematiksel ifadeyi parçalarına ayırmak, ağaç veri yapıları (Faz 8), hızlı sıralama algoritmaları (Faz 9)… Bunların döngüyle yazılması çok daha zordur. Bunlardan birini, Hanoi kulelerini, aşağıdaki alıştırmada çözeceksin.
 
 ---
 
 ## Alıştırmalar
 
-**1. Basamak sayısı.** Bir sayının kaç basamaklı olduğunu döndüren `int count_digits(int n)` fonksiyonunu **özyinelemeyle** yaz. `count_digits(0)` 1, `count_digits(7)` 1, `count_digits(2026)` 4 döndürmeli. (Ders 1.1'deki BasamakSayısı algoritmasının 0'da yaptığı hatayı hatırla.)
+**1. Basamak sayısı.** Bir sayının kaç basamaklı olduğunu döndüren `int count_digits(int n)` fonksiyonunu **recursion ile** yaz. `count_digits(0)` 1, `count_digits(7)` 1, `count_digits(2026)` 4 döndürmeli. (Ders 1.1'deki BasamakSayısı algoritmasının 0'da yaptığı hatayı hatırla.)
 
-**2. Dizi toplamı.** Bir dizinin elemanlarının toplamını döndüren `int sum(int numbers[], int size)` fonksiyonunu **döngü kullanmadan**, özyinelemeyle yaz. `{3, 1, 4, 1, 5}` için 14 olmalı. (İpucu: `size` elemanlı bir dizinin toplamı = son eleman + ilk `size - 1` elemanın toplamı. Boş bir dizinin toplamı ne?)
+**2. Array toplamı.** Bir array'in elemanlarının toplamını döndüren `int sum(int numbers[], int size)` fonksiyonunu **döngü kullanmadan**, recursion ile yaz. `{3, 1, 4, 1, 5}` için 14 olmalı. (İpucu: `size` elemanlı bir array'in toplamı = son eleman + ilk `size - 1` elemanın toplamı. Boş bir array'in toplamı ne?)
 
 **3. Hanoi kuleleri.** Üç çubuk var. Birinci çubukta, büyükten küçüğe dizilmiş `n` disk duruyor. Bütün diskleri üçüncü çubuğa taşıman gerekiyor. Kurallar:
 
@@ -265,7 +265,7 @@ Hangisini seçmeli?
 
 Hamleleri yazdıran `void hanoi(int n, int from, int to, int spare)` fonksiyonunu yaz. 3 disk için 7 hamle olmalı.
 
-Bu problemi döngüyle çözmeye çalışırsan çok zorlanırsın. Özyinelemeli düşün: "`n` diski taşımak için önce üstteki `n - 1` diski bir kenara çekebilseydim…"
+Bu problemi döngüyle çözmeye çalışırsan çok zorlanırsın. Recursive düşün: "`n` diski taşımak için önce üstteki `n - 1` diski bir kenara çekebilseydim…"
 
 <details>
 <summary>İpucu: Hanoi</summary>
@@ -276,7 +276,7 @@ Bu problemi döngüyle çözmeye çalışırsan çok zorlanırsın. Özyinelemel
 2. Geriye kalan en büyük diski 1. çubuktan 3. çubuğa taşı.
 3. 2. çubuktaki `n - 1` diski **3. çubuğa** taşı. (Yine aynı problemin küçüğü.)
 
-Durma koşulu: taşınacak disk yoksa (`n == 0`) hiçbir şey yapma.
+Base case: taşınacak disk yoksa (`n == 0`) hiçbir şey yapma.
 
 </details>
 
@@ -292,7 +292,7 @@ int count_digits(int n) {
     return 1 + count_digits(n / 10);
 }
 ```
-Tek basamaklı bir sayı (0 dahil) 1 basamaklıdır. Daha büyük bir sayı, son basamağı atılmış halinden bir basamak fazladır. Durma koşulu `n < 10` olduğu için 0 da doğru sonucu veriyor; Ders 1.1'deki hata burada kendiliğinden ortadan kalktı.
+Tek basamaklı bir sayı (0 dahil) 1 basamaklıdır. Daha büyük bir sayı, son basamağı atılmış halinden bir basamak fazladır. Base case `n < 10` olduğu için 0 da doğru sonucu veriyor; Ders 1.1'deki hata burada kendiliğinden ortadan kalktı.
 
 **2.**
 ```c
@@ -303,7 +303,7 @@ int sum(int numbers[], int size) {
     return numbers[size - 1] + sum(numbers, size - 1);
 }
 ```
-Boş bir dizinin toplamı 0'dır; durma koşulu bu. Her çağrı diziyi bir eleman "kısaltıyor": aslında dizi değişmiyor, sadece fonksiyona "ilk `size - 1` elemana bak" diyoruz.
+Boş bir array'in toplamı 0'dır; base case bu. Her çağrı array'i bir eleman "kısaltıyor": aslında array değişmiyor, sadece fonksiyona "ilk `size - 1` elemana bak" diyoruz.
 
 **3.**
 ```c
@@ -344,7 +344,7 @@ Diskler küçükten büyüğe 1, 2, 3 diye numaralı. Fonksiyonun gövdesi ipucu
 
 ## Kaynaklar
 
-- Brian Kernighan & Dennis Ritchie, *The C Programming Language* (2. baskı), §4.10: özyineleme.
+- Brian Kernighan & Dennis Ritchie, *The C Programming Language* (2. baskı), §4.10: recursion.
 - Ronald Graham, Donald Knuth & Oren Patashnik, *Concrete Mathematics* (2. baskı), §1.1: Hanoi kuleleri ve hamle sayısının ispatı.
 
 **Sıradaki ders:** Sayı teorisi fonksiyonları. EBOB, EKOK, asal testi ve hızlı üs alma; aynı sonucu veren farklı yöntemlerin kaç adımda bittiğini karşılaştıracağız.

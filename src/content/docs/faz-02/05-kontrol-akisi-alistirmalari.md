@@ -1,6 +1,6 @@
 ---
 title: "2.5 Kontrol akışı alıştırmaları"
-description: "On klasik problem: FizzBuzz, artık yıl, ters çevirme, palindrom, asal, mükemmel ve Armstrong sayıları, Fibonacci, Collatz ve ikilik gösterim. Önce süre tutup kendin çöz, sonra çözüm ve iz tablosu."
+description: "On klasik problem: FizzBuzz, artık yıl, ters çevirme, palindrom, asal, mükemmel ve Armstrong sayıları, Fibonacci, Collatz ve ikilik gösterim. Önce süre tutup kendin çöz, sonra çözüm ve trace table."
 ---
 
 Bu derste yeni bir şey öğretmiyoruz. Ders 2.3 ve 2.4'te öğrendiğin araçlarla on problem çözeceksin. Problemler kolaydan zora sıralı.
@@ -12,12 +12,12 @@ Bu derste yeni bir şey öğretmiyoruz. Ders 2.3 ve 2.4'te öğrendiğin araçla
 3. Kodu yaz ve çalıştır. Verilen örneklerle karşılaştır.
 4. Süre dolduysa ve takıldıysan, önce **İpucu** kutusunu aç. Çözümü değil.
 5. Ancak ipucuyla da ilerleyemezsen **Çözüm**'e bak. Çözümü okuduktan sonra kapat ve kodu **kendin, bakmadan** yeniden yaz.
-6. Çözdüysen de çözüme bak: başka bir yol bulmuş olabilirsin, ya da çözümdeki iz tablosu senin kaçırdığın bir uç durumu gösterebilir.
+6. Çözdüysen de çözüme bak: başka bir yol bulmuş olabilirsin, ya da çözümdeki trace table senin kaçırdığın bir edge case'i gösterebilir.
 
 Süreler bir yarış değil, bir pusula. Bir problemde süreyi aşmak normal; önemli olan, kendin uğraşmadan çözüme bakmamak.
 
-:::tip[İz tablosunu kullan]
-Kodun beklediğin sonucu vermiyorsa, Ders 1.3'teki gibi küçük bir girdiyle iz tablosu çıkar. Değişkenleri her turda kağıda yaz; hata çoğu zaman ikinci ya da üçüncü satırda kendini gösterir. Her çözümde de bir iz tablosu bulacaksın.
+:::tip[Trace table'ı kullan]
+Kodun beklediğin sonucu vermiyorsa, Ders 1.3'teki gibi küçük bir girdiyle trace table çıkar. Değişkenleri her turda kağıda yaz; hata çoğu zaman ikinci ya da üçüncü satırda kendini gösterir. Her çözümde de bir trace table bulacaksın.
 :::
 
 ---
@@ -155,7 +155,7 @@ Her `return` fonksiyondan çıktığı için `else` yazmaya gerek kalmadı: ilk 
 | 1900 | hayır | **evet** | — | değil |
 | 2000 | **evet** | — | — | artık yıl |
 
-1900 ve 2000 bu problemin uç durumları: sadece "4'e bölünüyor mu?" diye soran bir program ikisine de "artık yıl" der ve 1900'de yanılır.
+1900 ve 2000 bu problemin edge case'leri: sadece "4'e bölünüyor mu?" diye soran bir program ikisine de "artık yıl" der ve 1900'de yanılır.
 
 </details>
 
@@ -213,7 +213,7 @@ Her turda `n`'nin son basamağını kopar, `result`'ın sonuna ekle.
 | 3 | 12 | 2 | 432 | 1 |
 | 4 | 1 | 1 | 4321 | 0 |
 
-**Uç durum:** 1200'ün tersi 0021 olmalı, ama bir tamsayının başında sıfır olmaz: sonuç 21. Bu bir hata değil, sayıların doğası. Sıfırları korumak gerekseydi sayıyı rakam rakam yazdırmamız gerekirdi.
+**Edge case:** 1200'ün tersi 0021 olmalı, ama bir tamsayının başında sıfır olmaz: sonuç 21. Bu bir hata değil, sayıların doğası. Sıfırları korumak gerekseydi sayıyı rakam rakam yazdırmamız gerekirdi.
 
 </details>
 
@@ -274,7 +274,7 @@ Bütün iş tek satır: bir sayı, tersine eşitse palindromdur. Bir önceki pro
 | 12321 | 12321 | evet |
 | 1234 | 4321 | hayır |
 
-Problem 3'teki uç durum burada işe yarıyor: 10'un tersi 1'dir, 10 ≠ 1, yani 10 palindrom değil. Doğru.
+Problem 3'teki edge case burada işe yarıyor: 10'un tersi 1'dir, 10 ≠ 1, yani 10 palindrom değil. Doğru.
 
 </details>
 
@@ -338,7 +338,7 @@ int main(void) {
 
 Neden `d * d <= n`? Ders 1.3'te gördük: bir sayının bir böleni varsa, karekökünden küçük ya da ona eşit bir böleni mutlaka vardır. 97'yi test etmek için 95 değil, sadece 8 sayı denememiz yetiyor.
 
-**Uç durum:** 1 asal değildir; fonksiyonun başındaki `n < 2` kontrolü bu yüzden var. Onu silersen döngü 1 için hiç çalışmaz ve fonksiyon 1'e "asal" der.
+**Edge case:** 1 asal değildir; fonksiyonun başındaki `n < 2` kontrolü bu yüzden var. Onu silersen döngü 1 için hiç çalışmaz ve fonksiyon 1'e "asal" der.
 
 </details>
 
@@ -599,7 +599,7 @@ Ders 1.1'deki **sonluluk** özelliğini hatırla: bir algoritma mutlaka bitmelid
 
 **Süre: 25 dakika**
 
-Bir sayının ikilik gösterimini yazdıran `void print_binary(int n)` fonksiyonunu yaz. **Dizi kullanma.**
+Bir sayının ikilik gösterimini yazdıran `void print_binary(int n)` fonksiyonunu yaz. **Array kullanma.**
 
 ```
 print_binary(13)  → 1101
@@ -608,7 +608,7 @@ print_binary(0)   → 0
 print_binary(1)   → 1
 ```
 
-Faz 0'daki bölme–kalan yöntemi bitleri **sağdan sola** üretiyordu: önce son bit, en sonda ilk bit. Ama ekrana soldan sağa yazmak zorundayız. Dizi kullanmadan bu sorunu nasıl çözersin?
+Faz 0'daki bölme–kalan yöntemi bitleri **sağdan sola** üretiyordu: önce son bit, en sonda ilk bit. Ama ekrana soldan sağa yazmak zorundayız. Array kullanmadan bu sorunu nasıl çözersin?
 
 <details>
 <summary>İpucu</summary>
@@ -666,7 +666,7 @@ int main(void) {
 
 Sonuç: **1101**. `power` 1'den sonra 1 / 2 = 0 olur ve döngü biter.
 
-**Uç durum:** 0 için ilk döngü hiç çalışmaz, `power` 1 kalır, ikinci döngü 0 ≥ 1 sorusuna "hayır" deyip `0` yazar. Bu durumda zaten doğru çalışıyor, ama fonksiyonun başında 0'ı ayrıca ele aldık: okuyan kişinin "0 için ne oluyor?" diye düşünmesine gerek kalmasın diye. Uç durumu açıkça yazmak, onu kodun içinde saklamaktan iyidir.
+**Edge case:** 0 için ilk döngü hiç çalışmaz, `power` 1 kalır, ikinci döngü 0 ≥ 1 sorusuna "hayır" deyip `0` yazar. Bu durumda zaten doğru çalışıyor, ama fonksiyonun başında 0'ı ayrıca ele aldık: okuyan kişinin "0 için ne oluyor?" diye düşünmesine gerek kalmasın diye. Edge case'i açıkça yazmak, onu kodun içinde saklamaktan iyidir.
 
 </details>
 
@@ -686,4 +686,4 @@ On problemin kaçını ipucuna bakmadan çözdün?
 - Jeff Atwood, *Why Can't Programmers.. Program?* (2007): FizzBuzz'ın ünlü olma hikâyesi.
 - Jeffrey Lagarias (ed.), *The Ultimate Challenge: The 3x+1 Problem* (2010): Collatz probleminin matematiği.
 
-**Sıradaki ders:** LLDB ile hata ayıklama. Elle tuttuğun iz tablosunu bilgisayara tutturmayı öğreneceğiz.
+**Sıradaki ders:** LLDB ile hata ayıklama. Elle tuttuğun trace table'ı bilgisayara tutturmayı öğreneceğiz.

@@ -1,6 +1,6 @@
 ---
 title: "1.1 Algoritma ve problem çözme"
-description: "Algoritmanın beş özelliği, problemi girdi ve çıktı olarak tanımlama, sözde kod ve Pólya'nın dört adımı."
+description: "Algoritmanın beş özelliği, problemi girdi ve çıktı olarak tanımlama, pseudocode ve Pólya'nın dört adımı."
 ---
 
 Bu derste de kod yazmıyoruz; kağıt ve kalem yeterli. Beş bölüm var:
@@ -8,7 +8,7 @@ Bu derste de kod yazmıyoruz; kağıt ve kalem yeterli. Beş bölüm var:
 1. Algoritma nedir?
 2. Bir algoritmanın beş özelliği
 3. Problemi tanımlamak: girdi, çıktı, koşul
-4. Sözde kod
+4. Pseudocode
 5. Problem çözmenin dört adımı
 
 Her bölümün sonunda alıştırmalar var. Cevaplar kapalı kutularda; önce kendin çöz.
@@ -122,7 +122,7 @@ Aşağıdaki talimat listelerinin her biri Knuth'un beş özelliğinden hangisin
 
 **2.3** **Geçerli.** n = 10 olduğu için "n sıfır olduğu sürece" koşulu en baştan yanlıştır; 2. adım hiç çalışmaz, 3. adım 10 yazar ve algoritma biter. Garip görünse de beş özelliğin hepsini taşır.
 
-**2.4** **Sonluluk** bozuk. n 10'dan başlayıp hep artar, hiçbir zaman 0 olmaz; algoritma bitmez. (Faz 0'daki 8 bit taşmasını hatırlarsan, gerçek bir bilgisayarda bu sayı bir gün "dönüp" 0'a gelebilir. Bunu Faz 3'te göreceğiz.)
+**2.4** **Sonluluk** bozuk. n 10'dan başlayıp hep artar, hiçbir zaman 0 olmaz; algoritma bitmez. (Faz 0'daki 8 bit overflow'unu hatırlarsan, gerçek bir bilgisayarda bu sayı bir gün "dönüp" 0'a gelebilir. Bunu Faz 3'te göreceğiz.)
 
 **2.5** **Sonluluk** ve **etkinlik** bozuk. 1/3 = 0,333…; basamaklar sonsuza kadar sürer, iş hiç bitmez.
 
@@ -153,11 +153,11 @@ Koşul kısmındaki "sıfırdan büyük" ifadesi süs değildir. Boy 0 girilirse
 
 n ≥ 1 koşulu neden var? Çünkü hiç sayı yoksa "en büyüğü" diye bir şey de yoktur. Boş liste, problemin tanımında baştan dışarıda bırakılmış olur.
 
-**Uç durumlar.** Sınırların hemen üstündeki ve altındaki girdilere **uç durum** denir: boş liste, tek elemanlı liste, sıfır, çok büyük sayı… Hataların çoğu buralarda saklanır. Problemi tanımlarken uç durumları da not et.
+**Edge case'ler (uç durumlar).** Sınırların hemen üstündeki ve altındaki girdilere **edge case** denir: boş liste, tek elemanlı liste, sıfır, çok büyük sayı… Hataların çoğu buralarda saklanır. Problemi tanımlarken edge case'leri de not et.
 
 ### Alıştırmalar
 
-Aşağıdaki problemlerin girdisini, çıktısını ve koşulunu yaz. En az bir uç durum belirt.
+Aşağıdaki problemlerin girdisini, çıktısını ve koşulunu yaz. En az bir edge case belirt.
 
 **3.1** İki tamsayıdan büyük olanı bulmak.
 
@@ -168,19 +168,19 @@ Aşağıdaki problemlerin girdisini, çıktısını ve koşulunu yaz. En az bir 
 <details>
 <summary>Cevaplar</summary>
 
-**3.1** Girdi: a ve b tamsayıları. Çıktı: a ile b'den büyük olanı. Koşul: çıktı a ≥ b ise a, değilse b. Uç durum: a = b. İkisi eşitse hangisini döndürdüğün fark etmez, ama tanımda bunu düşünmüş olmalısın.
+**3.1** Girdi: a ve b tamsayıları. Çıktı: a ile b'den büyük olanı. Koşul: çıktı a ≥ b ise a, değilse b. Edge case: a = b. İkisi eşitse hangisini döndürdüğün fark etmez, ama tanımda bunu düşünmüş olmalısın.
 
-**3.2** Girdi: yıl (pozitif tamsayı). Çıktı: "evet" ya da "hayır". Koşul: yıl 400'e bölünüyorsa evet; değilse ve 100'e bölünüyorsa hayır; değilse ve 4'e bölünüyorsa evet; hiçbiri değilse hayır. Uç durumlar: 1900 (4'e ve 100'e bölünür ama 400'e bölünmez → hayır), 2000 (400'e bölünür → evet).
+**3.2** Girdi: yıl (pozitif tamsayı). Çıktı: "evet" ya da "hayır". Koşul: yıl 400'e bölünüyorsa evet; değilse ve 100'e bölünüyorsa hayır; değilse ve 4'e bölünüyorsa evet; hiçbiri değilse hayır. Edge case'ler: 1900 (4'e ve 100'e bölünür ama 400'e bölünmez → hayır), 2000 (400'e bölünür → evet).
 
-**3.3** Girdi: n öğrencinin notları (her biri 0 ile 100 arasında). Çıktı: notların toplamının n'ye bölümü. Koşul: n ≥ 1. Uç durum: n = 0. Sınıfta hiç öğrenci yoksa sıfıra bölme olur; bu durumda ne yapılacağına önceden karar verilmelidir.
+**3.3** Girdi: n öğrencinin notları (her biri 0 ile 100 arasında). Çıktı: notların toplamının n'ye bölümü. Koşul: n ≥ 1. Edge case: n = 0. Sınıfta hiç öğrenci yoksa sıfıra bölme olur; bu durumda ne yapılacağına önceden karar verilmelidir.
 
 </details>
 
 ---
 
-## 4. Sözde kod
+## 4. Pseudocode
 
-Algoritmayı Türkçe cümlelerle yazmak hem uzun hem belirsizdir. Doğrudan bir programlama diliyle yazmak ise henüz erken. Arada bir yol var: **sözde kod**. Kurallı, kısa ve her adımı tek anlama gelen bir yazım.
+Algoritmayı Türkçe cümlelerle yazmak hem uzun hem belirsizdir. Doğrudan bir programlama diliyle yazmak ise henüz erken. Arada bir yol var: **pseudocode** (sözde kod). Kurallı, kısa ve her adımı tek anlama gelen bir yazım.
 
 Bu kitapta şu yazımı kullanacağız:
 
@@ -226,15 +226,15 @@ Girdi 4, 9, 2, 7 için adım adım:
 | 3 | 2 | hayır | 9 |
 | 4 | 7 | hayır | 9 |
 
-i = 5 olunca `i ≤ n` yanlış olur, döngü biter ve 9 döndürülür. Bu tür tablolara Faz 0'da *iz sürme tablosu* demiştik; Ders 1.3'te bu konuyu derinleştireceğiz.
+i = 5 olunca `i ≤ n` yanlış olur, döngü biter ve 9 döndürülür. Bu tür tablolara Faz 0'da *tracing tablosu* demiştik; Ders 1.3'te bu konuyu derinleştireceğiz.
 
 ### Alıştırmalar
 
-**4.1** Bir sayının çift mi tek mi olduğunu bulan sözde kodu yaz.
+**4.1** Bir sayının çift mi tek mi olduğunu bulan pseudocode'u yaz.
 
-**4.2** İki sayıdan büyüğünü döndüren sözde kodu yaz (Alıştırma 3.1).
+**4.2** İki sayıdan büyüğünü döndüren pseudocode'u yaz (Alıştırma 3.1).
 
-**4.3** Aşağıdaki sözde kod 5 girdisi için ne döndürür? Bu algoritma genel olarak ne hesaplıyor?
+**4.3** Aşağıdaki pseudocode 5 girdisi için ne döndürür? Bu algoritma genel olarak ne hesaplıyor?
 
 ```
 ALGORİTMA Gizem
@@ -300,7 +300,7 @@ Macar matematikçi George Pólya, *How to Solve It* kitabında problem çözmeyi
 1. **Problemi anla.** Girdi ne, çıktı ne, koşul ne? Birkaç örneği elle çöz.
 2. **Plan yap.** Daha önce benzer bir problem gördün mü? Problemi daha küçük parçalara bölebilir misin?
 3. **Planı uygula.** Algoritmayı adım adım yaz ve her adımı kontrol et.
-4. **Geriye bak.** Sonuç doğru mu? Uç durumlarda çalışıyor mu? Bu yöntem başka bir problemde de işe yarar mı?
+4. **Geriye bak.** Sonuç doğru mu? Edge case'lerde çalışıyor mu? Bu yöntem başka bir problemde de işe yarar mı?
 
 Çoğu kişi doğrudan 3. adıma atlar, 4. adımı da hiç yapmaz. Hataların büyük kısmı tam olarak bu iki boşluktan çıkar. Dört adımı bir örnek üzerinde tek tek uygulayalım.
 
@@ -340,11 +340,11 @@ DÖNDÜR sayaç
 
 n = 0 olunca döngü biter; sonuç 4. Doğru.
 
-**4. Geriye bak.** Uç durumları dene. n = 7 → bir bölmede 0 olur → 1. Doğru. Peki **n = 0**?
+**4. Geriye bak.** Edge case'leri dene. n = 7 → bir bölmede 0 olur → 1. Doğru. Peki **n = 0**?
 
 `n > 0` koşulu en baştan yanlış olduğu için döngü hiç çalışmaz ve algoritma **0** döndürür. Ama 0 sayısı bir basamaklıdır! Algoritmada bir hata bulduk ve bunu ancak 4. adım sayesinde gördük.
 
-Düzeltme: bölmeyi **önce bir kez yap**, sonra koşula bak. Sözde koddaki `TEKRARLA … OLANA KADAR` tam bunun için var:
+Düzeltme: bölmeyi **önce bir kez yap**, sonra koşula bak. Pseudocode'daki `TEKRARLA … OLANA KADAR` tam bunun için var:
 
 ```
 sayaç ← 0
@@ -402,7 +402,7 @@ DÖNDÜR birler
 
 **5.2** n = 0: döngü hiç çalışmaz, sonuç 0. Doğru, çünkü 0'da hiç 1 yoktur. Burada `OLDUĞU SÜRECE` döngüsü doğru seçimdir; BasamakSayısı'ndaki hata bu problemde ortaya çıkmaz. n = 255 = 11111111₂: sekiz bölmenin hepsinde kalan 1'dir, sonuç 8. Doğru.
 
-**5.3** Hayır. n ≥ 1 olan her sayı için döngü en az bir kez çalışır ve doğru sonucu verir; hata yalnızca n = 0'da ortaya çıkar. Bu yüzden uç durumlar ayrıca denenmelidir: "çoğu örnekte çalışıyor" demek "doğru" demek değildir.
+**5.3** Hayır. n ≥ 1 olan her sayı için döngü en az bir kez çalışır ve doğru sonucu verir; hata yalnızca n = 0'da ortaya çıkar. Bu yüzden edge case'ler ayrıca denenmelidir: "çoğu örnekte çalışıyor" demek "doğru" demek değildir.
 
 </details>
 

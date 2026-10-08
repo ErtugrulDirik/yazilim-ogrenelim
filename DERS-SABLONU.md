@@ -22,7 +22,7 @@ int main(void) {
 }
 ```
 
-## İz sürme
+## Tracing
 
 | Adım | i | toplam |
 | --- | --- | --- |

@@ -1,24 +1,24 @@
 ---
-title: "1.3 İz sürme ve durum makinesi"
-description: "Algoritmayı elle çalıştırmak, sonsuz döngüyü yakalamak, döngü değişmezi, durum makinesi ve Faz 1'in bitiş alıştırması."
+title: "1.3 Tracing ve state machine"
+description: "Algoritmayı elle çalıştırmak, sonsuz döngüyü yakalamak, loop invariant, state machine ve Faz 1'in bitiş alıştırması."
 ---
 
-Faz 1'in son dersi. İz tablolarını Ders 1.1 ve 1.2'de zaten kullandın; bu derste onları bir **araca** dönüştüreceğiz: bir algoritmanın doğru çalıştığını göstermek ve yanlış çalıştığında hatayı yakalamak için. Ardından yeni bir çizim türü göreceğiz: durum makinesi. En sonda da Faz 1'de öğrendiğin her şeyi bir arada kullanacağın iki problem var.
+Faz 1'in son dersi. Trace table'larını Ders 1.1 ve 1.2'de zaten kullandın; bu derste onları bir **araca** dönüştüreceğiz: bir algoritmanın doğru çalıştığını göstermek ve yanlış çalıştığında hatayı yakalamak için. Ardından yeni bir çizim türü göreceğiz: state machine. En sonda da Faz 1'de öğrendiğin her şeyi bir arada kullanacağın iki problem var.
 
 Kağıt ve kalem yeterli. Altı bölüm var:
 
-1. İz sürmenin kuralları
+1. Tracing'in kuralları
 2. Öklid algoritması
-3. İz sürerek hata bulmak
-4. Döngü değişmezi
-5. Durum makinesi
+3. Trace ederek hata bulmak
+4. Loop invariant
+5. State machine
 6. Faz alıştırması
 
 ---
 
-## 1. İz sürmenin kuralları
+## 1. Tracing'in kuralları
 
-**İz sürme**, bir algoritmayı bilgisayar yerine senin çalıştırmandır: her adımda değişkenlerin değerini bir tabloya yazarsın. Kulağa basit geliyor ama programcının elindeki en güçlü araçlardan biri. Faz 2'de LLDB adlı bir hata ayıklayıcıyla tanışacaksın; yaptığı iş, bu tabloyu senin yerine tutmaktan ibaret.
+**Tracing** (iz sürme), bir algoritmayı bilgisayar yerine senin çalıştırmandır: her adımda değişkenlerin değerini bir tabloya yazarsın. Kulağa basit geliyor ama programcının elindeki en güçlü araçlardan biri. Faz 2'de LLDB adlı bir debugger (hata ayıklayıcı) ile tanışacaksın; yaptığı iş, bu tabloyu senin yerine tutmaktan ibaret.
 
 Dört kural:
 
@@ -49,7 +49,7 @@ DÖNDÜR a
 
 ![Öklid algoritmasının akış diyagramı](../../../assets/faz-01/oklid.svg)
 
-**İz tablosu: a = 1071, b = 462**
+**Trace table: a = 1071, b = 462**
 
 | Tur | a | b | b ≠ 0? | r ← a mod b |
 | --- | --- | --- | --- | --- |
@@ -66,7 +66,7 @@ Sonuç: **21**. Sadece üç turda. Kontrol: 1071 = 21 × 51 ve 462 = 21 × 22.
 
 ### Alıştırmalar
 
-**2.1** EBOB(48, 18)'i iz tablosuyla bul.
+**2.1** EBOB(48, 18)'i trace table ile bul.
 
 **2.2** EBOB(18, 48)'i bul. Sayıların sırası ters olunca ne oldu?
 
@@ -94,7 +94,7 @@ EBOB = **6**.
 
 ---
 
-## 3. İz sürerek hata bulmak
+## 3. Trace ederek hata bulmak
 
 Aşağıdaki algoritma, 10'a kadar olan sayılar arasından 3'ün katlarını toplamak için yazılmış:
 
@@ -109,7 +109,7 @@ DÖNDÜR s
 
 ![Hatalı döngünün akış diyagramı](../../../assets/faz-01/hatali.svg)
 
-Bakınca doğru görünüyor. İz sürelim:
+Bakınca doğru görünüyor. Trace edelim:
 
 | Tur | i ≠ 10? | s | i |
 | --- | --- | --- | --- |
@@ -131,7 +131,7 @@ Tabloya bakmadan, sadece koda bakarak bu hatayı görmek zordur. Tabloda ise iki
 
 ### Alıştırma
 
-**3.1** Aşağıdaki algoritma 1'den n'e kadar toplamı hesaplamak için yazılmış ama bir hatası var. n = 3 için iz sür ve hatayı bul.
+**3.1** Aşağıdaki algoritma 1'den n'e kadar toplamı hesaplamak için yazılmış ama bir hatası var. n = 3 için trace et ve hatayı bul.
 
 ```
 s ← 0
@@ -158,17 +158,17 @@ i hiç değişmiyor! Döngü içinde `i ← i + 1` unutulmuş. i hep 1 kaldığ�
 
 ---
 
-## 4. Döngü değişmezi
+## 4. Loop invariant
 
-İz tablosu bir algoritmanın **bir girdi için** doğru çalıştığını gösterir. Peki **her girdi için** doğru çalıştığından nasıl emin oluruz? Sonsuz sayıda girdiyi tek tek deneyemeyiz.
+Trace table bir algoritmanın **bir girdi için** doğru çalıştığını gösterir. Peki **her girdi için** doğru çalıştığından nasıl emin oluruz? Sonsuz sayıda girdiyi tek tek deneyemeyiz.
 
-Bunun için **döngü değişmezi** kullanılır: döngünün her turunun başında **her zaman doğru** olan bir cümle.
+Bunun için **loop invariant** (döngü değişmezi) kullanılır: döngünün her turunun başında **her zaman doğru** olan bir cümle.
 
 Ders 1.2'deki 1'den n'e toplam algoritmasına geri dönelim. Değişmez şu:
 
 > Her turun başında, **s = 1 + 2 + … + (i − 1)**.
 
-n = 4 için iz tablosuna bakıp kontrol edelim:
+n = 4 için trace table'a bakıp kontrol edelim:
 
 | i | s | 1 + … + (i − 1) | Doğru mu? |
 | --- | --- | --- | --- |
@@ -184,11 +184,11 @@ Ama bu yine sadece n = 4. Asıl güç, değişmezin **üç adımda** her n için
 2. **Her tur onu korur:** Tur başında s = 1 + … + (i − 1) ise, turda s'ye i eklenir ve i bir artar. Yeni s = 1 + … + i olur; yeni i ile yazınca bu yine 1 + … + (i − 1) demektir. ✓
 3. **Çıkışta istediğimizi verir:** Döngü i = n + 1 olunca biter. Değişmeze göre s = 1 + … + n. Tam olarak istediğimiz. ✓
 
-Bu üç adım, algoritmanın **her n için** doğru olduğunun ispatıdır. Şimdilik bu kadarı yeter; döngü değişmezini Faz 6'da tümevarım ile, Faz 8 ve 9'da veri yapıları ve algoritmalarda çok kullanacağız.
+Bu üç adım, algoritmanın **her n için** doğru olduğunun ispatıdır. Şimdilik bu kadarı yeter; loop invariant'ı Faz 6'da tümevarım ile, Faz 8 ve 9'da veri yapıları ve algoritmalarda çok kullanacağız.
 
 ### Alıştırmalar
 
-**4.1** Ders 1.2'deki faktöriyel algoritmasının döngü değişmezini yaz.
+**4.1** Ders 1.2'deki faktöriyel algoritmasının loop invariant'ı yaz.
 
 **4.2** Öklid algoritmasında her turda değişmeyen şey ne? (İpucu: Bölüm 2'deki "Neden çalışıyor?" kısmına bak.)
 
@@ -203,9 +203,9 @@ Bu üç adım, algoritmanın **her n için** doğru olduğunun ispatıdır. Şim
 
 ---
 
-## 5. Durum makinesi
+## 5. State machine
 
-Şimdiye kadar çizdiğimiz diyagramlar bir hesap yapıp bitiyordu. Bazı sistemler ise hiç bitmez; sürekli **olay** bekler ve her olaya, o an **hangi durumda** olduğuna göre farklı tepki verir. Bunları anlatmanın yolu **durum makinesi**dir.
+Şimdiye kadar çizdiğimiz diyagramlar bir hesap yapıp bitiyordu. Bazı sistemler ise hiç bitmez; sürekli **olay** bekler ve her olaya, o an **hangi durumda** olduğuna göre farklı tepki verir. Bunları anlatmanın yolu **state machine**'dir (durum makinesi).
 
 **Örnek: metro turnikesi.** Turnikenin iki durumu var: **Kilitli** ve **Açık**. İki olay olabilir: **jeton** atılır ya da kola **it**ilir.
 
@@ -225,7 +225,7 @@ Aynı bilgi bir **geçiş tablosu** olarak da yazılabilir:
 | **Kilitli** | Açık | Kilitli |
 | **Açık** | Açık | Kilitli |
 
-Durum makinesinde iz sürmek, tabloda satır satır ilerlemektir. Olaylar: jeton, it, it, jeton, jeton, it.
+State machine'de trace etmek, tabloda satır satır ilerlemektir. Olaylar: jeton, it, it, jeton, jeton, it.
 
 | Adım | Olay | Önceki durum | Sonraki durum |
 | --- | --- | --- | --- |
@@ -236,13 +236,13 @@ Durum makinesinde iz sürmek, tabloda satır satır ilerlemektir. Olaylar: jeton
 | 5 | jeton | Açık | Açık |
 | 6 | it | Açık | Kilitli |
 
-**Neden önemli?** Etrafındaki pek çok sistem aslında bir durum makinesi: trafik ışığı, asansör, çamaşır makinesi, bir oyundaki karakterin "yürüyor / zıplıyor / düşüyor" halleri. Metni harf harf okuyup "bu geçerli bir sayı mı?" diye karar veren programlar da öyle. Aşağıdaki ikinci alıştırma tam olarak bunu yapıyor. Durum makinesi ilerideki fazlarda en sık geri döneceğimiz fikirlerden biri.
+**Neden önemli?** Etrafındaki pek çok sistem aslında bir state machine: trafik ışığı, asansör, çamaşır makinesi, bir oyundaki karakterin "yürüyor / zıplıyor / düşüyor" halleri. Metni harf harf okuyup "bu geçerli bir sayı mı?" diye karar veren programlar da öyle. Aşağıdaki ikinci alıştırma tam olarak bunu yapıyor. State machine ilerideki fazlarda en sık geri döneceğimiz fikirlerden biri.
 
 ### Alıştırmalar
 
-**5.1** Bir trafik ışığının durum makinesini çiz. Durumlar: Kırmızı, Yeşil, Sarı. Tek olay var: "süre doldu". Işık kırmızıdan yeşile, yeşilden sarıya, sarıdan kırmızıya geçer. Geçiş tablosunu da yaz.
+**5.1** Bir trafik ışığının state machine'i çiz. Durumlar: Kırmızı, Yeşil, Sarı. Tek olay var: "süre doldu". Işık kırmızıdan yeşile, yeşilden sarıya, sarıdan kırmızıya geçer. Geçiş tablosunu da yaz.
 
-**5.2** Aşağıdaki durum makinesi, bir metnin **geçerli bir tamsayı** olup olmadığına karar veriyor. Metin soldan sağa, karakter karakter okunur; her karakter bir olaydır. Başlangıç durumu **Başla**. Metin bittiğinde makine **Sayı** durumundaysa metin geçerlidir, değilse geçersizdir.
+**5.2** Aşağıdaki state machine, bir metnin **geçerli bir tamsayı** olup olmadığına karar veriyor. Metin soldan sağa, karakter karakter okunur; her karakter bir olaydır. Başlangıç durumu **Başla**. Metin bittiğinde makine **Sayı** durumundaysa metin geçerlidir, değilse geçersizdir.
 
 | Şu anki durum | `-` | rakam (0–9) | başka karakter |
 | --- | --- | --- | --- |
@@ -251,7 +251,7 @@ Durum makinesinde iz sürmek, tabloda satır satır ilerlemektir. Olaylar: jeton
 | **Sayı** | Hata | Sayı | Hata |
 | **Hata** | Hata | Hata | Hata |
 
-Şu metinlerin her biri için iz sür: `-42`, `007`, `4-2`, `-`, ve hiç karakteri olmayan boş metin. Hangileri geçerli?
+Şu metinlerin her biri için trace et: `-42`, `007`, `4-2`, `-`, ve hiç karakteri olmayan boş metin. Hangileri geçerli?
 
 <details>
 <summary>Cevaplar</summary>
@@ -282,7 +282,7 @@ Faz 2'de klavyeden sayı okuyan fonksiyonu sıfırdan yazarken bu tabloyu hatır
 
 ## 6. Faz alıştırması
 
-Faz 1'in sonuna geldin. Şimdi öğrendiğin her şeyi bir arada kullanma zamanı: problemi tanımla, sözde kodunu yaz, akış diyagramını çiz ve iz sürerek dene. Uç durumları unutma.
+Faz 1'in sonuna geldin. Şimdi öğrendiğin her şeyi bir arada kullanma zamanı: problemi tanımla, pseudocode'unu yaz, akış diyagramını çiz ve trace ederek dene. Edge case'leri unutma.
 
 **Önce kendin çöz.** Çözümler aşağıdaki kutularda; ama bu sefer kutuyu açmadan önce gerçekten uğraş. Takılırsan Pólya'nın dört adımına geri dön.
 
@@ -346,12 +346,12 @@ Diyagramda yeni bir şey var: döngünün **içinden** dışarı çıkan bir yol
 
 Hiç bölen bulunamadı: **asal**. 95 sayı yerine sadece 8 sayı denedik.
 
-**Geriye bak.** Uç durumlar:
+**Geriye bak.** Edge case'ler:
 
 - n = 2: 2 × 2 = 4 ≤ 2? Hayır. Döngü hiç çalışmaz: **asal**. Doğru.
 - n = 4: 4 ≤ 4? **Evet**. 4 mod 2 = 0: **asal değil**. Doğru.
 
-n = 4'e dikkat: koşulu `d × d < n` diye yazsaydık, 4 < 4 hayır olurdu ve algoritma 4'e "asal" derdi! `≤` ile `<` arasındaki tek karakterlik fark, yanlış bir sonuç demek. Sınırları her zaman uç durumlarla dene.
+n = 4'e dikkat: koşulu `d × d < n` diye yazsaydık, 4 < 4 hayır olurdu ve algoritma 4'e "asal" derdi! `≤` ile `<` arasındaki tek karakterlik fark, yanlış bir sonuç demek. Sınırları her zaman edge case'lerle dene.
 
 </details>
 
@@ -390,9 +390,9 @@ DÖNDÜR t
 
 Sonuç: **10**.
 
-**Geriye bak.** n = 0 için döngü hiç çalışmaz ve t = 0 döner. 0'ın basamak toplamı gerçekten 0, yani burada `OLDUĞU SÜRECE` doğru seçim. BasamakSayısı'nda aynı döngü n = 0'da hata vermişti, burada vermiyor. Aynı yapı bir problemde doğru, öbüründe yanlış olabilir; bu yüzden her problemin uç durumu ayrıca denenir.
+**Geriye bak.** n = 0 için döngü hiç çalışmaz ve t = 0 döner. 0'ın basamak toplamı gerçekten 0, yani burada `OLDUĞU SÜRECE` doğru seçim. BasamakSayısı'nda aynı döngü n = 0'da hata vermişti, burada vermiyor. Aynı yapı bir problemde doğru, öbüründe yanlış olabilir; bu yüzden her problemin edge case'i ayrıca denenir.
 
-**Döngü değişmezi** (meraklısı için): her turun başında, t + (n'nin basamak toplamı) = (ilk sayının basamak toplamı). n = 0 olunca t, aradığımız sonuçtur.
+**Loop invariant** (meraklısı için): her turun başında, t + (n'nin basamak toplamı) = (ilk sayının basamak toplamı). n = 0 olunca t, aradığımız sonuçtur.
 
 </details>
 
@@ -400,14 +400,14 @@ Sonuç: **10**.
 
 ## Faz 1 bitti
 
-Artık bir problemi tanımlayabiliyor, algoritmasını sözde kodla yazabiliyor, akış diyagramını çizebiliyor ve iz sürerek doğruluğunu sınayabiliyorsun. Hata bulmayı, döngü değişmezini ve durum makinesini de gördün.
+Artık bir problemi tanımlayabiliyor, algoritmasını pseudocode ile yazabiliyor, akış diyagramını çizebiliyor ve trace ederek doğruluğunu sınayabiliyorsun. Hata bulmayı, loop invariant'ı ve state machine'i de gördün.
 
 Bu fazda tek satır kod yazmadık. Ama Faz 2'ye geçtiğinde göreceksin: çizdiğin her diyagram, C'de birkaç satıra dönüşecek. Zor kısım, yani **düşünmek**, burada yapıldı.
 
 ## Kaynaklar
 
 - Öklid, *Elemanlar*, Kitap VII, Önerme 1–2: Öklid algoritmasının ilk yazılı hali.
-- Donald Knuth, *The Art of Computer Programming*, Cilt 1 (3. baskı), §1.1: Öklid algoritması ve iz sürme; §1.2.1: tümevarım ve algoritmaların doğruluğu.
+- Donald Knuth, *The Art of Computer Programming*, Cilt 1 (3. baskı), §1.1: Öklid algoritması ve tracing; §1.2.1: tümevarım ve algoritmaların doğruluğu.
 - George Pólya, *How to Solve It*: problem çözmenin dört adımı.
 
 **Sıradaki faz:** C'ye giriş. İlk programını yazıp derleyeceksin.

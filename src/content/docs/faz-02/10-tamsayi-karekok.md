@@ -1,6 +1,6 @@
 ---
 title: "2.10 Tamsayı karekök"
-description: "Karekökü sadece tamsayılarla bulmanın üç yolu: tek tek denemek, ikili arama ve Newton yöntemi; taşmadan korunmak, yakınsamayı iz tablosuyla izlemek ve yöntemleri birbiriyle test etmek."
+description: "Karekökü sadece tamsayılarla bulmanın üç yolu: tek tek denemek, binary search ve Newton yöntemi; overflow'dan korunmak, yakınsamayı trace table ile izlemek ve yöntemleri birbiriyle test etmek."
 ---
 
 Bu derste tek bir problemi üç farklı yolla çözeceğiz: **bir sayının karekökünü, sadece tamsayılarla bulmak.**
@@ -36,13 +36,13 @@ int isqrt_naive(int n) {
 
 Koşulda bir incelik var. Asıl sormak istediğimiz soru "(r + 1)² ≤ n mi?". Neden `(r + 1) * (r + 1) <= n` yazmadık?
 
-Çünkü çok büyük bir `n` için `(r + 1) * (r + 1)` bir `int`'e **sığmayabilir**. `int`'in alabileceği en büyük değer 2.147.483.647, karekökü yaklaşık 46.340. 46.341² ise bu sınırı aşar ve taşar (Ders 2.8'deki 13! gibi). Aynı soruyu çarpma yerine bölmeyle sorabiliriz: "(r + 1) ≤ n / (r + 1) mi?" Bölme sayıyı küçültür, hiçbir zaman taşmaz. Bu küçük hileyi ders boyunca kullanacağız.
+Çünkü çok büyük bir `n` için `(r + 1) * (r + 1)` bir `int`'e **sığmayabilir**. `int`'in alabileceği en büyük değer 2.147.483.647, karekökü yaklaşık 46.340. 46.341² ise bu sınırı aşar: overflow olur (Ders 2.8'deki 13! gibi). Aynı soruyu çarpma yerine bölmeyle sorabiliriz: "(r + 1) ≤ n / (r + 1) mi?" Bölme sayıyı küçültür, hiçbir zaman overflow olmaz. Bu küçük hileyi ders boyunca kullanacağız.
 
 `n` için yaklaşık √n adım atıyor: n = 1.000.000 için 1.000 adım. Daha iyisini yapabilir miyiz?
 
 ---
 
-## 2. İkili arama
+## 2. Binary search
 
 Ders 1.1'deki tahmin oyununu hatırla: biri 1 ile 1.000.000 arasında bir sayı tutuyor, sen "büyük mü, küçük mü?" diye soruyorsun. Her soruyla ihtimalleri **yarıya** indirirsen en fazla 20 soruda bulursun.
 
@@ -51,7 +51,7 @@ Karekök de bir tahmin oyunu. Bir aday `mid` seçip "mid² ≤ n mi?" diye soruy
 - **Evet** ise cevap `mid` ya da daha büyük bir sayı.
 - **Hayır** ise cevap `mid`'den küçük.
 
-Her soruda aramayı aralığın yarısına daraltıyoruz. Buna **ikili arama** (binary search) denir.
+Her soruda aramayı aralığın yarısına daraltıyoruz. Buna **binary search** (ikili arama) denir.
 
 ```c
 int isqrt_binary(int n) {
@@ -73,7 +73,7 @@ int isqrt_binary(int n) {
 
 **n = 50 için iz:**
 
-![n = 50 için ikili aramayla karekök: her adımda aralık yarıya iniyor](../../../assets/faz-02/ikili-arama.svg)
+![n = 50 için binary search ile karekök: her adımda aralık yarıya iniyor](../../../assets/faz-02/ikili-arama.svg)
 
 | Adım | `low` | `high` | `mid` | mid² ≤ 50? | Yeni aralık |
 | --- | --- | --- | --- | --- | --- |
@@ -85,13 +85,13 @@ int isqrt_binary(int n) {
 
 Aralık 7–7'ye daraldı: cevap **7**.
 
-Kodun üç inceliği var. Hepsi bir uç durumdan ya da taşmadan korunmak için:
+Kodun üç inceliği var. Hepsi bir edge case'den ya da overflow'dan korunmak için:
 
-- **`high = n / 2 + 1`:** Neden üst sınır `n` değil? ⌊√n⌋ hiçbir zaman `n / 2 + 1`'i geçmez (16 için: 4 ≤ 9). Daha dar bir aralıkla başlamak bir adım kazandırır. Daha önemlisi, `n` çok büyükken `high - low + 1` gibi ara hesapların taşmasını önler.
-- **`mid <= n / mid`:** Bölüm 1'deki bölme hilesi, `mid * mid`'in taşmaması için.
+- **`high = n / 2 + 1`:** Neden üst sınır `n` değil? ⌊√n⌋ hiçbir zaman `n / 2 + 1`'i geçmez (16 için: 4 ≤ 9). Daha dar bir aralıkla başlamak bir adım kazandırır. Daha önemlisi, `n` çok büyükken `high - low + 1` gibi ara hesapların overflow olmasını önler.
+- **`mid <= n / mid`:** Bölüm 1'deki bölme hilesi, `mid * mid`'in overflow olmaması için.
 - **`(high - low + 1) / 2`'deki `+ 1`:** `mid`'i aralığın ortasının **yukarısına** yuvarlar. Bunu yapmasaydık, `low = 7` ve `high = 8` olduğunda `mid` 7 çıkardı. Cevap "evet" olunca `low = mid = 7` olur ve aralık **hiç daralmazdı**: sonsuz döngü. Yukarı yuvarlamak, `mid`'in her zaman `low`'dan büyük olmasını sağlıyor. Bir yan faydası daha var: `mid` hiçbir zaman 0 olmadığı için `n / mid`'de sıfıra bölme olmuyor.
 
-İkili aramanın adım sayısı, aralığın kaç kez yarıya bölünebileceğine eşittir: yaklaşık n'nin **bit sayısı** kadar. Ders 2.9'daki hızlı üs alma gibi.
+Binary search'ün adım sayısı, aralığın kaç kez yarıya bölünebileceğine eşittir: yaklaşık n'nin **bit sayısı** kadar. Ders 2.9'daki hızlı üs alma gibi.
 
 ---
 
@@ -129,7 +129,7 @@ int isqrt_newton(int n) {
 }
 ```
 
-- `x`, büyük bir tahminle başlıyor: `n / 2 + 1`. Newton yöntemi, cevaptan **büyük** bir tahminle başlarsa her adımda küçülerek cevaba iner. Neden `n` değil? `n + n / n` hesabı, `n` en büyük `int` olduğunda taşar.
+- `x`, büyük bir tahminle başlıyor: `n / 2 + 1`. Newton yöntemi, cevaptan **büyük** bir tahminle başlarsa her adımda küçülerek cevaba iner. Neden `n` değil? `n + n / n` hesabı, `n` en büyük `int` olduğunda overflow olur.
 - Döngü, yeni tahmin `y` eskisinden küçük olduğu sürece devam ediyor. Tahmin artık küçülmüyorsa cevaba ulaştık.
 - 0 ve 1'in karekökü kendisidir; `n / x`'te sıfıra bölmemek için onları baştan ayırdık.
 
@@ -163,18 +163,18 @@ Newton yönteminin neden bu kadar hızlı çalıştığının matematiğini Faz 
 
 Üç yöntemin adım sayılarını ölçtük. Ders 2.9'daki gibi döngünün her turunda artan bir sayaçla:
 
-| n | ⌊√n⌋ | Tek tek | İkili arama | Newton |
+| n | ⌊√n⌋ | Tek tek | Binary search | Newton |
 | --- | --- | --- | --- | --- |
 | 50 | 7 | 7 | 5 | 3 |
 | 10.000 | 100 | 100 | 13 | 8 |
 | 1.000.000 | 1.000 | 1.000 | 19 | 11 |
 | 2.147.483.647 | 46.340 | 46.340 | 30 | 18 |
 
-Son satır `int`'in alabileceği en büyük değer. Tek tek deneme 46 bin adım atarken ikili arama 30, Newton 18 adımda bitiyor. Ders 2.9'daki tabloyu hatırla:
+Son satır `int`'in alabileceği en büyük değer. Tek tek deneme 46 bin adım atarken binary search 30, Newton 18 adımda bitiyor. Ders 2.9'daki tabloyu hatırla:
 
 - **Tek tek deneme:** adım sayısı √n ile büyüyor.
-- **İkili arama:** n'nin bit sayısıyla büyüyor.
-- **Newton:** cevaba yaklaşınca ikili aramadan bile hızlı.
+- **Binary search:** n'nin bit sayısıyla büyüyor.
+- **Newton:** cevaba yaklaşınca binary search'ten bile hızlı.
 
 ---
 
@@ -182,7 +182,7 @@ Son satır `int`'in alabileceği en büyük değer. Tek tek deneme 46 bin adım 
 
 Üç farklı fonksiyon yazdık. Hepsinin **gerçekten** doğru çalıştığından nasıl emin olabiliriz?
 
-Birkaç örnekle denemek yetmez: Ders 1.3'te gördük, hatalar uç durumlarda saklanır. İyi bir yol, **en basit ve en güvendiğin** yöntemi bir referans olarak kullanıp diğerlerini onunla karşılaştırmaktır. Tek tek deneme yavaş ama o kadar basit ki yanlış olması zor. Onu "doğru cevap" kabul edip binlerce sayı için diğerleriyle karşılaştırabiliriz:
+Birkaç örnekle denemek yetmez: Ders 1.3'te gördük, hatalar edge case'lerde saklanır. İyi bir yol, **en basit ve en güvendiğin** yöntemi bir referans olarak kullanıp diğerlerini onunla karşılaştırmaktır. Tek tek deneme yavaş ama o kadar basit ki yanlış olması zor. Onu "doğru cevap" kabul edip binlerce sayı için diğerleriyle karşılaştırabiliriz:
 
 ```c
 int errors = 0;
@@ -206,13 +206,13 @@ printf("%d hata bulundu.\n", errors);
 
 ## Alıştırmalar
 
-Alıştırmalarda `isqrt` dediğimiz yerde ikili arama sürümünü kullanabilirsin.
+Alıştırmalarda `isqrt` dediğimiz yerde binary search sürümünü kullanabilirsin.
 
 **1. Tam kare mi?** Bir sayının tam kare olup olmadığını döndüren `int is_perfect_square(int n)` fonksiyonunu yaz. 49 → 1, 50 → 0, 0 → 1, 1 → 1.
 
 **2. Pisagor üçlüleri.** a² + b² = c² eşitliğini sağlayan tamsayılara **Pisagor üçlüsü** denir: (3, 4, 5) gibi. a ≤ b olacak şekilde, c'si 30'u geçmeyen bütün üçlüleri bul. (İpucu: a ve b için iki döngü kur; c'yi `isqrt` ile bul ve gerçekten tam kare olup olmadığını kontrol et.)
 
-**3. Küp kök.** ⌊∛n⌋'yi, yani küpü n'yi geçmeyen en büyük tamsayıyı bulan `int icbrt(int n)` fonksiyonunu ikili aramayla yaz. 1000 → 10, 999 → 9. Taşmaya dikkat et.
+**3. Küp kök.** ⌊∛n⌋'yi, yani küpü n'yi geçmeyen en büyük tamsayıyı bulan `int icbrt(int n)` fonksiyonunu binary search ile yaz. 1000 → 10, 999 → 9. Taşmaya dikkat et.
 
 **4. Gizli hata.** Ders 2.9'daki asal testini `int`'in en büyük değeri olan 2.147.483.647 ile dene. Bu sayı asaldır. Programın ne diyor? Neden? `isqrt` kullanarak düzelt.
 
@@ -226,7 +226,7 @@ int is_perfect_square(int n) {
     return r * r == n;
 }
 ```
-⌊√n⌋'nin karesi n'ye eşitse n tam karedir. Burada `r * r` taşmaz, çünkü `r * r ≤ n` olduğunu zaten biliyoruz.
+⌊√n⌋'nin karesi n'ye eşitse n tam karedir. Burada `r * r` overflow olmaz, çünkü `r * r ≤ n` olduğunu zaten biliyoruz.
 
 **2.**
 ```c
@@ -261,13 +261,13 @@ int icbrt(int n) {
     return low;
 }
 ```
-Karekökteki ikili aramanın aynısı; değişen tek şey soru: "mid³ ≤ n mi?" Bunu `mid * mid * mid <= n` diye sorsaydık, büyük `mid` değerlerinde çarpım taşardı. İki kez bölerek aynı soruyu taşmadan soruyoruz. `icbrt(2147483647)` → 1290.
+Karekökteki binary search'ün aynısı; değişen tek şey soru: "mid³ ≤ n mi?" Bunu `mid * mid * mid <= n` diye sorsaydık, büyük `mid` değerlerinde çarpım overflow olurdu. İki kez bölerek aynı soruyu overflow olmadan soruyoruz. `icbrt(2147483647)` → 1290.
 
 **4.** Program 2.147.483.647'nin asal **olmadığını** söyler. Yanlış!
 
-Sebep, döngünün koşulu `d * d <= n`. `d` 46.341'e ulaştığında `d * d` = 2.147.488.281 olur ve bu `int`'e sığmaz. Taşan bir çarpımın sonucu belirsizdir: C, bu durumda programın ne yapacağı konusunda hiçbir söz vermez. Bizim denememizde döngü durması gereken yerde durmadı, `d` büyümeye devam etti ve program sonunda yanlışlıkla bir bölen bulduğunu sandı. Başka bir derleyicide ya da başka bir ayarla bambaşka bir şey olabilirdi.
+Sebep, döngünün koşulu `d * d <= n`. `d` 46.341'e ulaştığında `d * d` = 2.147.488.281 olur ve bu `int`'e sığmaz. Overflow olan bir çarpımın sonucu belirsizdir: C, bu durumda programın ne yapacağı konusunda hiçbir söz vermez. Bizim denememizde döngü durması gereken yerde durmadı, `d` büyümeye devam etti ve program sonunda yanlışlıkla bir bölen bulduğunu sandı. Başka bir compiler'da ya da başka bir ayarla bambaşka bir şey olabilirdi.
 
-Bu hata, `d * d`'nin taşabildiği tek bölgede ortaya çıkıyor: 46.340² = 2.147.395.600'den büyük sayılarda. Daha küçük her sayı için önceki derslerdeki asal testleri doğru çalışıyor. Ama işte uç durumların tehlikesi: bir fonksiyonun **neredeyse her** girdide doğru çalışması, doğru olduğu anlamına gelmez.
+Bu hata, `d * d`'nin overflow olabildiği tek bölgede ortaya çıkıyor: 46.340² = 2.147.395.600'den büyük sayılarda. Daha küçük her sayı için önceki derslerdeki asal testleri doğru çalışıyor. Ama işte edge case'lerin tehlikesi: bir fonksiyonun **neredeyse her** girdide doğru çalışması, doğru olduğu anlamına gelmez.
 
 Düzeltme: karekökü bir kez, baştan hesapla ve döngüyü onunla sınırla:
 
@@ -289,9 +289,9 @@ int is_prime(int n) {
 }
 ```
 
-Artık hiçbir çarpma yok, dolayısıyla taşma da yok. Bir faydası daha var: `d * d`'yi her turda hesaplamak yerine sınırı bir kez hesaplıyoruz.
+Artık hiçbir çarpma yok, dolayısıyla overflow da yok. Bir faydası daha var: `d * d`'yi her turda hesaplamak yerine sınırı bir kez hesaplıyoruz.
 
-Bu hatayı nasıl yakaladık? clang'in `-fsanitize=undefined` adlı bir ayarı, program çalışırken taşmayı tespit edip uyarıyor: `runtime error: signed integer overflow: 46341 * 46341 cannot be represented in type 'int'`. Bu aracı ve taşmanın neden bu kadar tehlikeli olduğunu Ders 2.14'te ayrıntısıyla göreceğiz.
+Bu hatayı nasıl yakaladık? clang'in `-fsanitize=undefined` adlı bir ayarı, program çalışırken overflow'u tespit edip uyarıyor: `runtime error: signed integer overflow: 46341 * 46341 cannot be represented in type 'int'`. Bu aracı ve overflow'un neden bu kadar tehlikeli olduğunu Ders 2.14'te ayrıntısıyla göreceğiz.
 
 </details>
 
@@ -299,7 +299,7 @@ Bu hatayı nasıl yakaladık? clang'in `-fsanitize=undefined` adlı bir ayarı, 
 
 ## Kaynaklar
 
-- Donald Knuth, *The Art of Computer Programming*, Cilt 3 (2. baskı), §6.2.1: ikili arama ve ünlü uç durum hataları.
+- Donald Knuth, *The Art of Computer Programming*, Cilt 3 (2. baskı), §6.2.1: binary search ve ünlü edge case hataları.
 - Henry S. Warren, *Hacker's Delight* (2. baskı), Bölüm 11: tamsayı karekök ve küp kök (Faz 5'te bu kitaba tekrar döneceğiz).
 
 **Sıradaki ders:** `printf` olmadan sayı yazdırma. Ders 2.8'deki `print_in_order` fikrinden yola çıkıp kendi `print_int` fonksiyonumuzu yazacağız.

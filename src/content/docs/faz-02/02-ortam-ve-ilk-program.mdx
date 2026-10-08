@@ -11,8 +11,8 @@ Her programlama yolculuğu aynı cümleyle başlar: **Hello, world!** Bu derste 
 
 ## 1. Neye ihtiyacın var?
 
-- **clang:** C kodunu çalıştırılabilir programa çeviren **derleyici**. LLVM adlı büyük bir derleyici projesinin parçasıdır.
-- **LLDB:** Yine LLVM projesinden. Programı adım adım çalıştırıp her adımda değişkenlerin değerine bakmanı sağlayan **hata ayıklayıcı**. Faz 1'deki iz tablosunun dijital hali; Ders 2.6'da ayrıntısıyla kullanacağız.
+- **clang:** C kodunu çalıştırılabilir programa çeviren **compiler**. LLVM adlı büyük bir compiler projesinin parçasıdır.
+- **LLDB:** Yine LLVM projesinden. Programı adım adım çalıştırıp her adımda değişkenlerin değerine bakmanı sağlayan **debugger**. Faz 1'deki trace table'ın dijital hali; Ders 2.6'da ayrıntısıyla kullanacağız.
 - **VS Code:** Kodu yazacağın **editör**. Ücretsiz, her işletim sisteminde çalışır; derleme ve hata ayıklamayı tek tuşa bağlayacağız.
 
 ---
@@ -21,11 +21,11 @@ Her programlama yolculuğu aynı cümleyle başlar: **Hello, world!** Bu derste 
 
 <Tabs>
   <TabItem label="Linux">
-    **1. Derleyici ve hata ayıklayıcı.** Ubuntu ya da Debian kullanıyorsan terminalde:
+    **1. Compiler ve debugger.** Ubuntu ya da Debian kullanıyorsan terminalde:
 
     ```sh
     sudo apt update
-    sudo apt install clang lldb curl
+    sudo apt install clang lldb curl make
     ```
 
     **2. VS Code.** [code.visualstudio.com](https://code.visualstudio.com) adresinden `.deb` paketini indirip çift tıklayarak kur.
@@ -41,11 +41,11 @@ Her programlama yolculuğu aynı cümleyle başlar: **Hello, world!** Bu derste 
 
     Bilgisayarı yeniden başlat. Başlat menüsünde çıkan **Ubuntu**'yu aç, bir kullanıcı adı ve parola belirle.
 
-    **2. Derleyici ve hata ayıklayıcı.** Ubuntu penceresinde:
+    **2. Compiler ve debugger.** Ubuntu penceresinde:
 
     ```sh
     sudo apt update
-    sudo apt install clang lldb curl
+    sudo apt install clang lldb curl make
     ```
 
     **3. VS Code.** [code.visualstudio.com](https://code.visualstudio.com) adresinden **Windows** sürümünü indirip kur. Ardından VS Code'da sol kenardaki Eklentiler simgesine (`Ctrl+Shift+X`) tıkla ve **WSL** eklentisini (Microsoft) kur. Bu eklenti, VS Code'un Windows'ta açılıp Ubuntu'nun içinde çalışmasını sağlar.
@@ -53,7 +53,7 @@ Her programlama yolculuğu aynı cümleyle başlar: **Hello, world!** Bu derste 
     Bu kitaptaki bütün terminal komutlarını **Ubuntu penceresinde** ya da VS Code'un WSL'e bağlı terminalinde yazacaksın.
   </TabItem>
   <TabItem label="macOS">
-    **1. Derleyici ve hata ayıklayıcı.** Terminalde:
+    **1. Compiler ve debugger.** Terminalde:
 
     ```sh
     xcode-select --install
@@ -117,7 +117,7 @@ yazilim-ogrenelim/
     └── hello.c          ← senin kodun
 ```
 
-`build` klasörünü istediğin zaman silebilirsin; bir sonraki derlemede yeniden oluşur. (macOS'ta programın yanında bir de `hello.dSYM` klasörü görürsün; hata ayıklayıcının kullandığı bilgiler orada durur.)
+`build` klasörünü istediğin zaman silebilirsin; bir sonraki derlemede yeniden oluşur. (macOS'ta programın yanında bir de `hello.dSYM` klasörü görürsün; debugger'ın kullandığı bilgiler orada durur.)
 
 <details class="bilgi">
 <summary>Ayar dosyalarının içinde ne var?</summary>
@@ -161,7 +161,7 @@ yazilim-ogrenelim/
 | Bayrak | Anlamı | Neden? |
 | --- | --- | --- |
 | `-std=c17` | C17 standardına göre derle | Herkesin aynı kurallarla çalışması için. C17, C99 ve C11'in bütün özelliklerini içerir. |
-| `-Wall -Wextra` | Bütün önemli uyarıları aç | Derleyici şüpheli gördüğü her yeri söyler. **Uyarıları hata gibi ciddiye al.** Çoğu hata, önce bir uyarı olarak belirir. |
+| `-Wall -Wextra` | Bütün önemli uyarıları aç | Compiler şüpheli gördüğü her yeri söyler. **Uyarıları hata gibi ciddiye al.** Çoğu hata, önce bir uyarı olarak belirir. |
 | `-g` | Hata ayıklama bilgisi ekle | LLDB'nin satır numaralarını ve değişken adlarını tanıması için |
 | `-o build/…` | Çıktıyı `build` klasörüne yaz | Kaynak kodla derlenmiş program birbirine karışmasın diye |
 
@@ -190,9 +190,9 @@ Hello, world!
 
 İlk C programın çalıştı. Satır satır ne olduğuna bakalım:
 
-- `#include <stdio.h>`: `printf`'in nerede tanımlandığını derleyiciye söyler. `stdio`, "standart girdi/çıktı" demektir.
+- `#include <stdio.h>`: `printf`'in nerede tanımlandığını compiler'a söyler. `stdio`, "standart girdi/çıktı" demektir.
 - `int main(void)`: `main` adında bir fonksiyon. `int` döndürür, yani bir tamsayı geri verir. `void` "hiç girdi almaz" demektir. Her C programı buradan başlar.
-- `{` … `}`: Fonksiyonun gövdesi. Faz 1'deki sözde kodda girinti ne yapıyorsa, C'de süslü parantez onu yapar.
+- `{` … `}`: Fonksiyonun gövdesi. Faz 1'deki pseudocode'da girinti ne yapıyorsa, C'de süslü parantez onu yapar.
 - `printf("Hello, world!\n");`: Ekrana yazı yazar. `\n` satır sonudur. Sondaki noktalı virgül, C'de her komutun sonuna konur.
 - `return 0;`: Ders 1.1'deki `DÖNDÜR` ile aynı şey. Programı bitirir ve işletim sistemine 0 sayısını bırakır.
 
@@ -294,7 +294,7 @@ Bu bölümdeki komutları VS Code'un terminalinde, çalışma alanının ana kla
 clang -E faz-02/hello.c -o build/faz-02/hello.i
 ```
 
-**Ön işlemci**, `#` ile başlayan satırları işler. `#include <stdio.h>` satırı, `stdio.h` dosyasının **içeriğiyle** değiştirilir. Çıktının satırlarını say:
+**Preprocessor** (ön işlemci), `#` ile başlayan satırları işler. `#include <stdio.h>` satırı, `stdio.h` dosyasının **içeriğiyle** değiştirilir. Çıktının satırlarını say:
 
 ```sh
 wc -l build/faz-02/hello.i
@@ -308,7 +308,7 @@ wc -l build/faz-02/hello.i
 clang -S faz-02/hello.c -o build/faz-02/hello.s
 ```
 
-**Derleyici**, C kodunu **assembly**'ye çevirir. Assembly, işlemcinin anladığı komutların insanların okuyabileceği yazımıdır. Ortaya `hello.s` dosyası çıkar. İçinde ne olduğuna şimdilik bakmamıza gerek yok; assembly'yi Faz 7'de ayrıntısıyla öğreneceğiz. Şimdilik bilmen gereken: C kodu, işlemciye ulaşmadan önce bu ara dilden geçer.
+**Compiler**, C kodunu **assembly**'ye çevirir. Assembly, işlemcinin anladığı komutların insanların okuyabileceği yazımıdır. Ortaya `hello.s` dosyası çıkar. İçinde ne olduğuna şimdilik bakmamıza gerek yok; assembly'yi Faz 7'de ayrıntısıyla öğreneceğiz. Şimdilik bilmen gereken: C kodu, işlemciye ulaşmadan önce bu ara dilden geçer.
 
 **3. Assembly: `clang -c`**
 
@@ -316,7 +316,7 @@ clang -S faz-02/hello.c -o build/faz-02/hello.s
 clang -c faz-02/hello.c -o build/faz-02/hello.o
 ```
 
-**Assembler**, assembly komutlarını işlemcinin anladığı sayılara, yani **makine koduna** çevirir. Çıkan `.o` dosyasına **nesne dosyası** denir. İçinde senin kodunun makine kodu var, ama henüz çalıştırılamaz: `printf`'in makine kodu nerede? O, senin dosyanda değil.
+**Assembler**, assembly komutlarını işlemcinin anladığı sayılara, yani **makine koduna** çevirir. Çıkan `.o` dosyasına **object file** (nesne dosyası) denir. İçinde senin kodunun makine kodu var, ama henüz çalıştırılamaz: `printf`'in makine kodu nerede? O, senin dosyanda değil.
 
 **4. Bağlama**
 
@@ -325,7 +325,7 @@ clang build/faz-02/hello.o -o build/faz-02/hello
 ./build/faz-02/hello
 ```
 
-**Bağlayıcı** (linker), senin nesne dosyanı C kütüphanesindeki `printf` ile birleştirir ve işletim sisteminin çalıştırabileceği tek bir dosya üretir.
+**Linker** (bağlayıcı), senin object file'ını C kütüphanesindeki `printf` ile birleştirir ve işletim sisteminin çalıştırabileceği tek bir dosya üretir.
 
 VS Code'da `Ctrl+Shift+B`'ye bastığında da bu dört adım arka planda çalışır. Dört adımı bir arada düşün: yazdığın metin önce genişler, sonra assembly'ye, sonra makine koduna dönüşür, en sonda başka kodlarla birleşir. Hata aldığında bu hattın **hangi adımında** olduğunu anlamak, hatanın yarısını çözmektir: `#include` dosyası bulunamadıysa ön işlemede, yazım hatası varsa derlemede, `printf` bulunamadıysa bağlamada.
 
@@ -344,7 +344,7 @@ VS Code'da `Ctrl+Shift+B`'ye bastığında da bu dört adım arka planda çalı�
 <details>
 <summary>Cevaplar</summary>
 
-**1** Çıkış kodu **44** olur. Çıkış kodu 8 bitlik bir sayıdır, yani 0 ile 255 arasında olabilir. 300 sekiz bite sığmaz: 300 − 256 = 44. Faz 0'daki 8 bit taşmasının aynısı.
+**1** Çıkış kodu **44** olur. Çıkış kodu 8 bitlik bir sayıdır, yani 0 ile 255 arasında olabilir. 300 sekiz bite sığmaz: 300 − 256 = 44. Faz 0'daki 8 bit overflow'unun aynısı.
 
 **2** clang şöyle der:
 
@@ -355,7 +355,7 @@ first.c:2:14: error: expected ';' after return statement
       |              ;
 ```
 
-(VS Code'da derlediysen dosya adının başında klasörün tam yolu da yazar.) `first.c:2:14` "dosya first.c, satır 2, karakter 14" demek: noktalı virgülün olması gereken yer. clang bir adım daha ileri gidip altına ne yazman gerektiğini de gösteriyor: `;`. Hata **derleme** adımında çıktı; ön işlemci bu satırla ilgilenmez, derleyici ise C'nin yazım kurallarını denetler.
+(VS Code'da derlediysen dosya adının başında klasörün tam yolu da yazar.) `first.c:2:14` "dosya first.c, satır 2, karakter 14" demek: noktalı virgülün olması gereken yer. clang bir adım daha ileri gidip altına ne yazman gerektiğini de gösteriyor: `;`. Hata **derleme** adımında çıktı; preprocessor bu satırla ilgilenmez, compiler ise C'nin yazım kurallarını denetler.
 
 **3** Çıkış kodu **0** olur. C99'dan beri özel bir kural var: `main` fonksiyonu `return` yazmadan biterse 0 döndürmüş sayılır. Bu kural sadece `main` için geçerlidir. Yine de bu kitapta `return 0;` yazacağız; ne döndürdüğümüzü açıkça görmek istiyoruz.
 
@@ -366,7 +366,7 @@ hello.c:3:5: error: call to undeclared library function 'printf' ...
 note: include the header <stdio.h> or explicitly provide a declaration for 'printf'
 ```
 
-Yani `printf`'in tanımlı olmadığını söylüyor ve hangi dosyayı eklemen gerektiğini de öneriyor. (clang'in eski sürümlerinde bu bir hata değil uyarıdır; ama uyarıları hata gibi ciddiye alıyoruz.) `#include`'un ne işe yaradığını şimdi gördün: derleyiciye `printf`'in var olduğunu ve nasıl çağrılacağını söylüyor.
+Yani `printf`'in tanımlı olmadığını söylüyor ve hangi dosyayı eklemen gerektiğini de öneriyor. (clang'in eski sürümlerinde bu bir hata değil uyarıdır; ama uyarıları hata gibi ciddiye alıyoruz.) `#include`'un ne işe yaradığını şimdi gördün: compiler'a `printf`'in var olduğunu ve nasıl çağrılacağını söylüyor.
 
 </details>
 
@@ -378,4 +378,4 @@ Yani `printf`'in tanımlı olmadığını söylüyor ve hangi dosyayı eklemen g
 - Edsger Dijkstra, *Go To Statement Considered Harmful*, Communications of the ACM, 1968.
 - [VS Code belgeleri: C/C++ for Visual Studio Code](https://code.visualstudio.com/docs/languages/cpp)
 
-**Sıradaki ders:** Programlamanın temelleri: değişkenler, kararlar, döngüler, fonksiyonlar ve yapılar.
+**Sıradaki ders:** Programlamanın temelleri: değişkenler, kararlar, döngüler, fonksiyonlar ve struct'lar.

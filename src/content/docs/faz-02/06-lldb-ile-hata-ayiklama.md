@@ -1,15 +1,15 @@
 ---
 title: "2.6 LLDB ile hata ayıklama"
-description: "İz tablosunu bilgisayara tutturmak: kesme noktası, adım adım ilerleme (next, step, finish), değişkenleri görmek ve watchpoint. Önce VS Code'da, sonra terminalde LLDB ile."
+description: "Trace table'ı bilgisayara tutturmak: breakpoint, adım adım ilerleme (next, step, finish), değişkenleri görmek ve watchpoint. Önce VS Code'da, sonra terminalde LLDB ile."
 ---
 
-Ders 1.3'te bir programı elle çalıştırıp her adımda değişkenleri bir tabloya yazmayı öğrendin: **iz sürme**. Hata bulmanın en güçlü yollarından biri olduğunu da gördün. Ama programlar büyüdükçe iz tablosunu elle tutmak zorlaşır; 1000 turluk bir döngünün tablosunu kimse kağıda yazmaz.
+Ders 1.3'te bir programı elle çalıştırıp her adımda değişkenleri bir tabloya yazmayı öğrendin: **tracing**. Hata bulmanın en güçlü yollarından biri olduğunu da gördün. Ama programlar büyüdükçe trace table'ı elle tutmak zorlaşır; 1000 turluk bir döngünün tablosunu kimse kağıda yazmaz.
 
-**Hata ayıklayıcı** (debugger), bu tabloyu senin yerine tutan programdır. Programını istediğin satırda durdurur, o anda bütün değişkenlerin değerini gösterir, sonra satır satır ilerlemene izin verir. Bu kitapta kullanacağımız hata ayıklayıcı **LLDB** (Ders 2.2'de kurdun).
+**Debugger** (hata ayıklayıcı), bu tabloyu senin yerine tutan programdır. Programını istediğin satırda durdurur, o anda bütün değişkenlerin değerini gösterir, sonra satır satır ilerlemene izin verir. Bu kitapta kullanacağımız debugger **LLDB** (Ders 2.2'de kurdun).
 
 Bu derste dört şey öğreneceğiz:
 
-1. **Kesme noktası** (breakpoint): programı istediğin satırda durdurmak.
+1. **Breakpoint** (kesme noktası): programı istediğin satırda durdurmak.
 2. **Adım adım ilerlemek**: `next`, `step` ve `finish`.
 3. **Değerleri görmek**: durduğun anda değişkenlerde ne var?
 4. **Watchpoint**: bir değişken değiştiği anda durmak.
@@ -47,13 +47,13 @@ int main(void) {
 
 1 + 2 + 3 + 4 + 5 = 15 olmalıydı. Program **10** diyor. Hata nerede?
 
-Belki koda bakınca hemen gördün. Ama bu derste hatayı gözle değil, **hata ayıklayıcıyla** bulacağız; çünkü bir gün göremeyeceğin kadar büyük bir programla karşılaşacaksın ve o gün bu yöntem tek yolun olacak.
+Belki koda bakınca hemen gördün. Ama bu derste hatayı gözle değil, **debugger ile** bulacağız; çünkü bir gün göremeyeceğin kadar büyük bir programla karşılaşacaksın ve o gün bu yöntem tek yolun olacak.
 
 ---
 
-## 2. Kesme noktası
+## 2. Breakpoint
 
-Ders 2.2'de hazırladığın çalışma alanında `sum.c`'yi aç. 5. satırın (`for` satırı) **numarasının hemen soluna** tıkla. Kırmızı bir nokta belirir: bu bir **kesme noktası**. "Program bu satıra geldiğinde, satırı çalıştırmadan önce dur" demektir.
+Ders 2.2'de hazırladığın çalışma alanında `sum.c`'yi aç. 5. satırın (`for` satırı) **numarasının hemen soluna** tıkla. Kırmızı bir nokta belirir: bu bir **breakpoint**. "Program bu satıra geldiğinde, satırı çalıştırmadan önce dur" demektir.
 
 Şimdi `F5`'e bas. Program derlenir, çalışır ve 5. satıra gelince durur. Ekranın şöyle görünecek:
 
@@ -61,7 +61,7 @@ Ders 2.2'de hazırladığın çalışma alanında `sum.c`'yi aç. 5. satırın (
 
 Numaralara tek tek bakalım:
 
-**1. Değişkenler (VARIABLES → Local).** O anda geçerli olan bütün değişkenler ve değerleri: `n = 5`, `total = 0`, `i = 0`. Bir iz tablosunun tek satırı gibi.
+**1. Değişkenler (VARIABLES → Local).** O anda geçerli olan bütün değişkenler ve değerleri: `n = 5`, `total = 0`, `i = 0`. Bir trace table'ın tek satırı gibi.
 
 Bir tuhaflık var: kodda `int i = 1` yazıyor ama panel `i = 0` diyor. Çünkü program bu satırda **durdu ama satırı henüz çalıştırmadı**; `i`'ye 1 henüz konmadı. Gördüğün 0, o kutuda o an ne varsa odur. Ders 2.3'teki "değer vermeden kullanma" uyarısını hatırla: başka bir çalıştırmada orada rastgele bir sayı da görebilirsin. Altındaki **Static**, **Global** ve **Registers** başlıklarını şimdilik kapalı bırak.
 
@@ -69,11 +69,11 @@ Bir tuhaflık var: kodda `int i = 1` yazıyor ama panel `i = 0` diyor. Çünkü 
 
 **3. Durulan satır.** Program tam burada durdu. Sarı satır **henüz çalışmadı**; bir sonraki adımda çalışacak. Satırın içindeki küçük sarı işaret (`i = 1`'in hemen önünde) durulan yeri karakter düzeyinde gösterir: `for`'un üç parçasından ilki, yani başlangıç, çalışmak üzere.
 
-**4. Kesme noktası.** Koyduğun kırmızı nokta. Program tam kesme noktasının olduğu satırda durduğu için kırmızı noktanın üstüne sarı bir işaret binmiş durumda. Kesme noktasını kaldırmak için kırmızı noktaya tekrar tıkla.
+**4. Breakpoint.** Koyduğun kırmızı nokta. Program tam breakpoint'in olduğu satırda durduğu için kırmızı noktanın üstüne sarı bir işaret binmiş durumda. Breakpoint'i kaldırmak için kırmızı noktaya tekrar tıkla.
 
-**5. Çağrı yığını (CALL STACK).** Hangi fonksiyonun içinde olduğunu ve oraya nereden gelindiğini gösterir: şu an `sum_to`'nun içindeyiz (5. satır), onu da `main` çağırdı (13. satır). En alttaki `start`, `main`'den önce çalışan ve onu çağıran küçük bir başlangıç kodudur. Çağrı yığınını fonksiyonlar dersinde ayrıntısıyla göreceğiz.
+**5. Call stack (çağrı yığını, CALL STACK paneli).** Hangi fonksiyonun içinde olduğunu ve oraya nereden gelindiğini gösterir: şu an `sum_to`'nun içindeyiz (5. satır), onu da `main` çağırdı (13. satır). En alttaki `start`, `main`'den önce çalışan ve onu çağıran küçük bir başlangıç kodudur. Call stack'i fonksiyonlar dersinde ayrıntısıyla göreceğiz.
 
-**6. Kesme noktaları (BREAKPOINTS).** Koyduğun bütün kesme noktalarının listesi: `sum.c`, 5. satır. Yanındaki tiki kaldırırsan kesme noktası silinmeden geçici olarak kapanır. Listedeki **C++: on throw** ve **C++: on catch**, CodeLLDB'nin C++ programları için hazır getirdiği ayarlardır; C'de bir işe yaramazlar, olduğu gibi bırak.
+**6. Breakpoint'ler (BREAKPOINTS).** Koyduğun bütün breakpoint'lerin listesi: `sum.c`, 5. satır. Yanındaki tiki kaldırırsan breakpoint silinmeden geçici olarak kapanır. Listedeki **C++: on throw** ve **C++: on catch**, CodeLLDB'nin C++ programları için hazır getirdiği ayarlardır; C'de bir işe yaramazlar, olduğu gibi bırak.
 
 ---
 
@@ -83,7 +83,7 @@ Program durduğunda, onu üstteki düğmelerle (2 numara) ya da kısayollarla il
 
 | Düğme | Kısayol | Ne yapar? |
 | --- | --- | --- |
-| **Devam** | `F5` | Bir sonraki kesme noktasına kadar çalış. Kesme noktası yoksa programın sonuna kadar. |
+| **Devam** | `F5` | Bir sonraki breakpoint'e kadar çalış. Breakpoint yoksa programın sonuna kadar. |
 | **Üzerinden geç** | `F10` | Sarı satırı çalıştır, bir sonraki satırda dur. Satırda bir fonksiyon çağrısı varsa fonksiyonu **tek adımda** çalıştırır, içine girmez. |
 | **İçine gir** | `F11` | Sarı satırda bir fonksiyon çağrısı varsa **fonksiyonun içine gir** ve ilk satırında dur. |
 | **Dışarı çık** | `Shift+F11` | İçinde bulunduğun fonksiyonu sonuna kadar çalıştır, onu çağıran yere dön. |
@@ -102,15 +102,15 @@ Program durduğunda, onu üstteki düğmelerle (2 numara) ya da kısayollarla il
 | 6. satıra 4. geliş | 4 | 6 |
 | Döngüden çıkış, 8. satır | — | 10 |
 
-Bu, Ders 1.3'te elle tuttuğun iz tablosunun **aynısı**. Fark şu: değerleri sen hesaplamadın, bilgisayar gösterdi.
+Bu, Ders 1.3'te elle tuttuğun trace table'ın **aynısı**. Fark şu: değerleri sen hesaplamadın, bilgisayar gösterdi.
 
 Tabloya bak: `i` 5 olunca döngü hiç çalışmadı. Neden? Koşul `i < n`, yani `5 < 5`, yanlış. 5 hiç toplanmadı. **Hata bulundu:** koşul `i <= n` olmalı.
 
-Ders 1.3'teki **uç durum** fikrini hatırla: hata, döngünün tam sınırında saklanıyordu.
+Ders 1.3'teki **edge case** fikrini hatırla: hata, döngünün tam sınırında saklanıyordu.
 
 ### Fonksiyonun içine girmek
 
-Bu sefer kesme noktasını 5. satırdan kaldır ve 13. satıra (`int result = sum_to(n);`) koy. `F5`'e bas; program 13. satırda durur.
+Bu sefer breakpoint'i 5. satırdan kaldır ve 13. satıra (`int result = sum_to(n);`) koy. `F5`'e bas; program 13. satırda durur.
 
 - `F10`'a (**üzerinden geç**) basarsan, `sum_to` tek adımda çalışır ve 14. satırda durursun. Soldaki panelde `result = 10`'u görürsün. Fonksiyonun içinde ne olduğunu göremezsin.
 - `F11`'e (**içine gir**) basarsan, `sum_to`'nun ilk satırında, yani 4. satırda durursun. Artık fonksiyonun içindesin; soldaki panelde `n = 5` var, ama `main`'in değişkenleri yok.
@@ -125,13 +125,13 @@ Hangi düğmeyi ne zaman kullanacağın basit bir soruya bağlı: **"Bu fonksiyo
 Soldaki **VARIABLES** paneli, durduğun anda geçerli olan değişkenleri kendiliğinden gösterir. Değerleri görmenin iki yolu daha var:
 
 - **Fareyi üstüne getir:** Program durduğunda kodda bir değişkenin adının üzerine fareyi getir; değeri küçük bir kutuda görünür.
-- **WATCH paneli:** Soldaki **WATCH** başlığının yanındaki `+`'ya tıkla ve bir ifade yaz: `total`, `i * 2`, `n - i`… Bu ifadeler her adımda yeniden hesaplanır. Dizilerde özellikle işe yarar: `scores[2]` yazıp tek bir elemanı izleyebilirsin.
+- **WATCH paneli:** Soldaki **WATCH** başlığının yanındaki `+`'ya tıkla ve bir ifade yaz: `total`, `i * 2`, `n - i`… Bu ifadeler her adımda yeniden hesaplanır. Array'lerde özellikle işe yarar: `scores[2]` yazıp tek bir elemanı izleyebilirsin.
 
 ---
 
 ## 5. Watchpoint: bir değişken değiştiğinde dur
 
-Kesme noktası "şu **satıra** gelince dur" der. Bazen soru farklıdır: "Bu **değişken** ne zaman değişiyor?" ya da "Neden hiç değişmiyor?" Bunun için **watchpoint** kullanılır.
+Breakpoint "şu **satıra** gelince dur" der. Bazen soru farklıdır: "Bu **değişken** ne zaman değişiyor?" ya da "Neden hiç değişmiyor?" Bunun için **watchpoint** kullanılır.
 
 Bir sıcaklık listesindeki en yüksek değeri bulan şu programa bak. `faz-02/highest.c`:
 
@@ -162,7 +162,7 @@ En yüksek sıcaklık -3 olmalıydı. Listede 0 diye bir değer bile yok!
 
 `highest`'ın ne zaman değiştiğini izleyelim:
 
-1. 9. satıra (`for` satırına) bir kesme noktası koy ve `F5`'e bas.
+1. 9. satıra (`for` satırına) bir breakpoint koy ve `F5`'e bas.
 2. Soldaki VARIABLES panelinde `highest`'a **sağ tıkla** ve **Break on Value Change** (değer değişince dur) seçeneğini seç.
 3. `F5` ile devam et.
 
@@ -174,7 +174,7 @@ Watchpoint'in hiç tetiklenmemesi de bir bilgi: **`highest` döngü boyunca bir 
 
 Düzeltip watchpoint ile tekrar çalıştırırsan program bu sefer bir kez durur: `highest` -5'ten -3'e değiştiğinde. Durduğu yer, değişikliği yapan satırın hemen sonrasıdır.
 
-**Ne zaman watchpoint, ne zaman kesme noktası?** Hatanın **nerede** olduğunu tahmin edebiliyorsan kesme noktası. Bir değişkenin değeri yanlış çıkıyor ama **kimin** ya da **ne zaman** bozduğunu bilmiyorsan watchpoint.
+**Ne zaman watchpoint, ne zaman breakpoint?** Hatanın **nerede** olduğunu tahmin edebiliyorsan breakpoint. Bir değişkenin değeri yanlış çıkıyor ama **kimin** ya da **ne zaman** bozduğunu bilmiyorsan watchpoint.
 
 ---
 
@@ -192,8 +192,8 @@ LLDB açılır ve `(lldb)` yazan bir istem gösterir. Artık komut yazabilirsin.
 
 | Komut | Kısası | Ne yapar? | VS Code'daki karşılığı |
 | --- | --- | --- | --- |
-| `breakpoint set --name sum_to` | `b sum_to` | Fonksiyonun başına kesme noktası koy | — |
-| `breakpoint set --file sum.c --line 6` | `b sum.c:6` | Belirli bir satıra kesme noktası koy | Satır numarasının soluna tıklamak |
+| `breakpoint set --name sum_to` | `b sum_to` | Fonksiyonun başına breakpoint koy | — |
+| `breakpoint set --file sum.c --line 6` | `b sum.c:6` | Belirli bir satıra breakpoint koy | Satır numarasının soluna tıklamak |
 | `run` | `r` | Programı başlat | `F5` |
 | `next` | `n` | Satırı çalıştır, fonksiyonun içine girme | `F10` |
 | `step` | `s` | Fonksiyonun içine gir | `F11` |
@@ -204,7 +204,7 @@ LLDB açılır ve `(lldb)` yazan bir istem gösterir. Artık komut yazabilirsin.
 | `watchpoint set variable highest` | `w s v highest` | Değişken değişince dur | Break on Value Change |
 | `quit` | `q` | LLDB'den çık | Durdur |
 
-**Örnek oturum.** `sum_to`'ya kesme noktası koyup döngünün içinde ilerleyelim. Çıktıyı kısalttık; adresler ve bazı satırlar senin ekranında farklı görünecek:
+**Örnek oturum.** `sum_to`'ya breakpoint koyup döngünün içinde ilerleyelim. Çıktıyı kısalttık; adresler ve bazı satırlar senin ekranında farklı görünecek:
 
 ```
 (lldb) breakpoint set --name sum_to
@@ -282,8 +282,8 @@ new value: -3
 
 LLDB bu derste gördüklerinden çok daha fazlasını yapabilir. Bunları, gerekli bilgiyi edindikçe kitabın ilerleyen bölümlerinde göreceğiz:
 
-- **Çağrı yığını** (`bt`, VS Code'daki CALL STACK paneli): hangi fonksiyonun hangisini çağırdığını görmek. Fonksiyonlar ve özyineleme derslerinde.
-- **Koşullu kesme noktaları:** "sadece `i` 500 olduğunda dur" demek.
+- **Call stack** (`bt`, VS Code'daki CALL STACK paneli): hangi fonksiyonun hangisini çağırdığını görmek. Fonksiyonlar ve recursion derslerinde.
+- **Koşullu breakpoint'ler:** "sadece `i` 500 olduğunda dur" demek.
 - **Belleğe doğrudan bakmak** (`memory read`): değişkenlerin bellekte gerçekte nasıl durduğunu görmek. Faz 4'te, pointer'larla birlikte.
 - **Assembly düzeyinde adım atmak** (`disassemble`, `stepi`): C satırlarının makine komutlarına nasıl dönüştüğünü izlemek. Faz 7'de.
 - **Çökmüş bir programı sonradan incelemek** (core dump) ve LLDB'yi betiklerle otomatikleştirmek: Faz 10'da.
@@ -292,7 +292,7 @@ LLDB bu derste gördüklerinden çok daha fazlasını yapabilir. Bunları, gerek
 
 ## Alıştırmalar
 
-Aşağıdaki programların her birinde bir hata var. Hatayı **koda bakarak değil, hata ayıklayıcıyla** bul: önce bir kesme noktası ya da watchpoint koy, değerleri izle, sonra düzelt. Her birinde, hatayı bulduğun anı bir iz tablosuyla not et.
+Aşağıdaki programların her birinde bir hata var. Hatayı **koda bakarak değil, debugger ile** bul: önce bir breakpoint ya da watchpoint koy, değerleri izle, sonra düzelt. Her birinde, hatayı bulduğun anı bir trace table ile not et.
 
 **1. Faktöriyel.** `5! = 120` yazması gerekirken `5! = 0` yazıyor.
 
@@ -369,7 +369,7 @@ Toplam: 0
 <details>
 <summary>Cevaplar</summary>
 
-**1.** 6. satıra (`result = result * i;`) kesme noktası koy ve her turda `F5` ile ilerle:
+**1.** 6. satıra (`result = result * i;`) breakpoint koy ve her turda `F5` ile ilerle:
 
 | `i` | `result` (satır çalışmadan önce) |
 | --- | --- |
@@ -379,7 +379,7 @@ Toplam: 0
 
 `result` hiç değişmiyor: 0 ile çarpılan her şey 0'dır. Ders 1.2'deki faktöriyel diyagramını hatırla: çarpma işleminde başlangıç değeri **1** olmalı. Düzeltme: `int result = 1;`.
 
-**2.** `while` satırına kesme noktası koy ve her turda `n` ile `result`'a bak:
+**2.** `while` satırına breakpoint koy ve her turda `n` ile `result`'a bak:
 
 | Tur | `n` | `result` |
 | --- | --- | --- |
@@ -390,7 +390,7 @@ Toplam: 0
 
 `n` 1 olunca `1 > 10` yanlış oluyor ve döngü bitiyor; son basamak (1) hiç eklenmiyor. Koşul `n > 0` olmalı. Yine bir sınır hatası: Ders 2.5'teki ters çevirme çözümüyle karşılaştır.
 
-**3.** 13. satıra (`for` satırı) kesme noktası koy, `F5` ile dur, VARIABLES panelinde `total`'a sağ tıklayıp **Break on Value Change**'i seç ve devam et. Program satır toplamlarını yazıp bitiyor; watchpoint **hiç tetiklenmiyor**. Dıştaki `total` hiç değişmedi.
+**3.** 13. satıra (`for` satırı) breakpoint koy, `F5` ile dur, VARIABLES panelinde `total`'a sağ tıklayıp **Break on Value Change**'i seç ve devam et. Program satır toplamlarını yazıp bitiyor; watchpoint **hiç tetiklenmiyor**. Dıştaki `total` hiç değişmedi.
 
 Döngünün içine girip VARIABLES paneline bakarsan bir tuhaflık görürsün: iki tane `total` var. Döngünün içindeki `int total = 0;` satırı, dıştakinden bağımsız, **aynı isimde yeni bir değişken** açıyor. Döngü içindeki bütün toplamalar bu iç değişkene yapılıyor ve o değişken her turun sonunda yok oluyor. Dıştaki `total` 0 olarak kalıyor.
 
@@ -408,7 +408,7 @@ Düzeltme: içteki `total`'a başka bir isim ver (`row_total`) ve her satırın 
     }
 ```
 
-Bu, gözle bulunması en zor hatalardan biridir: kod doğru görünür, derleyici uyarmaz. Watchpoint'in "hiç tetiklenmedi" demesi, hatanın yerini doğrudan gösterdi.
+Bu, gözle bulunması en zor hatalardan biridir: kod doğru görünür, compiler uyarmaz. Watchpoint'in "hiç tetiklenmedi" demesi, hatanın yerini doğrudan gösterdi.
 
 </details>
 
@@ -420,4 +420,4 @@ Bu, gözle bulunması en zor hatalardan biridir: kod doğru görünür, derleyic
 - [LLDB belgeleri: Eğitim](https://lldb.llvm.org/use/tutorial.html): komutların genel yapısı.
 - [CodeLLDB kullanım kılavuzu](https://github.com/vadimcn/codelldb/blob/master/MANUAL.md): VS Code tarafındaki ayarlar.
 
-**Sıradaki ders:** Fonksiyonlar ve kapsam. Bir değişkenin nerede yaşadığını ve ne zaman yok olduğunu öğreneceğiz; Alıştırma 3'teki iki `total`'ın sırrı da orada.
+**Sıradaki ders:** Fonksiyonlar ve scope. Bir değişkenin nerede yaşadığını ve ne zaman yok olduğunu öğreneceğiz; Alıştırma 3'teki iki `total`'ın sırrı da orada.

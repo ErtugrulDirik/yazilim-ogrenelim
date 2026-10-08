@@ -2,7 +2,7 @@
 // Bir faz, menüde ve İçindekiler ağacında ancak klasöründe en az bir ders olduğunda görünür.
 export const FAZLAR = {
 	0: 'Bilgisayarın temeli',
-	1: 'Algoritma, akış diyagramı ve iz sürme',
+	1: 'Algoritma, akış diyagramı ve tracing',
 	2: "C'ye giriş",
 	3: 'Veri tipleri ve dönüşümler',
 	4: 'Diziler, pointer, bellek ve string kütüphanesi',

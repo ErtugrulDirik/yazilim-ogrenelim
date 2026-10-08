@@ -19,7 +19,7 @@ Kod yazmaya başlamadan önce bu derste C'yi tanıyacağız: nereden geldi, nede
 - **B** (1969, Ken Thompson): BCPL'in küçültülmüş hali. Ama veri tipi yoktu; her şey bir "word"dü. Faz 0'da gördüğün byte, halfword, word ayrımını yapamıyordu.
 - **C** (1972, Dennis Ritchie): B'ye veri tipleri eklendi. Artık bir değişkenin bir byte mı, bir word mü olduğunu söyleyebiliyordun.
 
-1973'te Unix'in çekirdeği C ile yeniden yazıldı. Bu bir dönüm noktasıydı: o yıllarda işletim sistemleri neredeyse her zaman assembly ile yazılırdı. Artık Unix'i yeni bir makineye taşımak için sadece C derleyicisini taşımak yetiyordu. Unix ve C birlikte dünyaya yayıldı.
+1973'te Unix'in çekirdeği C ile yeniden yazıldı. Bu bir dönüm noktasıydı: o yıllarda işletim sistemleri neredeyse her zaman assembly ile yazılırdı. Artık Unix'i yeni bir makineye taşımak için sadece C compiler'ını (derleyicisini) taşımak yetiyordu. Unix ve C birlikte dünyaya yayıldı.
 
 1978'de Brian Kernighan ve Dennis Ritchie *The C Programming Language* kitabını yazdı. Yazarlarının baş harfleriyle **K&R** diye anılan bu kitap, yıllarca C'nin tanımı yerine geçti. Bu fazın ana kaynağı da o.
 
@@ -113,7 +113,7 @@ Bu kitabın çizgisi **C → C++**. C# ve Java kötü diller değildir; Windows 
 Çünkü C, programlamanın **en saf, en ham** halidir.
 
 - **Küçüktür.** İlk standart C'de sadece 32 anahtar kelime vardı. C++'ın standart belgesi C'ninkinin yaklaşık üç katı uzunluğundadır.
-- **Hiçbir şey saklamaz.** Bir değişken bellekte bir kutudur, bir dizi yan yana kutulardır. Arka planda gizlice çalışan bir mekanizma yoktur.
+- **Hiçbir şey saklamaz.** Bir değişken bellekte bir kutudur, bir array (dizi) yan yana kutulardır. Arka planda gizlice çalışan bir mekanizma yoktur.
 - **Hatanın nereden geldiğini görürsün.** Python gibi dillerde bellek ve nesneler arka planda yönetilir; bir şey yavaşladığında ya da beklenmedik davrandığında sebebi çoğu zaman göremediğin o katmandadır. C'de ise hata ya senin kodundadır ya da senin kodunun belleğe yaptığı bir şeydedir. Bulmayı öğrendiğinde, başka hiçbir dilde hata seni korkutmaz.
 - **Her şeyin nereden geldiğini öğrenirsin.** Diğer dillerin "hazır" sunduğu her şeyi (string, liste, yazdırma) C'de sıfırdan yazacağız. Sonra hangi dili kullanırsan kullan, arka planda ne olduğunu bileceksin.
 

@@ -88,8 +88,8 @@ kaydet('spagetti.svg', svg(820, 352, '\n'.join(b), 'Spagetti kod ile yapısal ko
 # 3) Derleme hattı
 b = []
 dos = ['hello.c', 'hello.i', 'hello.s', 'hello.o', 'hello']
-alt = ['kaynak kod', 'genişletilmiş kaynak', 'assembly', 'nesne dosyası', 'çalıştırılabilir']
-ara = [('ön işlemci', 'clang -E'), ('derleyici', 'clang -S'), ('assembler', 'clang -c'), ('bağlayıcı', 'clang')]
+alt = ['kaynak kod', 'genişletilmiş kaynak', 'assembly', 'object file', 'çalıştırılabilir']
+ara = [('preprocessor', 'clang -E'), ('compiler', 'clang -S'), ('assembler', 'clang -c'), ('linker', 'clang')]
 xs = [80, 290, 500, 710, 920]; y = 70
 for i, x in enumerate(xs):
     renk = C['io'] if i in (0, 4) else C['c']
@@ -211,7 +211,7 @@ for k, (baslik, kutular) in enumerate(anlar):
             b.append(yazi(x + CW/2, y + 34 + j*20, s_, size=12, mono=True))
     b.append(f"<line x1='{x}' y1='{TABAN+4}' x2='{x+CW}' y2='{TABAN+4}' stroke='{C['ok']}' stroke-width='2'/>")
     b.append(yazi(x + CW/2, TABAN + 24, baslik, size=12, renk=C['karar'], weight=600))
-b.append(yazi(20, 24, 'yığının tepesi = şu an çalışan fonksiyon ↑', size=12, renk=C['etiket'], anchor='start'))
+b.append(yazi(20, 24, 'stack’in tepesi = şu an çalışan fonksiyon ↑', size=12, renk=C['etiket'], anchor='start'))
 kaydet('cagri-yigini.svg', svg(20 + 6*(CW+GAP) + 6, TABAN + 44, '\n'.join(b), 'stack.c çalışırken çağrı yığınının altı anı'))
 
 # ── Ders 2.8: özyineleme ──────────────────────────────────────────────────
@@ -230,7 +230,7 @@ for i, (ad, donus) in enumerate(seviyeler):
     if donus is not None:
         b.append(f"<path d='M {x+w+10},{y+h/2} C {x+w+70},{y+h/2} {x+w+70},{y+h/2+48} {x+w+10},{y+h/2+48}' fill='none' stroke='{C['io']}' stroke-width='2' marker-end='url(#u)'/>")
         b.append(yazi(x + w + 78, y + h/2 + 24, f'{donus} döndürür', size=12, renk=C['io'], weight=600, anchor='start'))
-b.append(yazi(x + w/2, y0 - 5*(h+8) - 22, 'durma koşulu: n == 0', size=12, renk=C['karar'], weight=700))
+b.append(yazi(x + w/2, y0 - 5*(h+8) - 22, 'base case: n == 0', size=12, renk=C['karar'], weight=700))
 b.append(f"<line x1='40' y1='{y0+h-4}' x2='40' y2='{y0-5*(h+8)+10}' stroke='{C['c']}' stroke-width='2' marker-end='url(#u)'/>")
 b.append(yazi(40, y0 - 5*(h+8) - 6, 'iniş', size=13, renk=C['c'], weight=700))
 b.append(yazi(x + w + 120, y0 - 5*(h+8) - 6, 'çıkış ↓', size=13, renk=C['io'], weight=700))

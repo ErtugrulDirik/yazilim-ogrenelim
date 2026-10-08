@@ -5,12 +5,12 @@ description: "Algoritmayı çizmek: semboller, sıralı akış, karar ve döngü
 
 ## Önce kısa bir mola
 
-Ders 1.1'de bir anda çok şey geldi: algoritma, beş özellik, girdi–çıktı–koşul, uç durum, sözde kod, `←`, `÷`, `mod`, Pólya'nın dört adımı… Okurken "bu kadarını aklımda nasıl tutacağım?" dediysen ya da bazı alıştırmalarda takıldıysan, bil ki **bu çok normal**.
+Ders 1.1'de bir anda çok şey geldi: algoritma, beş özellik, girdi–çıktı–koşul, edge case, pseudocode, `←`, `÷`, `mod`, Pólya'nın dört adımı… Okurken "bu kadarını aklımda nasıl tutacağım?" dediysen ya da bazı alıştırmalarda takıldıysan, bil ki **bu çok normal**.
 
-Bugün büyük sistemler yazan, işletim sistemi çekirdeğine kod gönderen, milyonlarca kişinin kullandığı yazılımları geliştiren herkes bir zamanlar tam olarak burada durdu. Herkes ilk döngüsünü kağıtta çizdi, herkes ilk iz tablosunda bir yerde yanlış saydı, herkes "atama ile eşitlik aynı şey değil mi?" diye düşündü. Bu yolun kısa bir versiyonu yok; herkes aynı yoldan geçiyor. Fark, yolda kalanla yürümeye devam eden arasında.
+Bugün büyük sistemler yazan, işletim sistemi çekirdeğine kod gönderen, milyonlarca kişinin kullandığı yazılımları geliştiren herkes bir zamanlar tam olarak burada durdu. Herkes ilk döngüsünü kağıtta çizdi, herkes ilk trace table'da bir yerde yanlış saydı, herkes "atama ile eşitlik aynı şey değil mi?" diye düşündü. Bu yolun kısa bir versiyonu yok; herkes aynı yoldan geçiyor. Fark, yolda kalanla yürümeye devam eden arasında.
 
 :::tip[Bu derste nefes alacaksın]
-Bu derste yeni kavram az. Öğreneceğin şeylerin çoğu, Ders 1.1'de zaten bildiğin şeylerin **resmi**. Sözde kodla yazdığın algoritmaları bu kez çizeceksin. Bir şeyi hem okuyup hem görmek, aklında kalmasını kolaylaştırır.
+Bu derste yeni kavram az. Öğreneceğin şeylerin çoğu, Ders 1.1'de zaten bildiğin şeylerin **resmi**. Pseudocode ile yazdığın algoritmaları bu kez çizeceksin. Bir şeyi hem okuyup hem görmek, aklında kalmasını kolaylaştırır.
 :::
 
 Bu derste de kod yazmıyoruz; kağıt ve kalem yeterli. Bilgisayarda çizmek istersen ücretsiz [draw.io](https://app.diagrams.net) işini görür. Beş bölüm var:
@@ -43,7 +43,7 @@ Akış diyagramlarında beş temel sembol kullanılır. Bu semboller uluslararas
 
 ![Akış diyagramı sembolleri: Başla/Bitir, İşlem, Girdi/Çıktı, Karar ve Akış oku](../../../assets/faz-01/semboller.svg)
 
-| Sembol | Şekil | Ne zaman kullanılır? | Sözde koddaki karşılığı |
+| Sembol | Şekil | Ne zaman kullanılır? | Pseudocode'daki karşılığı |
 | --- | --- | --- | --- |
 | **Başla / Bitir** | Oval | Algoritmanın başı ve sonu | `ALGORİTMA …`, `DÖNDÜR` |
 | **İşlem** | Dikdörtgen | Hesaplama ve atama | `x ← x + 1` |
@@ -221,4 +221,4 @@ Toplam ve faktöriyel diyagramlarıyla karşılaştır: orada karar döngünün 
 - ISO 5807:1985, *Information processing — Documentation symbols and conventions for data, program and system flowcharts*: akış diyagramı sembollerinin standardı.
 - Donald Knuth, *The Art of Computer Programming*, Cilt 1 (3. baskı), §1.1: Öklid algoritmasının akış diyagramı, kitabın ilk diyagramıdır.
 
-**Sıradaki ders:** Algoritmayı elle çalıştırmak: iz sürme.
+**Sıradaki ders:** Algoritmayı elle çalıştırmak: tracing.

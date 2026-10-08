@@ -38,7 +38,7 @@ int gcd(int a, int b) {
 }
 ```
 
-Ders 2.8'deki özyinelemeyle, matematiksel tanımın kelimesi kelimesine çevirisi olarak da yazılabilir:
+Ders 2.8'deki recursion ile, matematiksel tanımın kelimesi kelimesine çevirisi olarak da yazılabilir:
 
 ```c
 int gcd_recursive(int a, int b) {
@@ -82,7 +82,7 @@ int lcm(int a, int b) {
 
 EKOK(12, 18) = 12 / 6 × 18 = 36.
 
-**Neden `a * b / gcd(a, b)` değil de `a / gcd(a, b) * b`?** Matematikte ikisi aynı. Ama bilgisayarda `a * b` ara sonucu, sonuç sığsa bile `int`'e sığmayabilir. Ders 2.8'deki 13! taşmasını hatırla. Önce bölmek ara sonucu küçük tutar. Ayrıca `a`, EBOB'a her zaman tam bölündüğü için bölmede küsurat da kaybolmaz.
+**Neden `a * b / gcd(a, b)` değil de `a / gcd(a, b) * b`?** Matematikte ikisi aynı. Ama bilgisayarda `a * b` ara sonucu, sonuç sığsa bile `int`'e sığmayabilir. Ders 2.8'deki 13! overflow'unu hatırla. Önce bölmek ara sonucu küçük tutar. Ayrıca `a`, EBOB'a her zaman tam bölündüğü için bölmede küsurat da kaybolmaz.
 
 ---
 
@@ -147,7 +147,7 @@ Daha akıllı bir yol var. Şuna dikkat et:
 - 3¹² = (3⁶)²: 3⁶'yı bulup kendisiyle çarpmak yeterli.
 - 3¹³ = (3⁶)² × 3: üs tekse, fazladan bir kez taban ile çarp.
 
-Yani üssü her adımda **yarıya** indirebiliriz. Bu tam bir özyineleme (Ders 2.8): problemi kendisinin yarı büyüklüğündeki haline indirgiyoruz. Durma koşulu: her sayının 0. kuvveti 1'dir.
+Yani üssü her adımda **yarıya** indirebiliriz. Bu tam bir recursion (Ders 2.8): problemi kendisinin yarı büyüklüğündeki haline indirgiyoruz. Base case: her sayının 0. kuvveti 1'dir.
 
 ```c
 int power(int base, int exp) {
@@ -259,7 +259,7 @@ int mod_power(int base, int exp, int mod) {
     return result;
 }
 ```
-`mod_power(7, 222, 10)` → **9**. Her ara sonuç 0 ile 9 arasında kaldığı için hiçbir çarpma taşmıyor. `1 % mod`: `mod` 1 ise her sayının kalanı 0'dır; bu küçük uç durumu da doğru ele alıyor.
+`mod_power(7, 222, 10)` → **9**. Her ara sonuç 0 ile 9 arasında kaldığı için hiçbir çarpma taşmıyor. `1 % mod`: `mod` 1 ise her sayının kalanı 0'dır; bu küçük edge case'i de doğru ele alıyor.
 
 Bu fonksiyon, internette her gün kullandığın şifrelemenin (RSA) kalbinde duruyor: orada üsler ve modüller yüzlerce basamaklı sayılardır ve kare al–çarp olmadan hesaplanmaları imkânsız olurdu. Faz 6'da tekrar karşılaşacağız.
 
@@ -292,4 +292,4 @@ int divisor_sum(int n) {
 - Donald Knuth, *The Art of Computer Programming*, Cilt 2 (3. baskı), §4.5.2–4.5.3: EBOB, Öklid algoritmasının analizi ve Lamé teoremi; §4.6.3: üs alma.
 - Ronald Graham, Donald Knuth & Oren Patashnik, *Concrete Mathematics* (2. baskı), Bölüm 4: sayı teorisi.
 
-**Sıradaki ders:** Tamsayı karekök. Karekökü sadece tamsayılarla bulmanın üç yolu: tek tek denemek, ikili arama ve Newton yöntemi.
+**Sıradaki ders:** Tamsayı karekök. Karekökü sadece tamsayılarla bulmanın üç yolu: tek tek denemek, binary search ve Newton yöntemi.

@@ -1,6 +1,6 @@
 ---
-title: "2.7 Fonksiyonlar ve kapsam"
-description: "Prototip, kapsam ve gölgeleme, çağrı yığınını kutularla çizmek, LLDB'de bt; yerel, global ve static değişkenler: bir değişken nerede görünür, ne kadar yaşar?"
+title: "2.7 Fonksiyonlar ve scope"
+description: "Prototip, scope ve shadowing, call stack'i frame'lerle çizmek, LLDB'de bt; yerel, global ve static değişkenler: bir değişken nerede görünür, ne kadar yaşar?"
 ---
 
 Ders 2.3'te fonksiyon yazmayı öğrendin. Bu derste fonksiyonların perde arkasına bakacağız. Cevaplayacağımız sorular şunlar:
@@ -34,7 +34,7 @@ int square(int x) {
 error: call to undeclared function 'square'; ISO C99 and later do not support implicit function declarations
 ```
 
-Derleyici dosyayı yukarıdan aşağıya okur. `main`'in içinde `square`'i gördüğünde, henüz böyle bir fonksiyonla karşılaşmamıştır. Kaç parametre aldığını, ne döndürdüğünü bilmez ve durur.
+Compiler dosyayı yukarıdan aşağıya okur. `main`'in içinde `square`'i gördüğünde, henüz böyle bir fonksiyonla karşılaşmamıştır. Kaç parametre aldığını, ne döndürdüğünü bilmez ve durur.
 
 Çözüm: fonksiyonun **kendisini** değil, sadece **tanıtımını** yukarıya yazmak. Buna **prototip** denir:
 
@@ -57,7 +57,7 @@ int square(int x) {
 16
 ```
 
-`int square(int x);` satırı, fonksiyonun ilk satırının aynısı; ama süslü parantez yerine noktalı virgülle bitiyor. Derleyiciye şunu söylüyor: "`square` adında, bir `int` alıp bir `int` döndüren bir fonksiyon var. Gövdesi ileride gelecek." Derleyici için bu yeterli: çağrının doğru yazılıp yazılmadığını kontrol edebilir.
+`int square(int x);` satırı, fonksiyonun ilk satırının aynısı; ama süslü parantez yerine noktalı virgülle bitiyor. Compiler'a şunu söylüyor: "`square` adında, bir `int` alıp bir `int` döndüren bir fonksiyon var. Gövdesi ileride gelecek." Compiler için bu yeterli: çağrının doğru yazılıp yazılmadığını kontrol edebilir.
 
 **Neden işe yarar?** Prototipler sayesinde `main`'i dosyanın en üstüne koyabilirsin. Dosyayı açan kişi önce programın ana akışını, yani bir tür içindekiler sayfasını görür; ayrıntılar aşağıda durur. Ders 2.4'teki labirent oyununu düşün: `main` en üstte olsaydı, akış diyagramıyla aynı sırada okunurdu.
 
@@ -65,9 +65,9 @@ Prototipler asıl gücünü Ders 2.13'te, programı birden fazla dosyaya böldü
 
 ---
 
-## 2. Kapsam: bir değişken nerede görünür?
+## 2. Scope: bir değişken nerede görünür?
 
-Bir değişkenin **kapsamı**, onun adının kullanılabildiği bölgedir. C'de kural basit: **bir değişken, tanımlandığı süslü parantez bloğunun içinde, tanımlandığı satırdan bloğun sonuna kadar görünür.**
+Bir değişkenin **scope**'u (kapsamı), onun adının kullanılabildiği bölgedir. C'de kural basit: **bir değişken, tanımlandığı süslü parantez bloğunun içinde, tanımlandığı satırdan bloğun sonuna kadar görünür.**
 
 ```c
 #include <stdio.h>
@@ -93,7 +93,7 @@ Aynı kural `for` döngüsü için de geçerli: `for (int i = 0; ...)` yazdığ�
 
 **Neden böyle?** Değişkeni olabildiğince dar bir bölgede tanımlamak, onu yanlışlıkla başka bir yerde kullanmanı ya da değiştirmeni engeller. Bir değişken ne kadar az yerden görünürse, hata ayıklarken o kadar az yere bakarsın.
 
-### Gölgeleme: Ders 2.6'nın iki `total`'ı
+### Shadowing: Ders 2.6'nın iki `total`'ı
 
 İç içe iki blokta **aynı isimde** iki değişken tanımlarsan ne olur?
 
@@ -117,11 +117,11 @@ int main(void) {
 Dışarıda: 0
 ```
 
-C buna izin verir. Döngünün içindeki `int total = 5;` **yeni bir değişken** açar. Döngünün içinde `total` dendiğinde, en yakındaki, yani içteki kastedilir; dıştaki o bölgede görünmez hale gelir. Buna **gölgeleme** (shadowing) denir: içteki değişken dıştakinin önüne geçip onu gölgede bırakır.
+C buna izin verir. Döngünün içindeki `int total = 5;` **yeni bir değişken** açar. Döngünün içinde `total` dendiğinde, en yakındaki, yani içteki kastedilir; dıştaki o bölgede görünmez hale gelir. Buna **shadowing** (gölgeleme) denir: içteki değişken dıştakinin önüne geçip onu gölgede bırakır.
 
 Ders 2.6'daki ızgara toplamı alıştırmasında olan tam buydu: döngünün içindeki bütün toplamalar içteki `total`'a yapıldı, içteki `total` her turun sonunda yok oldu, dıştaki ise 0 olarak kaldı. Watchpoint'in hiç tetiklenmemesinin sebebi bu.
 
-Gölgeleme, kod doğru görünürken yanlış çalışan hataların klasik kaynağıdır. `-Wall` ve `-Wextra` onu yakalamaz, ama bunun için ayrı bir uyarı var:
+Shadowing, kod doğru görünürken yanlış çalışan hataların klasik kaynağıdır. `-Wall` ve `-Wextra` onu yakalamaz, ama bunun için ayrı bir uyarı var:
 
 ```sh
 clang -std=c17 -Wall -Wextra -Wshadow shadow.c -o shadow
@@ -135,7 +135,7 @@ warning: declaration shadows a local variable [-Wshadow]
 
 ---
 
-## 3. Çağrı yığını
+## 3. Call stack
 
 Bir fonksiyon başka bir fonksiyonu çağırdığında, çağıran fonksiyon **beklemeye** geçer. Çağrılan fonksiyon bitince, çağıranın kaldığı yerden devam edilir. Peki bilgisayar kimin nerede kaldığını ve kimin değişkenlerinin ne olduğunu nasıl hatırlar?
 
@@ -166,33 +166,33 @@ int main(void) {
 3² + 4² = 25
 ```
 
-Her fonksiyon çağrısı için bellekte bir **kutu** açılır. Bu kutuda o çağrının parametreleri ve yerel değişkenleri durur. Kutular üst üste dizilir: yeni bir çağrı yapıldığında yığının tepesine bir kutu eklenir, fonksiyon bitince tepedeki kutu kaldırılır. Bu yapıya **çağrı yığını** (call stack) denir; tıpkı üst üste konan tabaklar gibi, en son konan en önce alınır.
+Her fonksiyon çağrısı için stack'te bir **frame** (çerçeve) açılır. Bu frame'de o çağrının parametreleri ve yerel değişkenleri durur. Frame'ler üst üste dizilir: yeni bir çağrı yapıldığında stack'in tepesine bir frame eklenir, fonksiyon bitince tepedeki frame kaldırılır. Bu yapıya **call stack** (çağrı yığını) denir; tıpkı üst üste konan tabaklar gibi, en son konan en önce alınır.
 
-Program çalışırken yığının altı farklı anı:
+Program çalışırken stack'in altı farklı anı:
 
-![stack.c çalışırken çağrı yığınının altı anı](../../../assets/faz-02/cagri-yigini.svg)
+![stack.c çalışırken call stack'in altı anı](../../../assets/faz-02/cagri-yigini.svg)
 
 Adım adım:
 
-1. Program `main`'den başlar. Yığında tek kutu var: `main`'in kutusu. `answer`'a henüz değer verilmedi.
-2. `main`, `sum_of_squares(3, 4)`'ü çağırır. Tepeye yeni bir kutu eklenir: `a = 3`, `b = 4`. `main` beklemede.
-3. `sum_of_squares`, `square(3)`'ü çağırır. Tepeye bir kutu daha: `x = 3`. Artık iki fonksiyon bekliyor.
-4. `square` 9 döndürür ve **kutusu kaldırılır**. `x` ve `result` artık yok. Dönen 9, `first`'e yazılır.
-5. `sum_of_squares`, `square(4)`'ü çağırır. Yığının tepesine **yepyeni** bir `square` kutusu eklenir: `x = 4`. Bir önceki `square` çağrısından hiçbir iz yok.
-6. İkinci `square` 16 döndürür, kutusu kaldırılır. `sum_of_squares` 9 + 16 = 25 döndürür, onun kutusu da kaldırılır. `answer` 25 olur.
+1. Program `main`'den başlar. Stack'te tek frame var: `main`'in frame'i. `answer`'a henüz değer verilmedi.
+2. `main`, `sum_of_squares(3, 4)`'ü çağırır. Tepeye yeni bir frame eklenir: `a = 3`, `b = 4`. `main` beklemede.
+3. `sum_of_squares`, `square(3)`'ü çağırır. Tepeye bir frame daha: `x = 3`. Artık iki fonksiyon bekliyor.
+4. `square` 9 döndürür ve **frame'i kaldırılır**. `x` ve `result` artık yok. Dönen 9, `first`'e yazılır.
+5. `sum_of_squares`, `square(4)`'ü çağırır. Stack'in tepesine **yepyeni** bir `square` frame'i eklenir: `x = 4`. Bir önceki `square` çağrısından hiçbir iz yok.
+6. İkinci `square` 16 döndürür, frame'i kaldırılır. `sum_of_squares` 9 + 16 = 25 döndürür, onun frame'i de kaldırılır. `answer` 25 olur.
 
 Bu resim, Ders 2.3'te gördüğün iki kuralı da açıklıyor:
 
-- **Fonksiyon, kendisine verilen değerin kopyasıyla çalışır.** `sum_of_squares(3, 4)` çağrıldığında 3 ve 4, yeni kutudaki `a` ve `b`'ye kopyalanır. Kutunun içinde ne değişirse değişsin, `main`'in kutusuna dokunulmaz.
-- **Fonksiyonun yerel değişkenleri, fonksiyon bitince yok olur.** Çünkü kutusu yığından kaldırılır.
+- **Fonksiyon, kendisine verilen değerin kopyasıyla çalışır.** `sum_of_squares(3, 4)` çağrıldığında 3 ve 4, yeni frame'deki `a` ve `b`'ye kopyalanır. Frame'in içinde ne değişirse değişsin, `main`'in frame'ine dokunulmaz.
+- **Fonksiyonun yerel değişkenleri, fonksiyon bitince yok olur.** Çünkü frame'i stack'ten kaldırılır.
 
-Bir de şunu fark et: farklı fonksiyonlarda aynı isimde değişken kullanmak sorun değildir. İki fonksiyonun kutusu ayrı olduğu için, ikisinde de `result` adında bir değişken olsa birbirlerine karışmazlar.
+Bir de şunu fark et: farklı fonksiyonlarda aynı isimde değişken kullanmak sorun değildir. İki fonksiyonun frame'i ayrı olduğu için, ikisinde de `result` adında bir değişken olsa birbirlerine karışmazlar.
 
-### Çağrı yığınını LLDB'de görmek
+### Call stack'i LLDB'de görmek
 
-Ders 2.6'da VS Code'daki **CALL STACK** panelini görmüştün (ekran görüntüsündeki 5 numara). O panel, tam olarak bu yığını gösterir: en üstte şu an çalışan fonksiyon, altında onu çağıran, onun altında onu çağıran…
+Ders 2.6'da VS Code'daki **CALL STACK** panelini görmüştün (ekran görüntüsündeki 5 numara). O panel, tam olarak bu stack'i gösterir: en üstte şu an çalışan fonksiyon, altında onu çağıran, onun altında onu çağıran…
 
-Terminalde LLDB ile de görebilirsin. `square`'e bir kesme noktası koy ve `bt` (backtrace, "geriye doğru iz") yaz:
+Terminalde LLDB ile de görebilirsin. `square`'e bir breakpoint koy ve `bt` (backtrace, "geriye doğru iz") yaz:
 
 ```
 (lldb) breakpoint set --file stack.c --line 4
@@ -205,9 +205,9 @@ Terminalde LLDB ile de görebilirsin. `square`'e bir kesme noktası koy ve `bt` 
     frame #3: dyld`start + 6992
 ```
 
-Her satır yığındaki bir kutu; LLDB bunlara **frame** der. `frame #0` tepedeki, yani şu an çalışan kutu. `frame #2`'deki `main`'in altında bir de `start` var: `main`'den önce çalışıp onu çağıran küçük başlangıç kodu.
+Her satır stack'teki bir frame. `frame #0` tepedeki, yani şu an çalışan frame. `frame #2`'deki `main`'in altında bir de `start` var: `main`'den önce çalışıp onu çağıran küçük başlangıç kodu.
 
-Alt kutulara inip onların değişkenlerine de bakabilirsin. `up` bir alttaki kutuya geçer, `down` geri çıkar:
+Alt frame'lere inip onların değişkenlerine de bakabilirsin. `up` bir alttaki frame'e geçer, `down` geri çıkar:
 
 ```
 (lldb) frame variable
@@ -222,7 +222,7 @@ frame #1: stack`sum_of_squares(a=3, b=4) at stack.c:9:17
 (int) second = -143148432
 ```
 
-`result`, `first` ve `second`'ın değerlerine dikkat: hiçbirine henüz değer verilmedi. `result`'ın satırı henüz çalışmadı, `square(3)` henüz `first`'e dönmedi, `second`'ın sırası hiç gelmedi. Gördüğün sayılar o kutularda o an ne varsa o. Ders 2.6'da `i = 0`'da gördüğümüz durumun aynısı; bu sayılar bir sonraki çalıştırmada başka olabilir.
+`result`, `first` ve `second`'ın değerlerine dikkat: hiçbirine henüz değer verilmedi. `result`'ın satırı henüz çalışmadı, `square(3)` henüz `first`'e dönmedi, `second`'ın sırası hiç gelmedi. Gördüğün sayılar o frame'lerde o an ne varsa o. Ders 2.6'da `i = 0`'da gördüğümüz durumun aynısı; bu sayılar bir sonraki çalıştırmada başka olabilir.
 
 VS Code'da aynı işi CALL STACK panelinde bir satıra tıklayarak yaparsın: tıkladığın fonksiyonun değişkenleri VARIABLES panelinde görünür.
 
@@ -257,7 +257,7 @@ Toplam hamle: 3
 Global bir değişken:
 
 - Tanımlandığı satırdan dosyanın sonuna kadar **her fonksiyondan** görünür.
-- Program başlarken doğar, program bitene kadar yaşar. Yığında değil, ayrı bir yerde durur; hiçbir fonksiyonun kutusuna ait değildir.
+- Program başlarken doğar, program bitene kadar yaşar. Stack'te değil, ayrı bir yerde durur; hiçbir fonksiyonun frame'ine ait değildir.
 - Değer vermezsen **0** ile başlar. Yerel değişkenlerin aksine, içinde rastgele bir değer olmaz.
 
 Kolay görünüyor: parametre geçmeye gerek yok, herkes her yerden ulaşıyor. Ama tam da bu yüzden **tehlikeli**:
@@ -297,7 +297,7 @@ Bir istisna var: hiç değişmeyen değerler. `#define ROWS 7` gibi sabitler, he
 
 Bazen bir fonksiyonun, çağrılar arasında bir şeyi **hatırlaması** gerekir. Örneğin bir sıra numarası dağıtan makine: her çağrıldığında bir sonraki numarayı vermeli.
 
-Yerel bir değişken bu işi yapamaz; fonksiyon her bittiğinde kutusuyla birlikte yok olur. Global bir değişken yapabilir, ama az önce gördüğümüz bütün dertleriyle birlikte. Arada bir yol var: **`static` yerel değişken**.
+Yerel bir değişken bu işi yapamaz; fonksiyon her bittiğinde frame'iyle birlikte yok olur. Global bir değişken yapabilir, ama az önce gördüğümüz bütün dertleriyle birlikte. Arada bir yol var: **`static` yerel değişken**.
 
 ```c
 #include <stdio.h>
@@ -330,8 +330,8 @@ normal: 1, static: 3
 
 İki fonksiyonun tek farkı `static` kelimesi:
 
-- `count_normal`'daki `calls` her çağrıda yeni bir kutuda 0 olarak doğar, 1 olur ve fonksiyon bitince yok olur. Sonuç hep 1.
-- `count_static`'teki `calls` ise **bir kez**, program başlarken doğar ve program bitene kadar yaşar. Yığındaki kutuda değil, global değişkenlerle aynı yerde durur. `static int calls = 0;` satırındaki ilk değer de sadece bir kez verilir; sonraki çağrılarda bu satır değeri sıfırlamaz. Her çağrı, bir öncekinin bıraktığı değerden devam eder.
+- `count_normal`'daki `calls` her çağrıda yeni bir frame'de 0 olarak doğar, 1 olur ve fonksiyon bitince yok olur. Sonuç hep 1.
+- `count_static`'teki `calls` ise **bir kez**, program başlarken doğar ve program bitene kadar yaşar. Stack'teki frame'de değil, global değişkenlerle aynı yerde durur. `static int calls = 0;` satırındaki ilk değer de sadece bir kez verilir; sonraki çağrılarda bu satır değeri sıfırlamaz. Her çağrı, bir öncekinin bıraktığı değerden devam eder.
 
 Ama global değişkenden farklı olarak, `calls`'u **sadece kendi fonksiyonu** görebilir. Ömrü global kadar uzun, görünürlüğü yerel kadar dar: iki dünyanın iyi tarafı.
 
@@ -346,16 +346,16 @@ Ama global değişkenden farklı olarak, `calls`'u **sadece kendi fonksiyonu** g
 | **Nerede tanımlanır?** | Bir bloğun içinde | Bütün fonksiyonların dışında | Bir bloğun içinde, başında `static` ile |
 | **Nereden görünür?** | Sadece kendi bloğundan | Tanımlandığı yerden dosyanın sonuna kadar her yerden | Sadece kendi bloğundan |
 | **Ne kadar yaşar?** | Blok bitene kadar | Program boyunca | Program boyunca |
-| **Nerede durur?** | Çağrı yığınındaki kutuda | Yığının dışında | Yığının dışında |
+| **Nerede durur?** | Call stack'teki frame'de | Stack'in dışında | Stack'in dışında |
 | **İlk değer vermezsen?** | Belirsiz, rastgele olabilir | 0 | 0 |
 
-İki ayrı soru var ve karıştırılmamalı: **kapsam** (adı nereden kullanılabilir?) ve **ömür** (bellekte ne zamana kadar yaşar?). `static` yerel değişken, bu ikisinin birbirinden farklı olabileceğinin en güzel örneği.
+İki ayrı soru var ve karıştırılmamalı: **scope** (adı nereden kullanılabilir?) ve **ömür** (bellekte ne zamana kadar yaşar?). `static` yerel değişken, bu ikisinin birbirinden farklı olabileceğinin en güzel örneği.
 
 ---
 
 ## Alıştırmalar
 
-**1. Kapsam bulmacası.** Programı çalıştırmadan, ekrana ne yazacağını tahmin et. Sonra çalıştırıp kontrol et.
+**1. Scope bulmacası.** Programı çalıştırmadan, ekrana ne yazacağını tahmin et. Sonra çalıştırıp kontrol et.
 
 ```c
 #include <stdio.h>
@@ -382,7 +382,7 @@ int main(void) {
 
 (`main`'in ortasındaki tek başına duran süslü parantezler de bir bloktur; içinde tanımlanan değişken orada doğar ve orada ölür.)
 
-**2. Yığını çiz.** Aşağıdaki programda `add` iki kez çağrılıyor. Her iki çağrı sırasında çağrı yığını nasıl görünüyor? Kutuları ve içlerindeki değerleri kağıda çiz. Hangi `add` çağrısı önce çalışıyor? Sonra cevabını LLDB ile kontrol et.
+**2. Stack'i çiz.** Aşağıdaki programda `add` iki kez çağrılıyor. Her iki çağrı sırasında call stack nasıl görünüyor? Frame'leri ve içlerindeki değerleri kağıda çiz. Hangi `add` çağrısı önce çalışıyor? Sonra cevabını LLDB ile kontrol et.
 
 ```c
 #include <stdio.h>
@@ -424,11 +424,11 @@ main: 1
 ```
 
 - İlk `printf`, `main`'in içinde `x` adında yerel bir değişken olmadığı için **global** `x`'i (1) yazar.
-- `f`'in içindeki `int x = 2;` global `x`'i gölgeler; `f` kendi `x`'ini 3 yapar. Global `x`'e dokunulmaz.
-- Bloğun içindeki `int x = 10;` da global `x`'i gölgeler ama sadece blok bitene kadar.
+- `f`'in içindeki `int x = 2;` global `x`'i shadow eder; `f` kendi `x`'ini 3 yapar. Global `x`'e dokunulmaz.
+- Bloğun içindeki `int x = 10;` da global `x`'i shadow eder ama sadece blok bitene kadar.
 - Son `printf`'te blok bitmiş, içteki `x` yok olmuş; yine global `x` görünür: 1.
 
-Üç ayrı `x` var ve hiçbiri diğerini değiştirmedi. Bu program, gölgelemenin neden kafa karıştırıcı olduğunun güzel bir örneği: `-Wshadow` ile derlersen clang, global `x`'i gölgeleyen iki tanım için iki ayrı uyarı verir.
+Üç ayrı `x` var ve hiçbiri diğerini değiştirmedi. Bu program, shadowing'in neden kafa karıştırıcı olduğunun güzel bir örneği: `-Wshadow` ile derlersen clang, global `x`'i shadow eden iki tanım için iki ayrı uyarı verir.
 
 **2.** `add(n, add(n, n))` satırında, dıştaki `add`'in çağrılabilmesi için önce ikinci parametresinin değeri bilinmeli. Bu yüzden önce **içteki** `add(5, 5)` çalışır.
 
@@ -440,7 +440,7 @@ triple   n = 5
 main     r = ?
 ```
 
-İçteki `add` 10 döndürür ve kutusu kaldırılır. Sonra dıştaki `add(5, 10)` çalışır:
+İçteki `add` 10 döndürür ve frame'i kaldırılır. Sonra dıştaki `add(5, 10)` çalışır:
 
 ```
 add      a = 5, b = 10     ← tepe
@@ -450,7 +450,7 @@ main     r = ?
 
 Dıştaki `add` 15 döndürür, `triple` de 15 döndürür, `r` 15 olur.
 
-LLDB ile kontrol ederken kesme noktasını isimle değil, **dosya ve satırla** koy: `breakpoint set --file triple.c --line 4`. `add` çok yaygın bir isim; `breakpoint set --name add` yazarsan LLDB, sistem kütüphanelerinin içindeki aynı isimli fonksiyonlarda da durabilir. İlk durakta `bt` yazınca `add(a=5, b=5)`'i, `continue`'dan sonraki durakta `add(a=5, b=10)`'u görürsün.
+LLDB ile kontrol ederken breakpoint'i isimle değil, **dosya ve satırla** koy: `breakpoint set --file triple.c --line 4`. `add` çok yaygın bir isim; `breakpoint set --name add` yazarsan LLDB, sistem kütüphanelerinin içindeki aynı isimli fonksiyonlarda da durabilir. İlk durakta `bt` yazınca `add(a=5, b=5)`'i, `continue`'dan sonraki durakta `add(a=5, b=10)`'u görürsün.
 
 **3.**
 ```c
@@ -509,7 +509,7 @@ int is_palindrome(int n) {
 
 ## Kaynaklar
 
-- Brian Kernighan & Dennis Ritchie, *The C Programming Language* (2. baskı), Bölüm 4.1–4.6: fonksiyonlar, dış değişkenler, kapsam kuralları ve `static` değişkenler.
+- Brian Kernighan & Dennis Ritchie, *The C Programming Language* (2. baskı), Bölüm 4.1–4.6: fonksiyonlar, dış değişkenler, scope kuralları ve `static` değişkenler.
 - K. N. King, *C Programming: A Modern Approach* (2. baskı), Bölüm 9–10: fonksiyonlar ve program yapısı.
 
-**Sıradaki ders:** Özyineleme. Bir fonksiyon kendisini çağırırsa ne olur? Bu dersteki çağrı yığını, orada her şeyin anahtarı olacak.
+**Sıradaki ders:** Recursion. Bir fonksiyon kendisini çağırırsa ne olur? Bu dersteki call stack, orada her şeyin anahtarı olacak.

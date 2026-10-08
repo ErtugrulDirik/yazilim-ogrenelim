@@ -1,9 +1,9 @@
 ---
 title: "2.3 Programlamanın temelleri"
-description: "C'nin yazım kuralları ve her dilde bulunan temel araçlar: değişken, aritmetik, karar, döngü, fonksiyon ve yapı; çarpım tablosundan kalbe kadar alıştırmalar."
+description: "C'nin yazım kuralları ve her dilde bulunan temel araçlar: değişken, aritmetik, karar, döngü, fonksiyon ve struct; çarpım tablosundan kalbe kadar alıştırmalar."
 ---
 
-Bu ders, C dilinin **yazım kurallarını** ve hemen her programlama dilinde bulunan **temel araçların** nasıl kullanıldığını gösterir: değişkenler, hesaplama, karar verme, döngüler, fonksiyonlar ve yapılar.
+Bu ders, C dilinin **yazım kurallarını** ve hemen her programlama dilinde bulunan **temel araçların** nasıl kullanıldığını gösterir: değişkenler, hesaplama, karar verme, döngüler, fonksiyonlar ve struct'lar.
 
 Bunlar programlamanın alfabesidir. Python, Java, JavaScript, hangi dile geçersen geç, aynı araçları bulacaksın; sadece yazılışları biraz farklı olacak. Burada öğrendiğin şey C'den çok daha büyük: **programlamanın kendisi**.
 
@@ -34,7 +34,7 @@ int main(void) {
 Bilmen gereken birkaç kural:
 
 - **Her komutun sonunda noktalı virgül (`;`) olur.** Türkçede cümle sonuna nokta koymak gibi.
-- **Süslü parantezler (`{` `}`) bir grup komutu bir arada tutar.** Faz 1'deki sözde kodda girinti ne yapıyorsa, C'de süslü parantez onu yapar.
+- **Süslü parantezler (`{` `}`) bir grup komutu bir arada tutar.** Faz 1'deki pseudocode'da girinti ne yapıyorsa, C'de süslü parantez onu yapar.
 - **`//` ile başlayan satır yorumdur.** Bilgisayar onu okumaz; sana ve kodu okuyacak başkalarına not bırakmak içindir.
 - **Büyük ve küçük harf farklıdır.** `main` ile `Main` iki ayrı şeydir.
 - **Girinti zorunlu değildir ama yapmalısın.** Bilgisayar umursamaz, ama düzgün girintili kodu okumak çok daha kolaydır. Her süslü parantezin içini dört boşluk içeri al.
@@ -182,7 +182,7 @@ Karar verebilmek için soru sormamız gerekir. Bu soruların cevabı **doğru** 
 | Küçük ya da eşit mi? | `<=` | `a <= b` |
 | Büyük ya da eşit mi? | `>=` | `a >= b` |
 
-**`=` ile `==` farklıdır.** `=` atamadır ("şunu kutuya koy"), `==` sorudur ("bunlar eşit mi?"). Yeni başlayanların en sık yaptığı hata, soru sormak isterken `=` yazmaktır. Neyse ki `-Wall` ayarı açık olduğu için derleyici seni uyarır.
+**`=` ile `==` farklıdır.** `=` atamadır ("şunu kutuya koy"), `==` sorudur ("bunlar eşit mi?"). Yeni başlayanların en sık yaptığı hata, soru sormak isterken `=` yazmaktır. Neyse ki `-Wall` ayarı açık olduğu için compiler seni uyarır.
 
 Soruları birleştirmek için:
 
@@ -622,9 +622,9 @@ Dışarıda: 5
 
 ---
 
-## 9. Yapılar: struct
+## 9. Struct'lar
 
-Bazen birkaç değer birlikte anlam taşır. Bir noktanın x ve y'si, bir dikdörtgenin eni ve boyu, bir öğrencinin numarası ve notları. Bunları ayrı ayrı değişkenlerde tutmak yerine tek bir pakette toplayabiliriz: **yapı** (`struct`).
+Bazen birkaç değer birlikte anlam taşır. Bir noktanın x ve y'si, bir dikdörtgenin eni ve boyu, bir öğrencinin numarası ve notları. Bunları ayrı ayrı değişkenlerde tutmak yerine tek bir pakette toplayabiliriz: **struct** (yapı).
 
 ### Örnek 1: nokta
 
@@ -658,7 +658,7 @@ a = (10, 4)
 
 ### Örnek 2: dikdörtgen ve fonksiyonlar
 
-Yapılar fonksiyonlara verilebilir:
+Struct'lar fonksiyonlara verilebilir:
 
 ```c
 #include <stdio.h>
@@ -740,9 +740,9 @@ Vizenin %40'ı, finalin %60'ı alınıyor. İki küçük yenilik var:
 - `%s` → `%d` sayı yazar, `%s` ise bir yazı yazar.
 - `koşul ? a : b` → "koşul doğruysa `a`, değilse `b`". Kısa bir `if-else` gibi düşün.
 
-### Örnek 4: tarih ve fonksiyondan yapı döndürmek
+### Örnek 4: tarih ve fonksiyondan struct döndürmek
 
-Fonksiyonlar yapı **döndürebilir** de:
+Fonksiyonlar struct **döndürebilir** de:
 
 ```c
 #include <stdio.h>
@@ -1047,7 +1047,7 @@ int main(void) {
 }
 ```
 
-Şekil alıştırmalarının sırrı bu tablodur: **önce sayıları bul, sonra kodu yaz.** Ders 1.3'teki iz tablosunun bir başka kullanımı.
+Şekil alıştırmalarının sırrı bu tablodur: **önce sayıları bul, sonra kodu yaz.** Ders 1.3'teki trace table'ın bir başka kullanımı.
 
 </details>
 
@@ -1275,7 +1275,7 @@ Büyük bir şekli küçük parçalara bölmek, her parçayı ayrı ayrı çözm
 
 ## Kaynaklar
 
-- Brian Kernighan & Dennis Ritchie, *The C Programming Language* (2. baskı), Bölüm 1–3: değişkenler, kontrol akışı, fonksiyonlar; Bölüm 6.1–6.2: yapılar.
+- Brian Kernighan & Dennis Ritchie, *The C Programming Language* (2. baskı), Bölüm 1–3: değişkenler, kontrol akışı, fonksiyonlar; Bölüm 6.1–6.2: struct'lar.
 - K. N. King, *C Programming: A Modern Approach* (2. baskı), Bölüm 2–9: aynı konuların bol örnekli anlatımı.
 
-**Sıradaki ders:** Diziler. Aynı türden çok sayıda değeri tek bir isim altında tutmayı öğrenip ilk oyunumuzu yazacağız: bir labirent.
+**Sıradaki ders:** Array'ler. Aynı türden çok sayıda değeri tek bir isim altında tutmayı öğrenip ilk oyunumuzu yazacağız: bir labirent.

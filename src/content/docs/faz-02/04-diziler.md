@@ -1,20 +1,20 @@
 ---
-title: "2.4 Diziler ve ilk oyun: labirent"
-description: "Diziyi kavramak: tanımlama, indeks, döngüyle gezme, fonksiyona verme, yapı dizileri ve iki boyutlu diziler. Sonra bir labirent oyununu adım adım tasarlayıp geliştirmek."
+title: "2.4 Array'ler ve ilk oyun: labirent"
+description: "Array'i kavramak: tanımlama, indeks, döngüyle gezme, fonksiyona verme, struct array'leri ve iki boyutlu array'ler. Sonra bir labirent oyununu adım adım tasarlayıp geliştirmek."
 ---
 
-Şimdiye kadar her değeri ayrı bir kutuda tuttuk. Ama bir sınıftaki 30 öğrencinin notu, bir haftanın 7 günlük sıcaklığı, bir oyunun haritası… Bunlar için 30 ayrı değişken açmak hem yorucu hem de imkânsıza yakın. Bu derste aynı türden çok sayıda değeri tek bir isim altında tutmayı öğreneceğiz: **dizi**.
+Şimdiye kadar her değeri ayrı bir kutuda tuttuk. Ama bir sınıftaki 30 öğrencinin notu, bir haftanın 7 günlük sıcaklığı, bir oyunun haritası… Bunlar için 30 ayrı değişken açmak hem yorucu hem de imkânsıza yakın. Bu derste aynı türden çok sayıda değeri tek bir isim altında tutmayı öğreneceğiz: **array** (dizi).
 
 Ders iki parçadan oluşuyor:
 
-1. **Diziler:** Bölüm 1–7. Küçük örneklerle diziyi kafanda oturtacağız.
+1. **Array'ler:** Bölüm 1–7. Küçük örneklerle array'i kafanda oturtacağız.
 2. **Labirent oyunu:** Bölüm 8. Öğrendiklerimizle, iki boyutlu bir harita üzerinde oynanan küçük bir oyun yazacağız. Ama asıl amaç oyunun kendisi değil: bir programın **nasıl tasarlandığını ve adım adım nasıl büyütüldüğünü** görmek.
 
-Bu derste sadece fonksiyonun içinde tanımlanan, boyutu baştan belli olan dizileri kullanacağız. Boyutu program çalışırken belirlenen dizileri Faz 4'te göreceğiz.
+Bu derste sadece fonksiyonun içinde tanımlanan, boyutu baştan belli olan array'leri kullanacağız. Boyutu program çalışırken belirlenen array'leri Faz 4'te göreceğiz.
 
 ---
 
-## 1. Neden dizi?
+## 1. Neden array?
 
 Beş öğrencinin notunu tutmak istediğini düşün:
 
@@ -28,23 +28,23 @@ int score5 = 75;
 
 Ortalamayı bulmak için beşini tek tek toplaman gerekir. Öğrenci sayısı 100 olsa? 100 değişken, 100 terimli bir toplama… Üstelik döngü de kullanamazsın, çünkü her değişkenin adı farklı.
 
-Dizi bu sorunu çözer:
+Array bu sorunu çözer:
 
 ```c
 int scores[5] = {70, 85, 60, 90, 75};
 ```
 
-"`scores` adında, içinde **5 tane** `int` olan bir dizi aç; içine sırayla 70, 85, 60, 90 ve 75'i koy."
+"`scores` adında, içinde **5 tane** `int` olan bir array aç; içine sırayla 70, 85, 60, 90 ve 75'i koy."
 
-![Beş elemanlı bir dizi: yan yana kutular ve indeksleri](../../../assets/faz-02/dizi.svg)
+![Beş elemanlı bir array: yan yana kutular ve indeksleri](../../../assets/faz-02/dizi.svg)
 
-Dizi, **yan yana dizilmiş kutulardır**. Faz 0'daki "bellek, numaralandırılmış kutulardan oluşan bir raf" benzetmesini hatırla: dizi, o raftaki yan yana duran birkaç kutuya tek bir isim vermektir. Her kutuya **indeks** denen sırasıyla ulaşılır.
+Array, **yan yana dizilmiş kutulardır**. Faz 0'daki "bellek, numaralandırılmış kutulardan oluşan bir raf" benzetmesini hatırla: array, o raftaki yan yana duran birkaç kutuya tek bir isim vermektir. Her kutuya **indeks** denen sırasıyla ulaşılır.
 
 ---
 
 ## 2. Tanımlama ve erişim
 
-**İndeks 0'dan başlar.** Bu, yeni başlayanları en çok şaşırtan kuraldır: 5 elemanlı bir dizinin ilk elemanı `scores[0]`, son elemanı `scores[4]`'tür. `scores[5]` diye bir kutu **yoktur**.
+**İndeks 0'dan başlar.** Bu, yeni başlayanları en çok şaşırtan kuraldır: 5 elemanlı bir array'in ilk elemanı `scores[0]`, son elemanı `scores[4]`'tür. `scores[5]` diye bir kutu **yoktur**.
 
 ```c
 #include <stdio.h>
@@ -69,7 +69,7 @@ Son not: 75
 
 `scores[2]`, tıpkı bir değişken gibi okunur ve değiştirilir.
 
-**Döngüyle gezmek.** Dizinin asıl gücü burada: indeks bir sayı olduğu için, onu bir döngü değişkeni yapabiliriz.
+**Döngüyle gezmek.** Array'in asıl gücü burada: indeks bir sayı olduğu için, onu bir döngü değişkeni yapabiliriz.
 
 ```c
 #include <stdio.h>
@@ -96,8 +96,8 @@ scores[4] = 75
 
 İki yenilik var:
 
-- `#define SIZE 5` → "Kodda `SIZE` gördüğün her yere `5` yaz." Bunu, Ders 2.2'deki derleme hattının ilk adımı olan **ön işlemci** yapar. Dizinin boyutunu tek bir yerde yazarız; boyut değişirse sadece orayı değiştiririz.
-- `for (int i = 0; i < SIZE; i++)` → İndeks 0'dan başlar ve `SIZE`'dan **küçük** olduğu sürece devam eder. `<=` değil `<`: son indeks 4'tür, 5 değil. Diziyle yazacağın döngülerin neredeyse hepsi bu kalıpta olacak.
+- `#define SIZE 5` → "Kodda `SIZE` gördüğün her yere `5` yaz." Bunu, Ders 2.2'deki derleme hattının ilk adımı olan **preprocessor** yapar. Array'in boyutunu tek bir yerde yazarız; boyut değişirse sadece orayı değiştiririz.
+- `for (int i = 0; i < SIZE; i++)` → İndeks 0'dan başlar ve `SIZE`'dan **küçük** olduğu sürece devam eder. `<=` değil `<`: son indeks 4'tür, 5 değil. Array ile yazacağın döngülerin neredeyse hepsi bu kalıpta olacak.
 
 **Diğer tanımlama biçimleri:**
 
@@ -110,9 +110,9 @@ int d[] = {4, 8, 15};         // Boyutu yazma; değer sayısından 3 olarak anla
 
 ---
 
-## 3. Diziyle hesaplar
+## 3. Array ile hesaplar
 
-Diziyi döngüyle gezmeyi öğrendin; artık her şey bir döngü uzaklığında.
+Array'i döngüyle gezmeyi öğrendin; artık her şey bir döngü uzaklığında.
 
 ```c
 #include <stdio.h>
@@ -163,29 +163,29 @@ En yüksek: 90
 75 90 60 85 70 
 ```
 
-En yüksek notu bulan kısma dikkat et: Ders 1.1'de sözde kodla yazdığın EnBüyük algoritmasının birebir C hali. O gün kağıtta yaptığın iş, bugün çalışan bir programın parçası.
+En yüksek notu bulan kısma dikkat et: Ders 1.1'de pseudocode ile yazdığın EnBüyük algoritmasının birebir C hali. O gün kağıtta yaptığın iş, bugün çalışan bir programın parçası.
 
 ---
 
-## 4. Dizinin sınırları
+## 4. Array'in sınırları
 
-5 elemanlı bir dizide `scores[5]` ya da `scores[-1]` yazarsan ne olur?
+5 elemanlı bir array'de `scores[5]` ya da `scores[-1]` yazarsan ne olur?
 
-**C bunu kontrol etmez.** Program dizinin bittiği yerden sonraki belleği okur ya da oraya yazar. Sonuç belli değildir: program çökebilir, saçma bir sayı gösterebilir ya da en kötüsü, hiçbir şey olmamış gibi devam edip başka bir değişkeni sessizce bozabilir.
+**C bunu kontrol etmez.** Program array'in bittiği yerden sonraki belleği okur ya da oraya yazar. Sonuç belli değildir: program çökebilir, saçma bir sayı gösterebilir ya da en kötüsü, hiçbir şey olmamış gibi devam edip başka bir değişkeni sessizce bozabilir.
 
-İndeks sabit bir sayıysa derleyici seni uyarır:
+İndeks sabit bir sayıysa compiler seni uyarır:
 
 ```
 warning: array index 5 is past the end of the array (that has type 'int[5]')
 ```
 
-Ama indeks bir değişkense (`scores[i]`) derleyici bunu önceden bilemez. Dizinin dışına çıkmamak **senin sorumluluğundur**. Bu yüzden döngü koşullarını yazarken hep kendine sor: "İndeksin alabileceği en küçük ve en büyük değer ne? İkisi de dizinin içinde mi?" Ders 1.3'teki uç durum alışkanlığı burada hayat kurtarır.
+Ama indeks bir değişkense (`scores[i]`) compiler bunu önceden bilemez. Array'in dışına çıkmamak **senin sorumluluğundur**. Bu yüzden döngü koşullarını yazarken hep kendine sor: "İndeksin alabileceği en küçük ve en büyük değer ne? İkisi de array'in içinde mi?" Ders 1.3'teki edge case alışkanlığı burada hayat kurtarır.
 
 ---
 
-## 5. Diziyi fonksiyona vermek
+## 5. Array'i fonksiyona vermek
 
-Bir diziyi fonksiyona verirken, **boyutunu da ayrıca** vermemiz gerekir; fonksiyon dizinin kaç elemanlı olduğunu kendiliğinden bilemez:
+Bir array'i fonksiyona verirken, **boyutunu da ayrıca** vermemiz gerekir; fonksiyon array'in kaç elemanlı olduğunu kendiliğinden bilemez:
 
 ```c
 #include <stdio.h>
@@ -226,13 +226,13 @@ Toplam: 15
 İki katı: 2 4 6 8 10 
 ```
 
-**Dikkat: diziler kopyalanmaz.** Ders 2.3'te "fonksiyon, kendisine verilen değerin kopyasıyla çalışır" demiştik. Diziler bu kuralın **istisnasıdır**: `double_all` kopya üzerinde değil, `main`'deki dizinin **kendisi** üzerinde çalıştı ve onu değiştirdi. Bunun nedenini Faz 4'te, belleğin nasıl çalıştığını gördüğümüzde anlayacağız. Şimdilik kuralı bil: diziyi fonksiyona verdiğinde, fonksiyon asıl diziyi değiştirebilir.
+**Dikkat: array'ler kopyalanmaz.** Ders 2.3'te "fonksiyon, kendisine verilen değerin kopyasıyla çalışır" demiştik. Array'ler bu kuralın **istisnasıdır**: `double_all` kopya üzerinde değil, `main`'deki array'in **kendisi** üzerinde çalıştı ve onu değiştirdi. Bunun nedenini Faz 4'te, belleğin nasıl çalıştığını gördüğümüzde anlayacağız. Şimdilik kuralı bil: array'i fonksiyona verdiğinde, fonksiyon asıl array'i değiştirebilir.
 
 ---
 
-## 6. Yapı dizileri
+## 6. Struct array'leri
 
-Ders 2.3'teki yapılarla diziler birleşince güçlü bir araç çıkar. Her öğrencinin numarasını ve notunu bir arada tutalım:
+Ders 2.3'teki struct'larla array'ler birleşince güçlü bir araç çıkar. Her öğrencinin numarasını ve notunu bir arada tutalım:
 
 ```c
 #include <stdio.h>
@@ -276,17 +276,17 @@ int main(void) {
 Birinci: 102 numara, 92 puan
 ```
 
-`students[i].score` → "`students` dizisinin `i`. elemanının `score`'u." Önce köşeli parantezle kutuyu seçiyoruz, sonra noktayla kutunun içindeki parçaya ulaşıyoruz.
+`students[i].score` → "`students` array'inin `i`. elemanının `score`'u." Önce köşeli parantezle kutuyu seçiyoruz, sonra noktayla kutunun içindeki parçaya ulaşıyoruz.
 
 En iyi öğrenciyi bulurken bu sefer notun kendisini değil, **indeksini** (`best`) tuttuk. Böylece hem notuna hem numarasına ulaşabildik.
 
 ---
 
-## 7. İki boyutlu diziler
+## 7. İki boyutlu array'ler
 
-Bazı veriler doğal olarak bir **tablo** şeklindedir: bir satranç tahtası, sinemadaki koltuklar, bir oyun haritası. Bunlar için **iki boyutlu dizi** kullanılır: satırlardan ve sütunlardan oluşan bir ızgara.
+Bazı veriler doğal olarak bir **tablo** şeklindedir: bir satranç tahtası, sinemadaki koltuklar, bir oyun haritası. Bunlar için **iki boyutlu array** kullanılır: satırlardan ve sütunlardan oluşan bir ızgara.
 
-![Üç satır dört sütunluk iki boyutlu dizi](../../../assets/faz-02/dizi-2b.svg)
+![Üç satır dört sütunluk iki boyutlu array](../../../assets/faz-02/dizi-2b.svg)
 
 ```c
 int grid[3][4];
@@ -294,7 +294,7 @@ int grid[3][4];
 
 "3 satırlı, her satırında 4 sütun olan bir ızgara." Bir kutuya ulaşmak için iki indeks gerekir: **önce satır, sonra sütun**. `grid[1][2]`, 1. satırın 2. sütunudur (ikisi de 0'dan başlayarak).
 
-İki boyutlu diziyi gezmek için Ders 2.3'teki **iç içe döngü** tam olarak gereken şey: dış döngü satırları, iç döngü sütunları gezer.
+İki boyutlu array'i gezmek için Ders 2.3'teki **iç içe döngü** tam olarak gereken şey: dış döngü satırları, iç döngü sütunları gezer.
 
 **Örnek: sinema salonu.** 0 boş, 1 dolu koltuk:
 
@@ -343,7 +343,7 @@ Satıştan sonra seats[2][2] = 1
 
 İlk değer verirken her satır kendi süslü parantezinin içinde. Kodu bu şekilde hizalı yazarsan, ızgaranın şeklini kodun içinde de görebilirsin. Bir sonraki bölümde labirent haritasını tam olarak bu şekilde çizeceğiz.
 
-İki boyutlu bir diziyi fonksiyona verirken **sütun sayısını** yazmak zorundasın: `void print_seats(int seats[ROWS][COLS])`. Fonksiyon, bir satırın nerede bitip ötekinin nerede başladığını ancak böyle bilebilir.
+İki boyutlu bir array'i fonksiyona verirken **sütun sayısını** yazmak zorundasın: `void print_seats(int seats[ROWS][COLS])`. Fonksiyon, bir satırın nerede bitip ötekinin nerede başladığını ancak böyle bilebilir.
 
 ---
 
@@ -378,7 +378,7 @@ Ders 1.1'deki gibi, kod yazmadan önce problemi tanımlayalım:
 
 **Hangi verileri tutmamız gerekiyor?**
 
-- **Harita:** Satırları ve sütunları olan bir ızgara. Bölüm 7'deki sinema salonunun aynısı: iki boyutlu bir `int` dizisi. Her kutuda bir sayı: 0 boş, 1 duvar, 2 çıkış.
+- **Harita:** Satırları ve sütunları olan bir ızgara. Bölüm 7'deki sinema salonunun aynısı: iki boyutlu bir `int` array'i. Her kutuda bir sayı: 0 boş, 1 duvar, 2 çıkış.
 - **Oyuncunun yeri:** Bir satır ve bir sütun numarası.
 
 Dikkat: oyuncuyu haritanın içine yazmıyoruz. Harita hiç değişmiyor; değişen tek şey oyuncunun yeri. Oyuncuyu ayrı tutmak, işimizi çok kolaylaştıracak.
@@ -610,7 +610,7 @@ Akış diyagramındaki iki kararı ekleyelim. "Oyuncuyu taşı" kısmını şöy
 
 Önceki adımda `new_row` ve `new_col`'u ayrı hesaplamıştık; işte o ayrım burada işe yaradı. Taşımadan önce bakabiliyoruz.
 
-**Neden dizinin dışına hiç çıkmıyoruz?** Bölüm 4'ü hatırla: `map[-1][3]` gibi bir yere bakmak tehlikeli. Ama haritanın bütün kenarları duvar. Oyuncu en kenara gitmeye çalıştığında gideceği kare bir duvar oluyor, hamle başarısız sayılıyor ve oyuncu hiçbir zaman dizinin dışına adım atmıyor. Kenarları duvarla çevirmek, bütün bu sorunu tek seferde çözen bir **tasarım kararı**.
+**Neden array'in dışına hiç çıkmıyoruz?** Bölüm 4'ü hatırla: `map[-1][3]` gibi bir yere bakmak tehlikeli. Ama haritanın bütün kenarları duvar. Oyuncu en kenara gitmeye çalıştığında gideceği kare bir duvar oluyor, hamle başarısız sayılıyor ve oyuncu hiçbir zaman array'in dışına adım atmıyor. Kenarları duvarla çevirmek, bütün bu sorunu tek seferde çözen bir **tasarım kararı**.
 
 Oyun artık çalışıyor ve kazanılabiliyor. Bitti mi?
 
@@ -622,7 +622,7 @@ Oyun çalışıyor, ama koda dürüstçe bakalım. `main` 70 satırı geçti ve 
 - **0, 1, 2** sayıları kodun her yerine dağılmış. `map[...] == 1` gören biri, 1'in "duvar" demek olduğunu bilmek için yukarıdaki yoruma gitmek zorunda.
 - Oyuncunun yeri **iki ayrı değişkende** duruyor: `player_row` ve `player_col`. Hep birlikte değişiyorlar, hep birlikte kullanılıyorlar. Ayrı durmaları için bir sebep yok.
 
-Bunları **davranışı değiştirmeden**, küçük adımlarla düzelteceğiz. Her küçük adımdan sonra programı çalıştırıp hâlâ aynı şekilde çalıştığından emin ol. Kodun ne yaptığını değiştirmeden nasıl yazıldığını iyileştirmeye **yeniden düzenleme** (refactoring) denir; yazılımcıların günlük işinin büyük kısmı budur.
+Bunları **davranışı değiştirmeden**, küçük adımlarla düzelteceğiz. Her küçük adımdan sonra programı çalıştırıp hâlâ aynı şekilde çalıştığından emin ol. Kodun ne yaptığını değiştirmeden nasıl yazıldığını iyileştirmeye **refactoring** (yeniden düzenleme) denir; yazılımcıların günlük işinin büyük kısmı budur.
 
 **Toparlama 1: sayılara isim ver.** Sihirli sayılar yerine isimli sabitler:
 
@@ -634,7 +634,7 @@ Bunları **davranışı değiştirmeden**, küçük adımlarla düzelteceğiz. H
 
 Artık `map[new_row][new_col] == 1` yerine `map[new_row][new_col] == WALL` yazıyoruz. Okuyan herkes ne kastedildiğini anında anlıyor.
 
-**Toparlama 2: oyuncunun yerini bir yapıya koy.** Ders 2.3'teki `struct` tam bunun için:
+**Toparlama 2: oyuncunun yerini bir struct'a koy.** Ders 2.3'teki `struct` tam bunun için:
 
 ```c
 struct Position {
@@ -910,15 +910,15 @@ Hiçbir adımda "doğru kodu" bir kerede yazmadık. Önce çalışan bir şey ya
 
 ## 9. Alıştırmalar
 
-Diziler bu kitabın geri kalanında her yerde karşına çıkacak. Alıştırmaları atlama.
+Array'ler bu kitabın geri kalanında her yerde karşına çıkacak. Alıştırmaları atlama.
 
-### Diziler
+### Array'ler
 
-**9.1** Bir dizideki **en küçük** elemanı ve onun **indeksini** bulan programı yaz. Dizi: `{42, 17, 8, 99, 23}`. Beklenen: "En küçük: 8, indeks: 2".
+**9.1** Bir array'deki **en küçük** elemanı ve onun **indeksini** bulan programı yaz. Array: `{42, 17, 8, 99, 23}`. Beklenen: "En küçük: 8, indeks: 2".
 
-**9.2** Bir sayının dizide olup olmadığını bulan `int find(int numbers[], int size, int target)` fonksiyonunu yaz. Sayı varsa indeksini, yoksa -1 döndürsün.
+**9.2** Bir sayının array'de olup olmadığını bulan `int find(int numbers[], int size, int target)` fonksiyonunu yaz. Sayı varsa indeksini, yoksa -1 döndürsün.
 
-**9.3** Bir diziyi **ters çeviren** `void reverse(int numbers[], int size)` fonksiyonunu yaz. `{1, 2, 3, 4, 5}` → `{5, 4, 3, 2, 1}`. İkinci bir dizi kullanma; elemanların yerini değiştir. (İpucu: ilk elemanla sonuncuyu, ikinciyle sondan ikinciyi değiştir… Nerede durmalısın?)
+**9.3** Bir array'i **ters çeviren** `void reverse(int numbers[], int size)` fonksiyonunu yaz. `{1, 2, 3, 4, 5}` → `{5, 4, 3, 2, 1}`. İkinci bir array kullanma; elemanların yerini değiştir. (İpucu: ilk elemanla sonuncuyu, ikinciyle sondan ikinciyi değiştir… Nerede durmalısın?)
 
 **9.4** Bölüm 7'deki sinema salonunda, **en çok boş koltuğu olan sırayı** bulan programı yaz.
 
@@ -969,7 +969,7 @@ void reverse(int numbers[], int size) {
     }
 }
 ```
-Yer değiştirmek için üçüncü bir kutuya (`temp`) ihtiyaç var: bir bardaktaki suyla öbüründeki çayı yer değiştirmek için boş bir bardak gerekir. Döngü **yarıda** durmalı (`size / 2`): sonuna kadar gitseydi her çifti iki kez değiştirip diziyi eski haline getirirdi. Tek sayıda elemanda ortadaki eleman yerinde kalır.
+Yer değiştirmek için üçüncü bir kutuya (`temp`) ihtiyaç var: bir bardaktaki suyla öbüründeki çayı yer değiştirmek için boş bir bardak gerekir. Döngü **yarıda** durmalı (`size / 2`): sonuna kadar gitseydi her çifti iki kez değiştirip array'i eski haline getirirdi. Tek sayıda elemanda ortadaki eleman yerinde kalır.
 
 **9.4**
 ```c
@@ -1006,7 +1006,7 @@ Bölüm 7'deki salon için cevap: 2. sıra, 5 boş koltuk. `empty` her sıranın
 <details>
 <summary>Cevaplar</summary>
 
-**9.5** Oyuncu 10. sütuna geçebilir; bir adım daha sağa gitmek, 11. sütuna, yani **dizinin dışına** bakmak demektir. `is_wall` dizinin dışındaki belleği okur. Bölüm 4'te gördüğümüz gibi sonuç belli değildir: oyuncu görünmez bir yere kaybolabilir, oyun saçma davranabilir ya da çökebilir. Kenarları duvarla çevirmek bu yüzden önemliydi. Kenarda bir açıklık istiyorsan, hareketten önce yeni konumun 0 ile `ROWS - 1` ve 0 ile `COLS - 1` arasında olduğunu kontrol etmen gerekir.
+**9.5** Oyuncu 10. sütuna geçebilir; bir adım daha sağa gitmek, 11. sütuna, yani **array'in dışına** bakmak demektir. `is_wall` array'in dışındaki belleği okur. Bölüm 4'te gördüğümüz gibi sonuç belli değildir: oyuncu görünmez bir yere kaybolabilir, oyun saçma davranabilir ya da çökebilir. Kenarları duvarla çevirmek bu yüzden önemliydi. Kenarda bir açıklık istiyorsan, hareketten önce yeni konumun 0 ile `ROWS - 1` ve 0 ile `COLS - 1` arasında olduğunu kontrol etmen gerekir.
 
 **9.6** `main`'de, `moves++;` satırının ardından ve çıkış kontrolünden sonra:
 
@@ -1045,7 +1045,7 @@ Sıra önemli: önce çıkışa ulaşıp ulaşmadığına bak. Yoksa tam 30. ham
         }
 ```
 
-Anahtarı haritadan silmek için diziyi **değiştirdik**. Harita artık sabit değil; oyun sırasında değişiyor. Bu da `map`'i fonksiyonlara verirken neden kopyalanmadığını bilmenin (Bölüm 5) işe yaradığı bir yer.
+Anahtarı haritadan silmek için array'i **değiştirdik**. Harita artık sabit değil; oyun sırasında değişiyor. Bu da `map`'i fonksiyonlara verirken neden kopyalanmadığını bilmenin (Bölüm 5) işe yaradığı bir yer.
 
 </details>
 
@@ -1053,8 +1053,8 @@ Anahtarı haritadan silmek için diziyi **değiştirdik**. Harita artık sabit d
 
 ## Kaynaklar
 
-- Brian Kernighan & Dennis Ritchie, *The C Programming Language* (2. baskı), §1.6 ve §5.7: diziler ve çok boyutlu diziler.
-- K. N. King, *C Programming: A Modern Approach* (2. baskı), Bölüm 8: diziler.
-- Martin Fowler, *Refactoring* (2. baskı), Bölüm 1: küçük adımlarla yeniden düzenlemenin mantığı.
+- Brian Kernighan & Dennis Ritchie, *The C Programming Language* (2. baskı), §1.6 ve §5.7: array'ler ve çok boyutlu array'ler.
+- K. N. King, *C Programming: A Modern Approach* (2. baskı), Bölüm 8: array'ler.
+- Martin Fowler, *Refactoring* (2. baskı), Bölüm 1: küçük adımlarla refactoring'in mantığı.
 
 **Sıradaki ders:** Kontrol akışı alıştırmaları. On klasik problemi önce süre tutarak kendin çözeceksin.
