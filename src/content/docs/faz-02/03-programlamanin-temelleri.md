@@ -656,6 +656,18 @@ a = (10, 4)
 - `struct Point a = {3, 4};` → "Bu kalıptan `a` adında bir kutu aç; `x`'e 3, `y`'ye 4 koy."
 - `a.x` → "`a`'nın içindeki `x`." Nokta işareti, paketin içindeki parçaya ulaşmak için kullanılır.
 
+**Alanların türü aynı olmak zorunda değil.** Bu bölümdeki örneklerde bütün alanlar `int`, çünkü bu fazda henüz sadece `int`'i tanıyoruz. Ama struct'ın asıl gücü, **farklı türden** değerleri tek bir pakette toplayabilmesidir. Her alan kendi türüyle yazılır:
+
+```c
+struct Product {
+    int id;          // tamsayı
+    double price;    // küsuratlı sayı: 24.90
+    char size;       // tek bir karakter: 'S', 'M', 'L'
+};
+```
+
+`double` ve `char` gibi türleri Faz 3'te ayrıntılı göreceğiz. Ders 2.4'te öğreneceğin array'ler de bir struct'ın alanı olabilir. Şimdilik şunu bil: struct'a istediğin türden, istediğin sayıda alan koyabilirsin.
+
 ### Örnek 2: dikdörtgen ve fonksiyonlar
 
 Struct'lar fonksiyonlara verilebilir:

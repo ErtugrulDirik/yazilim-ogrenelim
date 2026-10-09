@@ -279,6 +279,49 @@ Birinci: 102 numara, 92 puan
 
 En iyi öğrenciyi bulurken bu sefer notun kendisini değil, **indeksini** (`best`) tuttuk. Böylece hem notuna hem numarasına ulaşabildik.
 
+**Struct'ın içinde farklı türler ve array.** Şimdiye kadarki struct'larda her alan tek bir `int` idi. Bu bir zorunluluk değil: bir struct'ın alanları farklı türlerde olabilir, bir alan array bile olabilir. Her öğrencinin şubesini ve üç sınav notunu tutalım:
+
+```c
+#include <stdio.h>
+
+#define COUNT 3
+#define EXAMS 3
+
+struct Student {
+    int id;
+    char group;          // şube: tek bir karakter
+    int scores[EXAMS];   // üç sınav notu
+};
+
+int main(void) {
+    struct Student students[COUNT] = {
+        {101, 'A', {70, 85, 60}},
+        {102, 'B', {92, 88, 95}},
+        {103, 'A', {58, 64, 71}},
+    };
+
+    for (int i = 0; i < COUNT; i++) {
+        int total = 0;
+        for (int j = 0; j < EXAMS; j++) {
+            total = total + students[i].scores[j];
+        }
+        printf("%d (%c şubesi): ortalama %d\n", students[i].id, students[i].group, total / EXAMS);
+    }
+    return 0;
+}
+```
+
+```
+101 (A şubesi): ortalama 71
+102 (B şubesi): ortalama 91
+103 (A şubesi): ortalama 64
+```
+
+- `char group;` → `char`, tek bir karakter tutan türdür. Karakter **tek tırnak** içinde yazılır: `'A'`. `printf`'te onu `%c` yazdırır. Ayrıntısını Faz 3'te göreceğiz.
+- `int scores[EXAMS];` → Bu alan bir array. Her öğrencinin kendi üç notluk array'i var.
+- `{101, 'A', {70, 85, 60}}` → Değerler alanların sırasıyla verilir; array alanının değerleri kendi süslü parantezinin içine yazılır.
+- `students[i].scores[j]` → "`i`. öğrencinin `scores` array'inin `j`. elemanı." Soldan sağa oku: önce öğrenciyi seç, sonra alanına git, sonra o alanın içindeki kutuyu seç.
+
 ---
 
 ## 7. İki boyutlu array'ler
