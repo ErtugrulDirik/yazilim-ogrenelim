@@ -3,6 +3,8 @@
 // src/content/docs/faz-NN/ altındaki derslerden kendiliğinden üretilir; elle bir şey eklemek gerekmez.
 import { getCollection, render } from 'astro:content';
 import { FAZLAR, DURAKLAR } from '../fazlar.mjs';
+import { FAZ_GEREKSINIMLERI } from '../gereksinimler.mjs';
+import GereksinimCipi from './GereksinimCipi.astro';
 
 const kok = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 
@@ -81,6 +83,9 @@ const toplamFaz = fazlar.size;
 								<span class="agac-rozet">Faz {f.no}</span>
 								<strong>{f.ad}</strong>
 								<small>{f.dersler.length} ders</small>
+								{(FAZ_GEREKSINIMLERI[f.no] ?? []).map((id) => (
+									<GereksinimCipi id={id} />
+								))}
 							</div>
 							<ol>
 								{f.dersler.map((ders) => (

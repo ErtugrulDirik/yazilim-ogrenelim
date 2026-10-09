@@ -378,7 +378,7 @@ MAX: 6, x: 7
 
 ## 8. Make
 
-Şimdi Bölüm 3'teki "sadece değişeni derle" fikrini bir araca bırakalım. **Make**, 1976'dan beri kullanılan bir derleme aracıdır. Ne yapacağını, proje klasöründeki `Makefile` adlı bir dosyadan okur. macOS'ta Ders 2.2'deki kurulumla birlikte gelir. Linux ya da WSL'de `make --version` bir sürüm göstermiyorsa `sudo apt install make` ile kur.
+Şimdi Bölüm 3'teki "sadece değişeni derle" fikrini bir araca bırakalım. **Make**, 1976'dan beri kullanılan bir derleme aracıdır. Ne yapacağını, proje klasöründeki `Makefile` adlı bir dosyadan okur. [clang ve LLDB](/kurulum/llvm/) kurulumunda make de kuruldu; `make --version` bir sürüm göstermiyorsa o sayfaya dön.
 
 `sum-app` klasörüne `Makefile` adında (uzantısız) bir dosya oluştur:
 

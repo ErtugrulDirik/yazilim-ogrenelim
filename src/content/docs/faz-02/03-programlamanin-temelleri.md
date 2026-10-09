@@ -947,16 +947,6 @@ Bütün şekillerde `int n = 5;` ile başla. Kodun doğruysa `n`'yi değiştirdi
 *********
 ```
 
-**10.9 İçi boş kare (bonus).** Sadece kenarları yıldız olan bir kare.
-
-```
-*****
-*   *
-*   *
-*   *
-*****
-```
-
 <details>
 <summary>Cevaplar: kare, dik üçgen, ters dik üçgen</summary>
 
@@ -1051,33 +1041,6 @@ int main(void) {
 
 </details>
 
-<details>
-<summary>Cevap: içi boş kare</summary>
-
-Bir karakterin yıldız mı boşluk mu olacağına karar vermemiz gerekiyor. Yıldız olan yerler: ilk satır, son satır, ilk sütun ve son sütun.
-
-```c
-#include <stdio.h>
-
-int main(void) {
-    int n = 5;
-
-    for (int row = 1; row <= n; row++) {
-        for (int col = 1; col <= n; col++) {
-            if (row == 1 || row == n || col == 1 || col == n) {
-                printf("*");
-            } else {
-                printf(" ");
-            }
-        }
-        printf("\n");
-    }
-    return 0;
-}
-```
-
-</details>
-
 ### Kalp
 
 Son alıştırma, bu dersteki her şeyi bir araya getiriyor. Bir kerede çözmeye çalışma; **aşama aşama** ilerle. Her aşama bir öncekinin üzerine kurulu. Hepsinde `int k = 3;` kullan.
@@ -1100,7 +1063,7 @@ Hedefimiz bu:
 
 Dikkatli bak: bu şekil iki parçadan oluşuyor. Üstte **yan yana iki tepecik**, altta **ters bir üçgen**.
 
-**10.10 Aşama 1: tek tepecik.** Üstü düz bir piramit çiz: k satır; ilk satırda k yıldız, her satırda 2 yıldız fazlası. Ortalanmış olsun.
+**10.9 Aşama 1: tek tepecik.** Üstü düz bir piramit çiz: k satır; ilk satırda k yıldız, her satırda 2 yıldız fazlası. Ortalanmış olsun.
 
 ```
   ***
@@ -1108,7 +1071,7 @@ Dikkatli bak: bu şekil iki parçadan oluşuyor. Üstte **yan yana iki tepecik**
 *******
 ```
 
-**10.11 Aşama 2: iki tepecik.** Aynı tepeciği yan yana iki kez çiz. Aralarındaki boşluk aşağı indikçe daralsın, son satırda tek boşluk kalsın.
+**10.10 Aşama 2: iki tepecik.** Aynı tepeciği yan yana iki kez çiz. Aralarındaki boşluk aşağı indikçe daralsın, son satırda tek boşluk kalsın.
 
 ```
   ***     ***
@@ -1116,7 +1079,7 @@ Dikkatli bak: bu şekil iki parçadan oluşuyor. Üstte **yan yana iki tepecik**
 ******* *******
 ```
 
-**10.12 Aşama 3: ters üçgen.** İlk satırı 15 yıldız (`6 * k - 3`) olan, her satırda iki yanından birer yıldız eksilen, en sonda tek yıldıza inen bir ters üçgen çiz.
+**10.11 Aşama 3: ters üçgen.** İlk satırı 15 yıldız (`6 * k - 3`) olan, her satırda iki yanından birer yıldız eksilen, en sonda tek yıldıza inen bir ters üçgen çiz.
 
 ```
 ***************
@@ -1129,7 +1092,7 @@ Dikkatli bak: bu şekil iki parçadan oluşuyor. Üstte **yan yana iki tepecik**
        *
 ```
 
-**10.13 Aşama 4: kalp.** İki tepeciğin hemen altına ters üçgeni ekle. Sonra `k`'yi 4 ya da 5 yapıp kalbin büyüdüğünü gör.
+**10.12 Aşama 4: kalp.** İki tepeciğin hemen altına ters üçgeni ekle. Sonra `k`'yi 4 ya da 5 yapıp kalbin büyüdüğünü gör.
 
 <details>
 <summary>Cevap: aşama 1, tek tepecik</summary>

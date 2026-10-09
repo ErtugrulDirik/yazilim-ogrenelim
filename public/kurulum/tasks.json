@@ -5,6 +5,13 @@
       "label": "derle",
       "type": "shell",
       "command": "mkdir -p \"build/${relativeFileDirname}\" && clang -std=c17 -Wall -Wextra -g \"${file}\" -o \"build/${relativeFileDirname}/${fileBasenameNoExtension}\"",
+      "windows": {
+        "command": "d=\"$(cygpath -u '${relativeFileDirname}')\" && mkdir -p \"build/$d\" && clang -std=c17 -Wall -Wextra -g \"${file}\" -o \"build/$d/${fileBasenameNoExtension}.exe\"",
+        "options": {
+          "shell": { "executable": "C:\\msys64\\usr\\bin\\bash.exe", "args": ["--login", "-c"] },
+          "env": { "MSYSTEM": "CLANG64", "CHERE_INVOKING": "1" }
+        }
+      },
       "group": { "kind": "build", "isDefault": true },
       "problemMatcher": "$gcc"
     }

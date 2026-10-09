@@ -1,0 +1,109 @@
+---
+// Bir dersin başında, o fazın (ve dersin) neye ihtiyaç duyduğunu gösteren kutu.
+// Seriye herhangi bir fazdan başlayan biri, buradan ne kurması gerektiğini görür.
+import { GEREKSINIMLER, FAZ_GEREKSINIMLERI } from '../gereksinimler.mjs';
+import GereksinimCipi from './GereksinimCipi.astro';
+
+interface Props {
+	faz: number;
+	ek?: string[];
+	gereksinimNotu?: string;
+	windowsNotu?: string;
+}
+
+const { faz, ek = [], gereksinimNotu, windowsNotu } = Astro.props;
+const kok = import.meta.env.BASE_URL.replace(/\/?$/, '');
+
+const fazinki: string[] = FAZ_GEREKSINIMLERI[faz as keyof typeof FAZ_GEREKSINIMLERI] ?? [];
+const dersinki = ek.filter((id) => !fazinki.includes(id));
+const wslFaz = fazinki.find((id) => GEREKSINIMLER[id as keyof typeof GEREKSINIMLER]?.windows === 'wsl');
+const wslDers = dersinki.find((id) => GEREKSINIMLER[id as keyof typeof GEREKSINIMLER]?.windows === 'wsl');
+const wsl = wslFaz ?? wslDers;
+const wslUrl = wsl && kok + GEREKSINIMLER[wsl as keyof typeof GEREKSINIMLER].sayfa;
+const kapsam = wslFaz ? 'faz' : 'ders';
+---
+
+<aside class="gereksinim" aria-label="Gereksinimler">
+	<div class="gereksinim-satir">
+		<span class="gereksinim-baslik">Faz {faz} için gerekenler</span>
+		{
+			fazinki.length === 0 ? (
+				<span class="gereksinim-bos">Kurulum gerekmez: kağıt ve kalem yeterli.</span>
+			) : (
+				fazinki.map((id) => <GereksinimCipi id={id} />)
+			)
+		}
+		<a class="gereksinim-hepsi" href={`${kok}/kurulum/`}>Bütün gereksinimler</a>
+	</div>
+	{
+		dersinki.length > 0 && (
+			<div class="gereksinim-satir">
+				<span class="gereksinim-baslik">Bu ders ayrıca</span>
+				{dersinki.map((id) => <GereksinimCipi id={id} />)}
+				{gereksinimNotu && <span class="gereksinim-not">{gereksinimNotu}</span>}
+			</div>
+		)
+	}
+	{
+		wsl && (
+			<p class="gereksinim-uyari">
+				<strong>Windows kullanıyorsan:</strong> bu {kapsam} Linux'a özel, Windows'ta doğrudan çalışmaz.{' '}
+				{kapsam === 'faz' ? 'Fazı' : 'Dersi'} <a href={wslUrl}>WSL içinde</a> yapmalısın. macOS'taysan aynı sayfadaki
+				Linux sanal makinesi kurulumuna bak.
+			</p>
+		)
+	}
+	{
+		windowsNotu && (
+			<p class="gereksinim-uyari">
+				<strong>Windows notu:</strong> {windowsNotu}
+			</p>
+		)
+	}
+</aside>
+
+<style>
+	.gereksinim {
+		margin-top: 1rem;
+		padding: 0.75rem 1rem;
+		border: 1px solid var(--sl-color-gray-5);
+		border-left: 4px solid var(--sl-color-accent);
+		border-radius: 0.5rem;
+		background: var(--sl-color-gray-6);
+		font-size: var(--sl-text-sm);
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+	.gereksinim-satir {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.4rem 0.5rem;
+	}
+	.gereksinim-baslik {
+		font-weight: 600;
+		color: var(--sl-color-white);
+		margin-right: 0.25rem;
+	}
+	.gereksinim-bos,
+	.gereksinim-not {
+		color: var(--sl-color-gray-3);
+	}
+	.gereksinim-hepsi {
+		margin-left: auto;
+		color: var(--sl-color-gray-3);
+	}
+	.gereksinim-uyari {
+		margin: 0;
+		padding: 0.5rem 0.75rem;
+		border: 1px solid var(--sl-color-orange);
+		border-radius: 0.4rem;
+		background: var(--sl-color-orange-low);
+		color: var(--sl-color-orange-high);
+	}
+	.gereksinim-uyari a {
+		color: inherit;
+		font-weight: 600;
+	}
+</style>

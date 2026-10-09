@@ -1,0 +1,21 @@
+---
+// Starlight'ın sayfa başlığının yerine geçer: başlığı aynen yazar, faz derslerinde altına
+// gereksinim kutusunu ekler. (astro.config.mjs → components.PageTitle)
+import Default from '@astrojs/starlight/components/PageTitle.astro';
+import GereksinimKutusu from './GereksinimKutusu.astro';
+
+const { id, data } = Astro.locals.starlightRoute.entry;
+const eslesme = /^faz-(\d{2})\//.exec(id);
+---
+
+<Default />
+{
+	eslesme && (
+		<GereksinimKutusu
+			faz={Number(eslesme[1])}
+			ek={data.gereksinimler}
+			gereksinimNotu={data.gereksinimNotu}
+			windowsNotu={data.windowsNotu}
+		/>
+	)
+}

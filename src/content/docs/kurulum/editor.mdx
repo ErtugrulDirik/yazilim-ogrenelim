@@ -1,0 +1,90 @@
+---
+title: "Kod editörü: VS Code ya da CLion"
+description: "Kodu yazacağın editörü Windows, Linux ve macOS'ta kurmak: VS Code ve eklentileri, alternatif olarak CLion."
+sidebar:
+  label: Kod editörü
+  order: 1
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Kodu yazacağın, derleyeceğin ve hata ayıklayacağın yer editördür. Bu seride **VS Code** kullanıyoruz: ücretsiz, her işletim sisteminde aynı görünür ve derleme ile hata ayıklamayı tek tuşa bağlayabiliriz. Derslerdeki kısayollar ve ayar dosyaları VS Code'a göredir.
+
+Editör tek başına C derleyemez; derleyen clang'dir. Editörü kurduktan sonra [clang ve LLDB](/kurulum/llvm/) sayfasına geç.
+
+---
+
+## VS Code
+
+<Tabs syncKey="isletim-sistemi">
+  <TabItem label="Windows">
+    [code.visualstudio.com](https://code.visualstudio.com) adresinden **Windows** sürümünü indirip kur. Kurulumda **Add to PATH** seçeneği işaretli kalsın; terminalden `code` yazarak VS Code'u açabilmen için gerekli.
+
+    İstersen PowerShell'den tek satırla da kurabilirsin:
+
+    ```sh
+    winget install Microsoft.VisualStudioCode
+    ```
+  </TabItem>
+  <TabItem label="Linux">
+    Ubuntu ya da Debian kullanıyorsan [code.visualstudio.com](https://code.visualstudio.com) adresinden `.deb` paketini indirip çift tıklayarak kur. Fedora için aynı sayfada `.rpm` paketi var.
+
+    Paketi kurmak yerine snap kullanmak istersen:
+
+    ```sh
+    sudo snap install code --classic
+    ```
+  </TabItem>
+  <TabItem label="macOS">
+    [code.visualstudio.com](https://code.visualstudio.com) adresinden indirip **Uygulamalar** klasörüne taşı. VS Code'u aç, `Cmd+Shift+P` ile komut paletini aç ve **Shell Command: Install 'code' command in PATH** komutunu çalıştır. Böylece terminalden `code` yazarak VS Code'u açabileceksin.
+
+    Homebrew kullanıyorsan:
+
+    ```sh
+    brew install --cask visual-studio-code
+    ```
+  </TabItem>
+</Tabs>
+
+### Eklentiler
+
+`Ctrl+Shift+X` (macOS'ta `Cmd+Shift+X`) ile eklentiler panelini aç ve iki eklenti kur:
+
+- **C/C++** (Microsoft): Kodu renklendirir, yazarken hataları altını çizerek gösterir, fonksiyonları tamamlar.
+- **CodeLLDB** (Vadim Chugunov): VS Code'un içinden LLDB ile hata ayıklamanı sağlar.
+
+Linux'a özel bir fazda Windows'ta WSL kullanacaksan bir eklenti daha gerekecek; onu [Linux ortamı](/kurulum/linux/) sayfasında kuruyoruz.
+
+---
+
+## Alternatif: CLion
+
+**CLion**, JetBrains'in C ve C++ için yaptığı editör. Ticari olmayan kullanım (öğrenmek, kişisel projeler) için ücretsiz. Daha ağırdır ama büyük projelerde kodda gezinmek ve yeniden düzenlemek konusunda çok güçlüdür; Faz 13'teki C++ ve sonrasındaki büyük projelerde tercih edebilirsin.
+
+Bilmen gereken bir fark var: CLion her klasörü bir **proje** olarak görür ve derlemek için **CMake** adlı bir araç ister. Derslerdeki "açık dosyayı tek tuşla derle" düzeni (`Ctrl+Shift+B`, `F5`) VS Code'a özeldir. CLion kullanıyorsan derslerdeki terminal komutlarını aynen yazabilirsin; tek tuş düzenini ise kendin kurman gerekir.
+
+<Tabs syncKey="isletim-sistemi">
+  <TabItem label="Windows">
+    [jetbrains.com/clion](https://www.jetbrains.com/clion/) adresinden indirip kur. İlk açılışta **Non-commercial use** seçeneğini seç.
+
+    CLion'un clang'i bulması için önce [clang ve LLDB](/kurulum/llvm/) sayfasındaki Windows kurulumunu yap. Sonra **Settings → Build, Execution, Deployment → Toolchains** bölümünde **+** ile bir **MinGW** toolchain ekle ve **Toolset** olarak `C:\msys64\clang64` klasörünü göster. C compiler alanına `clang.exe` yaz.
+  </TabItem>
+  <TabItem label="Linux">
+    [jetbrains.com/clion](https://www.jetbrains.com/clion/) adresinden indir ya da snap ile kur:
+
+    ```sh
+    sudo snap install clion --classic
+    ```
+
+    İlk açılışta **Non-commercial use** seçeneğini seç. [clang ve LLDB](/kurulum/llvm/) kurulduktan sonra **Settings → Build, Execution, Deployment → Toolchains** bölümünde C compiler olarak `clang` seç.
+  </TabItem>
+  <TabItem label="macOS">
+    [jetbrains.com/clion](https://www.jetbrains.com/clion/) adresinden indirip **Uygulamalar** klasörüne taşı ya da Homebrew ile kur:
+
+    ```sh
+    brew install --cask clion
+    ```
+
+    İlk açılışta **Non-commercial use** seçeneğini seç. [clang ve LLDB](/kurulum/llvm/) kurulduktan sonra CLion onları kendiliğinden bulur.
+  </TabItem>
+</Tabs>

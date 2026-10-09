@@ -52,9 +52,12 @@ export default defineConfig({
 			lastUpdated: true,
 			routeMiddleware: './src/eklentiler/rota-ara-katmani.mjs',
 			customCss: ['katex/dist/katex.min.css', './src/styles/ozel.css'],
+			// Derslerin başlığının altına fazın gereksinim kutusunu ekler.
+			components: { PageTitle: './src/components/SayfaBasligi.astro' },
 			sidebar: [
 				{ label: 'Bu seri hakkında', link: '/' },
 				{ label: 'İçindekiler', link: '/icindekiler/' },
+				{ label: 'Kurulum', collapsed: true, items: [{ autogenerate: { directory: 'kurulum' } }] },
 				...fazMenusu(),
 			],
 		}),

@@ -6,6 +6,9 @@
       "type": "lldb",
       "request": "launch",
       "program": "${workspaceFolder}/build/${relativeFileDirname}/${fileBasenameNoExtension}",
+      "windows": {
+        "program": "${workspaceFolder}/build/${relativeFileDirname}/${fileBasenameNoExtension}.exe"
+      },
       "preLaunchTask": "derle"
     }
   ]

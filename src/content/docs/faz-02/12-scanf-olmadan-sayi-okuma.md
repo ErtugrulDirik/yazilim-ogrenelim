@@ -1,6 +1,7 @@
 ---
 title: "2.12 scanf olmadan sayı okuma"
 description: "getchar ile kendi read_int fonksiyonumuzu sıfırdan yazmak: karakteri rakama çevirmek, rakamlardan sayı kurmak, boşluk ve eksi işareti, hatalı girişi bildirmek ve overflow'dan korunmak."
+windowsNotu: "Girdiyi bitirmek için Ctrl+D yerine satır başında Ctrl+Z, ardından Enter."
 ---
 
 Ders 2.11'de bir sayıyı karakterlere çevirip ekrana yazdık. Bu derste tersini yapacağız: klavyeden gelen karakterleri okuyup **sayıya** çevireceğiz. C'de bu işi normalde `scanf` yapar; biz onu kullanmadan, sadece `getchar` ile yazacağız.
@@ -194,7 +195,7 @@ Her girdinin sonunda bir "Okunamadı." daha görürsün: girdi bitince `getchar`
 
 Aynı satırdaki birden fazla sayı da tek tek okunuyor: `12`'yi bitiren boşluk, bir sonraki çağrıda baştaki boşluk olarak atlanıyor.
 
-**Programı denemek için** `F5` ile çalıştırıp alttaki terminale sayılar yazabilirsin. Bitirmek için `Ctrl+D` ile girdiyi kapat (Windows'ta WSL içinde de `Ctrl+D`). Girdiyi elle yazmak yerine terminalden hazır da verebilirsin:
+**Programı denemek için** `F5` ile çalıştırıp alttaki terminale sayılar yazabilirsin. Bitirmek için `Ctrl+D` ile girdiyi kapat (Windows'ta satır başında `Ctrl+Z`, ardından `Enter`). Girdiyi elle yazmak yerine terminalden hazır da verebilirsin:
 
 ```sh
 printf '12 34 56\n' | ./build/faz-02/read

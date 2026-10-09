@@ -1,0 +1,42 @@
+---
+title: "Kurulum ve gereksinimler"
+description: "Hangi faz neye ihtiyaç duyar; editör, clang ve LLDB, Linux ortamı kurulumları; Windows'ta ne zaman WSL gerekir."
+sidebar:
+  label: Genel bakış
+  order: 0
+---
+
+import GereksinimTablosu from '../../../components/GereksinimTablosu.astro';
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Herkes seriye Faz 0'dan başlamak zorunda değil. Pointer'ları zaten biliyorsan Faz 5'ten, assembly için geldiysen Faz 7'den başlayabilirsin. Bu yüzden kurulum derslerin içine gömülü değil, **ayrı sayfalarda** duruyor: her faz neye ihtiyaç duyduğunu söyler, sen sadece onları kurarsın.
+
+Her dersin başlığının altında o fazın gereksinimlerini gösteren bir kutu var. Kutudaki her rozet, kurulumun anlatıldığı sayfaya götürür. Bir ders fazından farklı bir şey istiyorsa (örneğin sadece Linux'ta çalışan bir araç), kutu bunu ayrıca söyler.
+
+---
+
+## Gereksinimler
+
+<CardGrid>
+	<LinkCard title="Kod editörü" description="VS Code (önerilen) ya da CLion. Windows, Linux ve macOS'ta." href="/kurulum/editor/" />
+	<LinkCard title="clang ve LLDB" description="Compiler, debugger ve make. Windows'ta WSL olmadan, doğrudan." href="/kurulum/llvm/" />
+	<LinkCard title="Linux ortamı" description="Sadece Linux'a özel fazlar ve dersler için. Windows'ta WSL, macOS'ta sanal makine." href="/kurulum/linux/" />
+</CardGrid>
+
+Bir kez kurduğun şey sonraki bütün fazlarda işine yarar; her fazda yeniden kurman gerekmez.
+
+---
+
+## Windows kullanıyorsan
+
+Faz 2'den itibaren derslerin çoğu **Windows'ta doğrudan** yapılabilir: clang, LLDB ve make Windows'a da kurulur, terminal komutları Linux ve macOS'takiyle aynıdır. Bunun için [clang ve LLDB](/kurulum/llvm/) sayfasındaki Windows kurulumu yeterli.
+
+Bazı fazlar ise doğrudan Linux'un kendisini anlatır: işletim sistemi çağrıları, `/proc` dosya sistemi, `valgrind`, `perf`, Linux'un assembly kuralları. Bunlar Windows'ta çalışmaz. Böyle bir faza ya da derse geldiğinde, dersin başındaki kutu turuncu bir uyarıyla seni [WSL kurulumuna](/kurulum/linux/) yönlendirir. WSL'i ancak o zaman kurman yeterli.
+
+---
+
+## Hangi faz neye ihtiyaç duyar?
+
+Henüz yayınlanmamış fazlar da listede; ileriden başlayacaksan önceden hazırlanabilirsin. Kesik çizgili rozetlerin kurulum sayfası, o faz yayınlandığında eklenecek.
+
+<GereksinimTablosu />

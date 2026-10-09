@@ -15,55 +15,16 @@ Her programlama yolculuğu aynı cümleyle başlar: **Hello, world!** Bu derste 
 - **LLDB:** Yine LLVM projesinden. Programı adım adım çalıştırıp her adımda değişkenlerin değerine bakmanı sağlayan **debugger**. Faz 1'deki trace table'ın dijital hali; Ders 2.6'da ayrıntısıyla kullanacağız.
 - **VS Code:** Kodu yazacağın **editör**. Ücretsiz, her işletim sisteminde çalışır; derleme ve hata ayıklamayı tek tuşa bağlayacağız.
 
+Üçü de Windows, Linux ve macOS'ta çalışır. Windows'ta Linux kurmana gerek yok.
+
 ---
 
 ## 2. Kurulum
 
-<Tabs>
-  <TabItem label="Linux">
-    **1. Compiler ve debugger.** Ubuntu ya da Debian kullanıyorsan terminalde:
+Kurulumlar ayrı sayfalarda; seriye başka bir fazdan başlayanlar da aynı sayfaları kullanıyor. Sırayla ikisini yap, sonra buraya dön:
 
-    ```sh
-    sudo apt update
-    sudo apt install clang lldb curl make
-    ```
-
-    **2. VS Code.** [code.visualstudio.com](https://code.visualstudio.com) adresinden `.deb` paketini indirip çift tıklayarak kur.
-  </TabItem>
-  <TabItem label="Windows">
-    Windows'ta C'yi Linux üzerinde çalıştıracağız. Bunun için Windows'un içine gömülü bir Linux olan **WSL**'i (Windows Subsystem for Linux) kullanacağız.
-
-    **1. WSL.** PowerShell'i **yönetici olarak** aç:
-
-    ```sh
-    wsl --install
-    ```
-
-    Bilgisayarı yeniden başlat. Başlat menüsünde çıkan **Ubuntu**'yu aç, bir kullanıcı adı ve parola belirle.
-
-    **2. Compiler ve debugger.** Ubuntu penceresinde:
-
-    ```sh
-    sudo apt update
-    sudo apt install clang lldb curl make
-    ```
-
-    **3. VS Code.** [code.visualstudio.com](https://code.visualstudio.com) adresinden **Windows** sürümünü indirip kur. Ardından VS Code'da sol kenardaki Eklentiler simgesine (`Ctrl+Shift+X`) tıkla ve **WSL** eklentisini (Microsoft) kur. Bu eklenti, VS Code'un Windows'ta açılıp Ubuntu'nun içinde çalışmasını sağlar.
-
-    Bu kitaptaki bütün terminal komutlarını **Ubuntu penceresinde** ya da VS Code'un WSL'e bağlı terminalinde yazacaksın.
-  </TabItem>
-  <TabItem label="macOS">
-    **1. Compiler ve debugger.** Terminalde:
-
-    ```sh
-    xcode-select --install
-    ```
-
-    Bu komut clang'i ve LLDB'yi birlikte kurar. (macOS'ta `gcc` diye bir komut da görürsün; o da aslında clang'i çalıştırır. Biz her yerde doğrudan `clang` yazacağız.)
-
-    **2. VS Code.** [code.visualstudio.com](https://code.visualstudio.com) adresinden indirip **Uygulamalar** klasörüne taşı. VS Code'u aç, `Cmd+Shift+P` ile komut paletini aç ve **Shell Command: Install 'code' command in PATH** komutunu çalıştır. Böylece terminalden `code` yazarak VS Code'u açabileceksin.
-  </TabItem>
-</Tabs>
+1. [Kod editörü](/kurulum/editor/): VS Code ve iki eklentisi (C/C++, CodeLLDB).
+2. [clang ve LLDB](/kurulum/llvm/): compiler, debugger ve make. Windows'ta bu sayfadaki **VS Code'u MSYS2'ye bağla** adımını atlama.
 
 Kurulumu kontrol et:
 
@@ -80,23 +41,45 @@ lldb --version
 
 Bu kitap boyunca yazacağın bütün kodlar **tek bir klasörde**, fazlara göre ayrılmış alt klasörlerde duracak. Klasörü oluşturmak ve VS Code'un ayar dosyalarını indirmek için terminale şu satırları yapıştır:
 
-```sh
-mkdir -p ~/yazilim-ogrenelim/faz-02 ~/yazilim-ogrenelim/.vscode
-cd ~/yazilim-ogrenelim
-ADRES=%SITE_URL%/kurulum
-curl -fsSL $ADRES/tasks.json -o .vscode/tasks.json
-curl -fsSL $ADRES/launch.json -o .vscode/launch.json
-code .
-```
+<Tabs syncKey="isletim-sistemi">
+  <TabItem label="Windows">
+    Bu satırları **MSYS2 CLANG64** penceresinde ya da VS Code'un terminalinde yaz. Çalışma alanı Windows'taki kullanıcı klasörünün içinde (`C:\Users\<adın>\yazilim-ogrenelim`) oluşur:
 
-İndirilen iki dosya VS Code'a C kodunu **nasıl derleyeceğini** (`tasks.json`) ve **nasıl çalıştıracağını** (`launch.json`) söyler. VS Code klasörü açar. (Windows'ta bu satırları Ubuntu penceresinde yaz; VS Code otomatik olarak WSL'e bağlanır, sol altta **WSL: Ubuntu** yazısını görürsün.)
+    ```sh
+    cd "$(cygpath "$USERPROFILE")"
+    mkdir -p yazilim-ogrenelim/faz-02 yazilim-ogrenelim/.vscode
+    cd yazilim-ogrenelim
+    ADRES=%SITE_URL%/kurulum
+    curl -fsSL $ADRES/tasks.json -o .vscode/tasks.json
+    curl -fsSL $ADRES/launch.json -o .vscode/launch.json
+    code .
+    ```
+  </TabItem>
+  <TabItem label="Linux">
+    ```sh
+    mkdir -p ~/yazilim-ogrenelim/faz-02 ~/yazilim-ogrenelim/.vscode
+    cd ~/yazilim-ogrenelim
+    ADRES=%SITE_URL%/kurulum
+    curl -fsSL $ADRES/tasks.json -o .vscode/tasks.json
+    curl -fsSL $ADRES/launch.json -o .vscode/launch.json
+    code .
+    ```
+  </TabItem>
+  <TabItem label="macOS">
+    ```sh
+    mkdir -p ~/yazilim-ogrenelim/faz-02 ~/yazilim-ogrenelim/.vscode
+    cd ~/yazilim-ogrenelim
+    ADRES=%SITE_URL%/kurulum
+    curl -fsSL $ADRES/tasks.json -o .vscode/tasks.json
+    curl -fsSL $ADRES/launch.json -o .vscode/launch.json
+    code .
+    ```
+  </TabItem>
+</Tabs>
 
-**Eklentiler.** `Ctrl+Shift+X` (macOS'ta `Cmd+Shift+X`) ile eklentiler panelini aç ve iki eklenti kur:
+İndirilen iki dosya VS Code'a C kodunu **nasıl derleyeceğini** (`tasks.json`) ve **nasıl çalıştıracağını** (`launch.json`) söyler. VS Code klasörü açar.
 
-- **C/C++** (Microsoft): Kodu renklendirir, yazarken hataları altını çizerek gösterir, fonksiyonları tamamlar.
-- **CodeLLDB** (Vadim Chugunov): VS Code'un içinden LLDB ile hata ayıklamanı sağlar.
-
-Windows'ta eklentilerin yanında **Install in WSL** düğmesi çıkarsa ona bas; eklentilerin Ubuntu tarafında çalışması gerekiyor.
+**Eklentiler.** [Kod editörü](/kurulum/editor/) sayfasındaki **C/C++** ve **CodeLLDB** eklentilerini kurduğundan emin ol; tek tuşla derleme ve hata ayıklama onlarla çalışır.
 
 **İki kısayol.** Artık her şey iki tuşta:
 
@@ -117,7 +100,7 @@ yazilim-ogrenelim/
     └── hello.c          ← senin kodun
 ```
 
-`build` klasörünü istediğin zaman silebilirsin; bir sonraki derlemede yeniden oluşur. (macOS'ta programın yanında bir de `hello.dSYM` klasörü görürsün; debugger'ın kullandığı bilgiler orada durur.)
+`build` klasörünü istediğin zaman silebilirsin; bir sonraki derlemede yeniden oluşur. (macOS'ta programın yanında bir de `hello.dSYM` klasörü görürsün; debugger'ın kullandığı bilgiler orada durur. Windows'ta program `hello.exe` adıyla yazılır.)
 
 <details class="bilgi">
 <summary>Ayar dosyalarının içinde ne var?</summary>
@@ -156,7 +139,7 @@ yazilim-ogrenelim/
 }
 ```
 
-İndirmek yerine bu iki dosyayı elle de oluşturabilirsin. Derleme komutundaki her bayrağın bir sebebi var:
+İndirdiğin dosyalarda bunlara ek olarak `windows` adlı bir bölüm daha var: Windows'ta derlemenin MSYS2'nin bash'inde yapılmasını ve programın adının `.exe` ile bitmesini söyler. Linux ve macOS'ta o bölüm hiç kullanılmaz. Derleme komutundaki her bayrağın bir sebebi var:
 
 | Bayrak | Anlamı | Neden? |
 | --- | --- | --- |

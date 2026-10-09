@@ -1,6 +1,7 @@
 ---
 title: "2.15 Faz projesi: sağlık hesaplayıcı"
 description: "Faz 2'nin bitiş projesi: sadece int ve kendi print_int/read_int fonksiyonlarımızla, çok dosyalı, Makefile'lı, menülü bir sağlık hesaplayıcı."
+windowsNotu: "Ctrl+D yerine satır başında Ctrl+Z, ardından Enter. Sanitizer testinde sorun yaşarsan Ders 2.14'teki nota bak."
 ---
 
 Faz 2'nin sonuna geldin. Bu fazda bir programlama dilinin temel araçlarını, kendi giriş-çıkış fonksiyonlarını, programı dosyalara bölmeyi ve hataları yakalamayı öğrendin. Şimdi hepsini tek bir programda bir araya getireceksin: **menülü bir sağlık hesaplayıcı**.

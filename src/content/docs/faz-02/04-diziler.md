@@ -71,6 +71,8 @@ Son not: 75
 
 **Döngüyle gezmek.** Array'in asıl gücü burada: indeks bir sayı olduğu için, onu bir döngü değişkeni yapabiliriz.
 
+Önce koddaki yeni bir satırı tanıyalım: `#define SIZE 5`. Bu satır "Kodda `SIZE` gördüğün her yere `5` yaz." demektir. Bunu, Ders 2.2'deki derleme hattının ilk adımı olan **preprocessor** yapar. Array'in boyutunu tek bir yerde yazarız; boyut değişirse sadece orayı değiştiririz.
+
 ```c
 #include <stdio.h>
 
@@ -94,10 +96,7 @@ scores[3] = 90
 scores[4] = 75
 ```
 
-İki yenilik var:
-
-- `#define SIZE 5` → "Kodda `SIZE` gördüğün her yere `5` yaz." Bunu, Ders 2.2'deki derleme hattının ilk adımı olan **preprocessor** yapar. Array'in boyutunu tek bir yerde yazarız; boyut değişirse sadece orayı değiştiririz.
-- `for (int i = 0; i < SIZE; i++)` → İndeks 0'dan başlar ve `SIZE`'dan **küçük** olduğu sürece devam eder. `<=` değil `<`: son indeks 4'tür, 5 değil. Array ile yazacağın döngülerin neredeyse hepsi bu kalıpta olacak.
+`for (int i = 0; i < SIZE; i++)` → İndeks 0'dan başlar ve `SIZE`'dan **küçük** olduğu sürece devam eder. `<=` değil `<`: son indeks 4'tür, 5 değil. Array ile yazacağın döngülerin neredeyse hepsi bu kalıpta olacak.
 
 **Diğer tanımlama biçimleri:**
 

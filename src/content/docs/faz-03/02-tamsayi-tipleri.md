@@ -180,7 +180,7 @@ A
 
 ## Alıştırmalar
 
-**1** – Bölüm 1'deki programı kendi bilgisayarında çalıştır. Sonuçlar burada gösterilenlerle aynı mı? Windows'taysan (WSL kullanmadan, doğrudan Windows için derleseydin) hangi satır farklı olurdu?
+**1** – Bölüm 1'deki programı kendi bilgisayarında çalıştır. Sonuçlar burada gösterilenlerle aynı mı? Windows'taysan hangi satır farklı? Linux ya da macOS'taysan, Windows'ta hangi satır farklı olurdu?
 
 **2** – Aşağıdaki değerlerin her biri için hangi tipi seçerdin? Neden?
 
@@ -204,7 +204,7 @@ printf("%d\n", 'a' - 'A');
 <details>
 <summary>Cevaplar</summary>
 
-**1** – Linux, macOS ve WSL'de aynı sonuçları görmelisin. Doğrudan Windows için derlenmiş bir programda `long` satırı farklı olurdu: `4 byte, -2147483648 ile 2147483647 arası`.
+**1** – Linux, macOS ve WSL'de aynı sonuçları görmelisin. Doğrudan Windows için derlenmiş bir programda ([clang ve LLDB](/kurulum/llvm/) sayfasındaki MSYS2 kurulumu böyle derler) `long` satırı farklıdır: `4 byte, -2147483648 ile 2147483647 arası`. Windows LLP64 modelini kullanır.
 
 **2** –
 

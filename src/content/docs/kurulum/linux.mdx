@@ -1,0 +1,104 @@
+---
+title: "Linux ortamı: WSL ve sanal makine"
+description: "Linux'a özel fazlar ve dersler için Linux ortamı: Windows'ta WSL, macOS'ta Linux sanal makinesi; içine clang ve LLDB kurmak, VS Code'u bağlamak."
+sidebar:
+  label: Linux ortamı (WSL)
+  order: 3
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Serinin büyük bölümü Windows, Linux ve macOS'ta aynı şekilde çalışır. Ama bazı fazlar ve dersler doğrudan **Linux'un kendisini** anlatır:
+
+- İşletim sistemi çağrıları, süreçler, dosyalar (Faz 10)
+- `/proc` dosya sistemi ile bir programın belleğine bakmak, `valgrind` ile bellek sızıntısı aramak (Faz 4'ün bazı dersleri)
+- Linux'un assembly ve fonksiyon çağırma kuralları (Faz 7)
+- `perf` ile performans ölçmek (Faz 11)
+
+Bunlar Windows'ta hiç yoktur; macOS'ta ise ya yoktur ya da farklı çalışır. Böyle bir faza ya da derse geldiğinde, dersin başındaki kutu sana bunu söyler. **Bu sayfayı ancak o zaman kurman yeterli.**
+
+---
+
+## Kurulum
+
+<Tabs syncKey="isletim-sistemi">
+  <TabItem label="Windows">
+    Windows'ta Linux'u **WSL** (Windows Subsystem for Linux) ile çalıştıracağız: Windows'un içine gömülü, gerçek bir Linux.
+
+    **1. WSL.** PowerShell'i **yönetici olarak** aç:
+
+    ```sh
+    wsl --install
+    ```
+
+    Bilgisayarı yeniden başlat. Başlat menüsünde çıkan **Ubuntu**'yu aç, bir kullanıcı adı ve parola belirle.
+
+    **2. clang, LLDB ve make.** Ubuntu penceresinde:
+
+    ```sh
+    sudo apt update
+    sudo apt install clang lldb make curl
+    ```
+
+    Windows'a MSYS2 ile kurduğun clang, WSL'in içinden görünmez; Linux'un kendi clang'ine ihtiyacı var.
+
+    **3. VS Code'u WSL'e bağla.** VS Code'da eklentiler panelini aç (`Ctrl+Shift+X`) ve **WSL** eklentisini (Microsoft) kur. Bu eklenti, VS Code'un Windows'ta açılıp Ubuntu'nun içinde çalışmasını sağlar.
+
+    **4. Çalışma alanı.** WSL'in kendi dosya sistemi var; Linux'a özel derslerin kodunu orada tutacağız. Ubuntu penceresinde, [Ders 2.2](/faz-02/02-ortam-ve-ilk-program/)'deki **Linux** komutlarıyla `~/yazilim-ogrenelim` klasörünü oluştur ve en sondaki `code .` ile VS Code'u aç. Sol altta **WSL: Ubuntu** yazısını görmelisin.
+
+    Windows'taki çalışma alanını olduğu gibi taşımak istersen (Windows kullanıcı adını yaz):
+
+    ```sh
+    cp -r /mnt/c/Users/KULLANICI_ADIN/yazilim-ogrenelim ~/
+    ```
+
+    **5. Eklentileri WSL'e kur.** VS Code WSL'e bağlıyken eklentiler panelinde **C/C++** ve **CodeLLDB**'nin yanında **Install in WSL** düğmesi çıkar; ona bas. Eklentilerin Ubuntu tarafında da çalışması gerekiyor.
+
+    Linux'a özel derslerde bütün terminal komutlarını **Ubuntu penceresinde** ya da VS Code'un WSL'e bağlı terminalinde yazacaksın.
+  </TabItem>
+  <TabItem label="Linux">
+    Zaten Linux'tasın; ek bir şey kurmana gerek yok. [clang ve LLDB](/kurulum/llvm/) sayfasındaki Linux kurulumunu yaptıysan hazırsın. Bir fazın ek araçları (örneğin `valgrind`) o fazın derslerinde kurulur.
+  </TabItem>
+  <TabItem label="macOS">
+    macOS, Linux değildir: ikisi de Unix ailesinden gelir ama çekirdekleri farklıdır. Linux'a özel dersler için bir **Linux sanal makinesi** kuracağız. En kolay yolu **OrbStack** (kişisel kullanım için ücretsiz):
+
+    **1. OrbStack ve Ubuntu.**
+
+    ```sh
+    brew install orbstack
+    ```
+
+    OrbStack'i bir kez Uygulamalar'dan aç, sonra terminalde:
+
+    ```sh
+    orb create ubuntu
+    orb
+    ```
+
+    `orb` komutu seni Ubuntu'nun içine sokar; komut satırının başı değişir.
+
+    **2. clang, LLDB ve make.** Ubuntu'nun içinde:
+
+    ```sh
+    sudo apt update
+    sudo apt install clang lldb make curl
+    ```
+
+    **3. VS Code'u bağla.** VS Code'da **Remote - SSH** eklentisini (Microsoft) kur. `Cmd+Shift+P` → **Remote-SSH: Connect to Host…** → `orb` yaz. VS Code Ubuntu'nun içinde açılır; eklentiler panelinde **C/C++** ve **CodeLLDB**'yi bu tarafa da kur.
+
+    Bir fark: Apple Silicon bir Mac'te sanal makine de ARM işlemcilidir. Faz 7'deki x86-64 assembly bölümleri için ne yapacağımızı o fazda anlatacağız.
+  </TabItem>
+</Tabs>
+
+---
+
+## Kontrol
+
+Linux ortamının terminalinde:
+
+```sh
+uname -s
+clang --version
+```
+
+İlk komut `Linux` yazıyorsa doğru yerdesin.

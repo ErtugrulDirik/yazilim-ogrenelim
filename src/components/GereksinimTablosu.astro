@@ -1,0 +1,52 @@
+---
+// /kurulum/ sayfasındaki tablo: her faz neye ihtiyaç duyar, Windows'ta nasıl yapılır.
+// Henüz yayınlanmamış fazlar da listelenir; ileriden başlamak isteyen önceden hazırlansın.
+import { FAZLAR } from '../fazlar.mjs';
+import { GEREKSINIMLER, FAZ_GEREKSINIMLERI } from '../gereksinimler.mjs';
+import GereksinimCipi from './GereksinimCipi.astro';
+
+const satirlar = Object.entries(FAZLAR).map(([no, ad]) => {
+	const liste: string[] = FAZ_GEREKSINIMLERI[no as unknown as keyof typeof FAZ_GEREKSINIMLERI] ?? [];
+	const wsl = liste.some((id) => GEREKSINIMLER[id as keyof typeof GEREKSINIMLER]?.windows === 'wsl');
+	return { no, ad, liste, windows: liste.length === 0 ? '—' : wsl ? 'WSL içinde' : 'Doğrudan' };
+});
+---
+
+<table class="gereksinim-tablosu">
+	<thead>
+		<tr>
+			<th>Faz</th>
+			<th>Konu</th>
+			<th>Gerekenler</th>
+			<th>Windows'ta</th>
+		</tr>
+	</thead>
+	<tbody>
+		{
+			satirlar.map((s) => (
+				<tr>
+					<td>{s.no}</td>
+					<td>{s.ad}</td>
+					<td>
+						<div class="gt-ciplar">
+							{s.liste.length ? s.liste.map((id) => <GereksinimCipi id={id} />) : 'Kağıt ve kalem'}
+						</div>
+					</td>
+					<td class:list={{ 'gt-wsl': s.windows === 'WSL içinde' }}>{s.windows}</td>
+				</tr>
+			))
+		}
+	</tbody>
+</table>
+
+<style>
+	.gt-ciplar {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.3rem;
+	}
+	.gt-wsl {
+		color: var(--sl-color-orange-high);
+		font-weight: 600;
+	}
+</style>

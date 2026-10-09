@@ -1,0 +1,118 @@
+---
+title: "clang ve LLDB"
+description: "C kodunu derleyen clang'i, hata ayıklayıcı LLDB'yi ve make'i Windows (WSL olmadan), Linux ve macOS'ta kurmak."
+sidebar:
+  label: clang ve LLDB
+  order: 2
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Bu sayfada üç araç kuracağız:
+
+- **clang:** C kodunu çalıştırılabilir programa çeviren **compiler**. LLVM adlı büyük bir compiler projesinin parçasıdır.
+- **LLDB:** Yine LLVM projesinden. Programı adım adım çalıştırıp her adımda değişkenlerin değerine bakmanı sağlayan **debugger**.
+- **make:** Çok dosyalı programları derlemeyi otomatikleştiren araç (Ders 2.13).
+
+Hepsi Windows, Linux ve macOS'ta çalışır. Windows'ta Linux kurmana gerek yok.
+
+---
+
+## Kurulum
+
+<Tabs syncKey="isletim-sistemi">
+  <TabItem label="Windows">
+    Windows'ta bu araçları **MSYS2** ile kuracağız. MSYS2, Windows'a clang'i, LLDB'yi, make'i ve Linux'takiyle aynı komutları anlayan bir terminali (bash) getirir. Böylece derslerdeki bütün terminal komutları Windows'ta da aynen çalışır.
+
+    **1. MSYS2.** [msys2.org](https://www.msys2.org) adresinden kurulum dosyasını indirip çalıştır ve klasörü değiştirmeden (`C:\msys64`) kur. Ya da PowerShell'de:
+
+    ```sh
+    winget install MSYS2.MSYS2
+    ```
+
+    **2. clang, LLDB ve make.** Başlat menüsünden **MSYS2 CLANG64** penceresini aç (adı önemli: UCRT64 ya da MSYS2 MSYS değil, **CLANG64**). Önce paket listesini güncelle:
+
+    ```sh
+    pacman -Syu
+    ```
+
+    Pencere kapanırsa yeniden aç ve aynı komutu bir kez daha çalıştır. Sonra:
+
+    ```sh
+    pacman -S --needed mingw-w64-clang-x86_64-clang mingw-w64-clang-x86_64-lldb make curl
+    ```
+
+    **3. VS Code'u MSYS2'ye bağla.** VS Code'da `Ctrl+Shift+P` ile komut paletini aç, **Preferences: Open User Settings (JSON)** komutunu çalıştır ve açılan dosyadaki süslü parantezlerin içine şunları ekle:
+
+    ```json
+    "terminal.integrated.profiles.windows": {
+      "MSYS2 CLANG64": {
+        "path": "C:\\msys64\\usr\\bin\\bash.exe",
+        "args": ["--login", "-i"],
+        "env": { "MSYSTEM": "CLANG64", "CHERE_INVOKING": "1", "MSYS2_PATH_TYPE": "inherit" }
+      }
+    },
+    "terminal.integrated.defaultProfile.windows": "MSYS2 CLANG64",
+    "C_Cpp.default.compilerPath": "C:\\msys64\\clang64\\bin\\clang.exe"
+    ```
+
+    İlk iki ayar, VS Code'un terminalini MSYS2'nin bash'i yapar. Sonuncusu, C/C++ eklentisine hangi compiler'ı kullandığımızı söyler; yoksa eklenti `#include <stdio.h>` satırının altını kırmızıyla çizer.
+
+    Bu seriden sonra bütün terminal komutlarını **VS Code'un terminalinde** (`` Ctrl+` ``) ya da **MSYS2 CLANG64** penceresinde yazacaksın. PowerShell ve Komut İstemi'nde bu komutlar çalışmaz.
+
+    <details class="bilgi">
+    <summary>ARM işlemcili bir Windows bilgisayarın varsa</summary>
+
+    Başlat menüsünden **MSYS2 CLANGARM64** penceresini aç ve paket adlarındaki `x86_64` yerine `aarch64` yaz: `mingw-w64-clang-aarch64-clang`, `mingw-w64-clang-aarch64-lldb`. VS Code ayarlarında da `CLANG64` yerine `CLANGARM64`, `clang64` yerine `clangarm64` yaz.
+
+    </details>
+  </TabItem>
+  <TabItem label="Linux">
+    Ubuntu ya da Debian kullanıyorsan terminalde:
+
+    ```sh
+    sudo apt update
+    sudo apt install clang lldb make curl
+    ```
+
+    Fedora'da `sudo dnf install clang lldb make curl`, Arch'ta `sudo pacman -S clang lldb make curl`.
+  </TabItem>
+  <TabItem label="macOS">
+    Terminalde:
+
+    ```sh
+    xcode-select --install
+    ```
+
+    Bu komut clang'i, LLDB'yi ve make'i birlikte kurar. (macOS'ta `gcc` diye bir komut da görürsün; o da aslında clang'i çalıştırır. Biz her yerde doğrudan `clang` yazacağız.)
+  </TabItem>
+</Tabs>
+
+---
+
+## Kontrol
+
+Yeni bir terminal aç ve şunları yaz:
+
+```sh
+clang --version
+lldb --version
+make --version
+```
+
+Üçü de bir sürüm numarası gösteriyorsa hazırsın. Çalışma alanını kurmak ve ilk programı yazmak için [Ders 2.2](/faz-02/02-ortam-ve-ilk-program/)'ye geç.
+
+---
+
+## Windows'ta farklı olan birkaç şey
+
+Derslerdeki çıktılar macOS'ta alındı; Linux'ta aynısını görürsün. Windows'ta doğrudan çalışırken birkaç küçük fark göreceksin; ilgili derslerin başında ayrıca hatırlatılıyor.
+
+| Ne | Linux ve macOS | Windows |
+| --- | --- | --- |
+| Derlenmiş programın adı | `build/faz-02/hello` | `build/faz-02/hello.exe` (çalıştırırken `.exe` yazmasan da olur) |
+| Girdiyi bitirmek (Ders 2.12) | `Ctrl+D` | Satır başında `Ctrl+Z`, ardından `Enter` |
+| `long` tipinin boyutu (Ders 3.2) | 8 byte | 4 byte |
+| Linker hata mesajları (Ders 2.13) | `undefined reference` / `Undefined symbols` | `undefined symbol` |
+
+Bir ders Linux'un kendisini anlatıyorsa (işletim sistemi çağrıları, `valgrind`, `perf`), dersin başındaki kutu seni [Linux ortamı](/kurulum/linux/) sayfasına yönlendirir.

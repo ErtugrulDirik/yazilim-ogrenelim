@@ -1,6 +1,7 @@
 ---
 title: "2.14 Uyarılar ve undefined behavior"
 description: "Compiler uyarılarını okumak ve -Werror ile hataya çevirmek; undefined behavior nedir, neden 'her şey olabilir' demektir; UndefinedBehaviorSanitizer ve AddressSanitizer ile görünmeyen hataları yakalamak."
+windowsNotu: "clang'in sanitizer desteği Windows'ta Linux ve macOS'taki kadar olgun değil; rapor biçimi farklı olabilir. Bölüm 4'te bir sorunla karşılaşırsan o bölümü WSL içinde dene (Kurulum → Linux ortamı)."
 ---
 
 Bu fazda birkaç kez aynı cümleyle karşılaştık: "sonuç belirsizdir." 13!'in overflow olması (Ders 2.8), asal testindeki `d * d` (Ders 2.10), `INT_MIN`'in negatifi (Ders 2.11), array'in dışına taşmak (Ders 2.4), değer verilmemiş bir değişkeni okumak (Ders 2.3)… Bu derste bu durumların adını koyacağız: **undefined behavior** (tanımsız davranış). C'nin en tehlikeli kavramı.
