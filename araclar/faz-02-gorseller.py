@@ -48,7 +48,7 @@ b.append(ok((cx[2], cy + 23), (cx[2], py), (px[0] - 54, py), renk=C['cpp']))
 b.append(yazi(cx[2] + 8, 150, 'C’nin üzerine kuruldu', size=11, renk=C['etiket'], anchor='start'))
 # Başka dünya
 b.append(f"<rect x='24' y='262' width='912' height='112' rx='12' fill='none' stroke='{C['baska']}' stroke-width='1.5' stroke-dasharray='6 5'/>")
-b.append(yazi(40, 284, 'Akraba sanılanlar: sanal makinede çalışır, belleği çöp toplayıcı yönetir', size=13, renk=C['baska'], weight=700, anchor='start'))
+b.append(yazi(40, 284, 'Akraba sanılanlar: sanal makinede çalışır, belleği garbage collector yönetir', size=13, renk=C['baska'], weight=700, anchor='start'))
 b.append(hap(120, 330, 'Java', '1995 · Sun', C['baska'], w=120))
 b.append(hap(280, 330, 'C#', '2000 · Microsoft', C['baska'], w=130))
 b.append(ok((180, 330), (215, 330), renk=C['baska']))

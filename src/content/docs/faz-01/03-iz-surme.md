@@ -288,12 +288,53 @@ Faz 1'in sonuna geldin. Şimdi öğrendiğin her şeyi bir arada kullanma zaman�
 
 **Önce kendin çöz.** Çözümler aşağıdaki kutularda; ama bu sefer kutuyu açmadan önce gerçekten uğraş. Takılırsan Pólya'nın dört adımına geri dön.
 
-**6.1 Asal sayı.** 1'den büyük olup sadece 1'e ve kendisine bölünen sayılara **asal** denir: 2, 3, 5, 7, 11, … Bir sayının asal olup olmadığını bulan algoritmayı tasarla. 91 ve 97 ile dene.
+**6.1 Basamak toplamı.** Bir sayının basamaklarının toplamını bulan algoritmayı tasarla. Örnek: 2026 → 2 + 0 + 2 + 6 = 10.
 
-**6.2 Basamak toplamı.** Bir sayının basamaklarının toplamını bulan algoritmayı tasarla. Örnek: 2026 → 2 + 0 + 2 + 6 = 10.
+**6.2 Asal sayı.** 1'den büyük olup sadece 1'e ve kendisine bölünen sayılara **asal** denir: 2, 3, 5, 7, 11, … Bir sayının asal olup olmadığını bulan algoritmayı tasarla. 91 ve 97 ile dene.
 
 <details>
-<summary>Çözüm 6.1: Asal sayı</summary>
+<summary>Çözüm 6.1: Basamak toplamı</summary>
+
+**Anla.** Girdi: n ≥ 0. Çıktı: n'nin basamaklarının toplamı. Örnekler: 2026 → 10, 7 → 7, 0 → 0.
+
+**Plan.** Ders 1.1'deki BasamakSayısı'nı hatırla: sayıyı 10'a bölerek basamakları tek tek "yiyorduk". Bu sefer yenen basamağın **değerini** de istiyoruz. Son basamak n mod 10'dur (2026 mod 10 = 6). Önce onu topla, sonra n ÷ 10 ile at.
+
+**Uygula.**
+```
+ALGORİTMA BasamakToplamı
+GİRDİ: n  (n ≥ 0)
+ÇIKTI: n'nin basamaklarının toplamı
+
+t ← 0
+n > 0 OLDUĞU SÜRECE:
+    t ← t + n mod 10
+    n ← n ÷ 10
+DÖNDÜR t
+```
+
+![Basamak toplamı akış diyagramı](../../../assets/faz-01/basamak-toplami.svg)
+
+**İz: n = 2026**
+
+| Tur | n > 0? | n mod 10 | t | n |
+| --- | --- | --- | --- | --- |
+| başlangıç | — | — | 0 | 2026 |
+| 1. | evet | 6 | 6 | 202 |
+| 2. | evet | 2 | 8 | 20 |
+| 3. | evet | 0 | 8 | 2 |
+| 4. | evet | 2 | 10 | 0 |
+| bitiş | **hayır** | — | 10 | 0 |
+
+Sonuç: **10**.
+
+**Geriye bak.** n = 0 için döngü hiç çalışmaz ve t = 0 döner. 0'ın basamak toplamı gerçekten 0, yani burada `OLDUĞU SÜRECE` doğru seçim. BasamakSayısı'nda aynı döngü n = 0'da hata vermişti, burada vermiyor. Aynı yapı bir problemde doğru, öbüründe yanlış olabilir; bu yüzden her problemin edge case'i ayrıca denenir.
+
+**Loop invariant** (meraklısı için): her turun başında, t + (n'nin basamak toplamı) = (ilk sayının basamak toplamı). n = 0 olunca t, aradığımız sonuçtur.
+
+</details>
+
+<details>
+<summary>Çözüm 6.2: Asal sayı</summary>
 
 **Anla.** Girdi: n, koşul n ≥ 2. Çıktı: "asal" ya da "asal değil".
 
@@ -354,47 +395,6 @@ Hiç bölen bulunamadı: **asal**. 95 sayı yerine sadece 8 sayı denedik.
 - n = 4: 4 ≤ 4? **Evet**. 4 mod 2 = 0: **asal değil**. Doğru.
 
 n = 4'e dikkat: koşulu `d × d < n` diye yazsaydık, 4 < 4 hayır olurdu ve algoritma 4'e "asal" derdi! `≤` ile `<` arasındaki tek karakterlik fark, yanlış bir sonuç demek. Sınırları her zaman edge case'lerle dene.
-
-</details>
-
-<details>
-<summary>Çözüm 6.2: Basamak toplamı</summary>
-
-**Anla.** Girdi: n ≥ 0. Çıktı: n'nin basamaklarının toplamı. Örnekler: 2026 → 10, 7 → 7, 0 → 0.
-
-**Plan.** Ders 1.1'deki BasamakSayısı'nı hatırla: sayıyı 10'a bölerek basamakları tek tek "yiyorduk". Bu sefer yenen basamağın **değerini** de istiyoruz. Son basamak n mod 10'dur (2026 mod 10 = 6). Önce onu topla, sonra n ÷ 10 ile at.
-
-**Uygula.**
-```
-ALGORİTMA BasamakToplamı
-GİRDİ: n  (n ≥ 0)
-ÇIKTI: n'nin basamaklarının toplamı
-
-t ← 0
-n > 0 OLDUĞU SÜRECE:
-    t ← t + n mod 10
-    n ← n ÷ 10
-DÖNDÜR t
-```
-
-![Basamak toplamı akış diyagramı](../../../assets/faz-01/basamak-toplami.svg)
-
-**İz: n = 2026**
-
-| Tur | n > 0? | n mod 10 | t | n |
-| --- | --- | --- | --- | --- |
-| başlangıç | — | — | 0 | 2026 |
-| 1. | evet | 6 | 6 | 202 |
-| 2. | evet | 2 | 8 | 20 |
-| 3. | evet | 0 | 8 | 2 |
-| 4. | evet | 2 | 10 | 0 |
-| bitiş | **hayır** | — | 10 | 0 |
-
-Sonuç: **10**.
-
-**Geriye bak.** n = 0 için döngü hiç çalışmaz ve t = 0 döner. 0'ın basamak toplamı gerçekten 0, yani burada `OLDUĞU SÜRECE` doğru seçim. BasamakSayısı'nda aynı döngü n = 0'da hata vermişti, burada vermiyor. Aynı yapı bir problemde doğru, öbüründe yanlış olabilir; bu yüzden her problemin edge case'i ayrıca denenir.
-
-**Loop invariant** (meraklısı için): her turun başında, t + (n'nin basamak toplamı) = (ilk sayının basamak toplamı). n = 0 olunca t, aradığımız sonuçtur.
 
 </details>
 
