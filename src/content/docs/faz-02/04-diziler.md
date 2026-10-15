@@ -1043,7 +1043,7 @@ Bölüm 7'deki salon için cevap: 2. sıra, 5 boş koltuk. `empty` her sıranın
 
 **9.7** – Kendi haritanı çiz: 10 satır, 20 sütun. Neleri değiştirmen gerekti?
 
-**9.8 (Bonus) Anahtar.** Haritaya `K` ile gösterilen bir anahtar ekle (haritada 3). Çıkış, oyuncu anahtarı almadan **kapalı** olsun: anahtarsız çıkışa gelince "Kapı kilitli!" yazsın. Anahtarın üstüne gelince anahtar alınsın ve haritadan silinsin.
+**9.8 (Bonus) Anahtar.** Haritaya `K` ile gösterilen bir anahtar ekle. Çıkış, oyuncu anahtarı almadan **kapalı** olsun: anahtarsız çıkışa gelince "Kapı kilitli!" yazsın. Anahtarın üstüne gelince anahtar alınsın ve haritadan silinsin.
 
 <details>
 <summary>Cevaplar</summary>
