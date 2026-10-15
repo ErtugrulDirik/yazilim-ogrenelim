@@ -85,7 +85,7 @@ int main(void) {
 -128  10000000  işaretsiz okunursa: 128
 ```
 
-- `print_bits`, Ders 2.11'deki rakam ayırma fikrinin ikilik hali: 128, 64, 32… diye basamak değerlerinde ilerliyor; `b / w % 2` o basamaktaki biti veriyor.
+- `print_bits`, Ders 2.8'deki rakam ayırma fikrinin ikilik hali: 128, 64, 32… diye basamak değerlerinde ilerliyor; `b / w % 2` o basamaktaki biti veriyor.
 - `unsigned char bits = values[i];` → İşaretli değeri işaretsiz bir kutuya koyuyoruz. Bitler **aynen** kopyalanır, sadece okunuşları değişir. (Farklı tipler arası atamanın bütün kurallarını Ders 3.7'de göreceğiz.)
 
 Çıktıdaki tuhaflıklara bak: −1, `11111111`. −5, `11111011`. −128, `10000000`. Negatif sayıların hepsi 1 ile başlıyor, ama −5'in deseni 5'in deseninin başına bir 1 konmuş hali değil. Bu desenler nereden geliyor?
@@ -200,14 +200,14 @@ n bitlik bir sayıda:
 
 İşaretli sayılarda en soldaki biti 0 olan desenler (yarısı) sıfır ve pozitif sayılara, 1 olanlar (diğer yarısı) negatiflere gidiyor. Negatif tarafta 2ⁿ⁻¹ sayı var. Pozitif tarafta da 2ⁿ⁻¹ desen var ama bunlardan biri **sıfır**. Asimetrinin sebebi bu: 4 bitte −8'e kadar inebiliyoruz ama +7'de duruyoruz.
 
-Şimdi Ders 2.11'deki `INT_MIN` tuzağını bitlerle görelim. 4 bitte en küçük sayı −8 = `1000`. Negatifini alalım:
+Şimdi `INT_MIN`'in negatifini bitlerle görelim. 4 bitte en küçük sayı −8 = `1000`. Negatifini alalım:
 
 ```
 NOT 1000 = 0111
     0111 + 1 = 1000
 ```
 
-**−(−8) = −8.** +8'i gösterecek desen yok; işlem kendi üstüne döndü. `-INT_MIN`'in de tam olarak bu yüzden sığmadığını görmüştük. C'de bu işaretli bir overflow olduğu için undefined behavior'dır (Ders 2.14).
+**−(−8) = −8.** +8'i gösterecek desen yok; işlem kendi üstüne döndü. `-INT_MIN` de tam olarak bu yüzden `int`'e sığmaz. C'de bu işaretli bir overflow olduğu için undefined behavior'dır (Ders 2.12).
 
 ---
 
@@ -249,7 +249,7 @@ int main(void) {
 4294967295
 ```
 
-0'dan 1 çıkınca sayaç geriye dönüp en büyük değere, 2³² − 1'e geldi. Sanitizer bile şikayet etmez; standart bu davranışı garanti eder. İşaretli tiplerde ise overflow, Ders 2.14'te gördüğümüz gibi **undefined behavior**'dır. Taşmayı önceden yakalamayı Ders 3.8'de göreceğiz.
+0'dan 1 çıkınca sayaç geriye dönüp en büyük değere, 2³² − 1'e geldi. Sanitizer bile şikayet etmez; standart bu davranışı garanti eder. İşaretli tiplerde ise overflow, Ders 2.12'de gördüğümüz gibi **undefined behavior**'dır. Taşmayı önceden yakalamayı Ders 3.8'de göreceğiz.
 
 ---
 

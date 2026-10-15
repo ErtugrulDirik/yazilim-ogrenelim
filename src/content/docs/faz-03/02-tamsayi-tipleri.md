@@ -19,7 +19,7 @@ Ders 3.1'de `int`'in sabit sayıda byte'tan oluştuğunu ve bu yüzden sınırla
 
 ## 1. Kendi makinende ölç
 
-Her tipin boyutunu ve sınırlarını `sizeof` ile ve Ders 2.11'de tanıştığımız `<limits.h>` ile öğrenebiliriz:
+Her tipin boyutunu ve sınırlarını `sizeof` ile ve Ders 2.12'de tanıştığımız `<limits.h>` ile öğrenebiliriz:
 
 ```c
 #include <stdio.h>
@@ -155,7 +155,7 @@ A
 ```
 
 - Aynı değişken, `%c` ile yazdırılınca **harf** (`A`), `%d` ile yazdırılınca **sayı** (65) olarak görünür. Bellekte duran şey aynı; değişen sadece yorum. Faz 0'daki "her şey sayıdır, anlamı bağlam belirler" cümlesinin ta kendisi.
-- `'A' + 1` = 66 = `'B'`. Harflerle aritmetik yapabilirsin; Ders 2.11 ve 2.12'de rakamlarla yaptığımız gibi.
+- `'A' + 1` = 66 = `'B'`. Harflerle aritmetik yapabilirsin.
 - `'a' - 32` = `'A'`: Faz 0'daki "büyük harfle küçük harf arasındaki fark 32" kuralı.
 
 **Bir tuhaflık: `char` işaretli mi, işaretsiz mi?** Standart bunu da platforma bırakır. clang ile kontrol ettik: macOS'ta ve x86 işlemcili Linux'ta `char` −128 ile 127 arasında; ama ARM işlemcili Linux'ta, örneğin bir Raspberry Pi'de, 0 ile 255 arasında. Harf tutarken bu fark etmez; ama `char`'ı küçük bir sayı tutmak için kullanırsan ve negatif değerlere ihtiyacın varsa, sürpriz yaşayabilirsin. Ders 3.3'te `signed char` ve `unsigned char` ile bu belirsizliği nasıl ortadan kaldıracağımızı göreceğiz.
@@ -221,7 +221,7 @@ b
 a
 32
 ```
-`'7' - '0'` = 7: Ders 2.12'deki karakteri rakama çevirme hilesi. `'a' - 'A'` = 32: Faz 0'daki büyük-küçük harf farkı.
+`'7' - '0'` = 7: rakam karakterini sayıya çevirmenin en kısa yolu. `'a' - 'A'` = 32: Faz 0'daki büyük-küçük harf farkı.
 
 **4** – Program aynen çalışır ve `sizeof(map)` **77** olur (308 yerine). 0, 1 ve 2 değerleri `char`'a rahatça sığar ve `map[row][col] == WALL` gibi karşılaştırmalar `char` ile de aynı çalışır. Fonksiyonların parametre tipini de `char map[ROWS][COLS]` yapman gerekir; yoksa compiler tip uyuşmazlığı hatası verir.
 

@@ -8,8 +8,8 @@ Faz 2'yi baştan sona tek bir tiple yazdık: `int`. Değişkenler, array'ler, st
 - **Ders 2.3:** Vücut kitle indeksi 22,86 olmalıydı; program **22** dedi. Küsurat kayboldu.
 - **Ders 2.8:** 13! = 6.227.020.800 olmalıydı; program **1.932.053.504** dedi. Sayı sığmadı, overflow oldu.
 - **Ders 2.10:** Asal testi, 2.147.483.647'nin asal olmadığını söyledi; çünkü `d * d` sığmadı.
-- **Ders 2.11:** `INT_MAX` 2.147.483.647 ama `INT_MIN` -2.147.483.648: negatif taraf neden bir fazla?
-- **Ders 2.15:** 22,85'i yazdırabilmek için sayıyı 100 ile çarpıp virgülü kafamızda tutmak zorunda kaldık.
+- **`<limits.h>`:** `INT_MAX` 2.147.483.647 ama `INT_MIN` -2.147.483.648: negatif taraf neden bir fazla?
+- **Ders 2.13:** 22,85'i yazdırabilmek için sayıyı 100 ile çarpıp virgülü kafamızda tutmak zorunda kaldık.
 - **Faz 0:** 0,1'in ikilikte sonsuz olduğunu görmüştük. Bilgisayar 0,1'i nasıl saklıyor?
 
 Faz 3'ün işi bu soruların hepsini cevaplamak. İlk adım, en temel soru: **bir `int` aslında nedir?**
@@ -76,11 +76,11 @@ Son satırdaki hile kullanışlı: array'in toplam boyutunu bir elemanın boyutu
 | En küçük | −2³¹ = **−2.147.483.648** (`INT_MIN`) |
 | En büyük | 2³¹ − 1 = **2.147.483.647** (`INT_MAX`) |
 
-Ders 2.11'deki asimetri buradan geliyor: 0 da pozitif taraftaki yerlerden birini kullanıyor. Negatif tarafta 2³¹ sayı var, sıfır ve pozitif tarafta da 2³¹; ama bunlardan biri 0 olduğu için en büyük pozitif sayı 2³¹ − 1. Negatif sayıların bitlerle tam olarak nasıl gösterildiğini Ders 3.3'te göreceğiz.
+`INT_MIN` ile `INT_MAX` arasındaki asimetri buradan geliyor: 0 da pozitif taraftaki yerlerden birini kullanıyor. Negatif tarafta 2³¹ sayı var, sıfır ve pozitif tarafta da 2³¹; ama bunlardan biri 0 olduğu için en büyük pozitif sayı 2³¹ − 1. Negatif sayıların bitlerle tam olarak nasıl gösterildiğini Ders 3.3'te göreceğiz.
 
 **Overflow'un sebebi de bu.** 13! = 6.227.020.800 sayısını 32 bitle göstermenin yolu yok. Ne kadar akıllı bir program yazarsan yaz, 4 byte'lık kutuya 4 byte'tan büyük bir sayı sığmaz. Daha büyük sayılar için daha büyük kutulara, yani **başka tiplere** ihtiyacımız var. Ders 3.2'nin konusu bu.
 
-**Küsurat kaybının sebebi de bu.** 32 bitin her birini tamsayıları göstermek için kullandık; küsurata ayrılmış tek bir bit yok. 22,86'yı gösterebilmek için bitlerin bir kısmını virgülden sonrasına ayırmamız gerekir. Ders 2.15'te bunu elle yaptık: sayıyı 100 ile çarpıp tuttuk. Ders 3.11'de bu fikri düzenli bir biçime sokacağız, Ders 3.12'de de bilgisayarın küsuratlı sayılar için kullandığı asıl yöntemi göreceğiz.
+**Küsurat kaybının sebebi de bu.** 32 bitin her birini tamsayıları göstermek için kullandık; küsurata ayrılmış tek bir bit yok. 22,86'yı gösterebilmek için bitlerin bir kısmını virgülden sonrasına ayırmamız gerekir. Ders 2.13'te bunu elle yaptık: sayıyı 100 ile çarpıp tuttuk. Ders 3.11'de bu fikri düzenli bir biçime sokacağız, Ders 3.12'de de bilgisayarın küsuratlı sayılar için kullandığı asıl yöntemi göreceğiz.
 
 ---
 
@@ -125,7 +125,6 @@ Bu fazda tiplerin perde arkasına bakacağız:
 - Çok byte'lık bir sayı **bellekte hangi sırayla** duruyor? (3.9)
 - **Küsuratlı sayılar** nasıl tutuluyor, 0,1 + 0,2 neden 0,3 etmiyor? (3.11–3.14)
 - Sayıları metne, metni sayıya çeviren fonksiyonları **sıfırdan** yazmak. (3.16–3.20)
-- Ve fazın sonunda, bunların hepsini kullanan kendi **`printf`**'imiz. (3.22)
 
 Faz 2'de "neden 22, neden 13! yanlış" diye sorduğun her şeyin cevabı bu fazda.
 
@@ -139,7 +138,7 @@ Faz 2'de "neden 22, neden 13! yanlış" diye sorduğun her şeyin cevabı bu faz
 
 **3** – `int`'in **2 byte** olduğu bir platformda en küçük ve en büyük `int` değerleri ne olur? Hesapla.
 
-**4** – Ders 2.15'teki sağlık hesaplayıcısının `bmi_x100` fonksiyonu `weight_kg * 1000000` hesaplıyordu. Bu program Arduino Uno'da doğru çalışır mı? Hangi değerlerde sorun çıkar? Programın geri kalanına da bak.
+**4** – Ders 2.13'teki sağlık hesaplayıcısının `bmi_x100` fonksiyonu `weight_kg * 1000000` hesaplıyordu. Bu program Arduino Uno'da doğru çalışır mı? Hangi değerlerde sorun çıkar? Programın geri kalanına da bak.
 
 <details>
 <summary>Cevaplar</summary>

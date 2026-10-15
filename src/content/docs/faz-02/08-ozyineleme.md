@@ -104,7 +104,7 @@ printf("13! = %d\n", factorial(13));
 13! = 1932053504
 ```
 
-13! aslında 6.227.020.800. Program saçma bir sayı verdi, çünkü bu sayı bir `int`'e sığmıyor. Faz 0'daki 8 bit overflow'unu hatırla: aynı şey burada 32 bitte oluyor. `int`'in sınırlarını ve overflow'un tehlikelerini Faz 3'te ve Ders 2.14'te ayrıntısıyla göreceğiz; şimdilik faktöriyeli 12'ye kadar kullan.
+13! aslında 6.227.020.800. Program saçma bir sayı verdi, çünkü bu sayı bir `int`'e sığmıyor. Faz 0'daki 8 bit overflow'unu hatırla: aynı şey burada 32 bitte oluyor. `int`'in sınırlarını ve overflow'un tehlikelerini Faz 3'te ve Ders 2.12'de ayrıntısıyla göreceğiz; şimdilik faktöriyeli 12'ye kadar kullan.
 
 ---
 
@@ -176,7 +176,7 @@ void print_in_order(int n) {
 - `print_reversed`, rakamı **inerken** yazar: önce 6'yı yazar, sonra kalanını (202) halletmesi için kendini çağırır.
 - `print_in_order`, önce kalanın halledilmesini bekler, rakamını **çıkarken** yazar. İniş 2026 → 202 → 20 → 2 diye gider; yazma ise dipten yukarı doğru olur: 2, 0, 2, 6.
 
-Faz 0'daki bölme–kalan yönteminin sorunu buydu: rakamlar sağdan sola çıkıyordu ama soldan sağa yazmak istiyorduk. Ders 2.5'te bunu 2'nin kuvvetleriyle çözdük. Recursion aynı sorunu çok daha kısa çözüyor: stack, rakamları ters sırada bizim için saklıyor. Bu fikri Ders 2.11'de `printf` kullanmadan sayı yazdırırken tekrar kullanacağız.
+Faz 0'daki bölme–kalan yönteminin sorunu buydu: rakamlar sağdan sola çıkıyordu ama soldan sağa yazmak istiyorduk. Ders 2.5'te bunu 2'nin kuvvetleriyle çözdük. Recursion aynı sorunu çok daha kısa çözüyor: stack, rakamları ters sırada bizim için saklıyor.
 
 ---
 

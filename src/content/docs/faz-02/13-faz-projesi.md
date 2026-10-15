@@ -1,10 +1,10 @@
 ---
-title: "2.15 Faz projesi: sağlık hesaplayıcı"
-description: "Faz 2'nin bitiş projesi: sadece int ve kendi print_int/read_int fonksiyonlarımızla, çok dosyalı, Makefile'lı, menülü bir sağlık hesaplayıcı."
-windowsNotu: "Ctrl+D yerine satır başında Ctrl+Z, ardından Enter. Sanitizer testinde sorun yaşarsan Ders 2.14'teki nota bak."
+title: "2.13 Faz projesi: sağlık hesaplayıcı"
+description: "Faz 2'nin bitiş projesi: sadece int ile, hatalı girişe dayanıklı, çok dosyalı, Makefile'lı, menülü bir sağlık hesaplayıcı."
+windowsNotu: "Ctrl+D yerine satır başında Ctrl+Z, ardından Enter. Sanitizer testinde sorun yaşarsan Ders 2.12'deki nota bak."
 ---
 
-Faz 2'nin sonuna geldin. Bu fazda bir programlama dilinin temel araçlarını, kendi giriş-çıkış fonksiyonlarını, programı dosyalara bölmeyi ve hataları yakalamayı öğrendin. Şimdi hepsini tek bir programda bir araya getireceksin: **menülü bir sağlık hesaplayıcı**.
+Faz 2'nin sonuna geldin. Bu fazda bir programlama dilinin temel araçlarını, programı dosyalara bölmeyi ve hataları yakalamayı öğrendin. Şimdi hepsini tek bir programda bir araya getireceksin: **menülü bir sağlık hesaplayıcı**.
 
 Ders 0.1'den beri bizimle olan vücut kitle indeksi burada son halini alıyor. Faz 1'de kağıtta akış diyagramını çizmiştin, Ders 2.3'te ilk C halini yazmıştın. Şimdi gerçek bir programın parçası olacak.
 
@@ -38,7 +38,7 @@ Her hesaptan sonra menü tekrar gösterilir.
 **Kurallar:**
 
 1. **Sadece `int`.** Küsuratlı sayı yok (onları Faz 3'te göreceğiz).
-2. **Sayıları kendi fonksiyonlarınla oku ve yaz:** Ders 2.11'deki `print_int` ve Ders 2.12'deki `read_int`. `printf`'i sadece sabit yazılar için kullan (`printf("Boyun (cm): ");` gibi); `%d` yok.
+2. **Sayıları `scanf` ile oku, `printf` ile yaz.** `scanf`'i Bölüm 3'te tanıtıyoruz.
 3. **Hatalı girişe dayanıklı ol.** Kullanıcı harf yazarsa ya da izin verilen aralığın dışında bir sayı girerse, program çökmeden aynı soruyu tekrar sorsun. İzin verilen aralıklar:
    - Boy: 100–250 cm
    - Kilo: 20–300 kg
@@ -46,8 +46,8 @@ Her hesaptan sonra menü tekrar gösterilir.
    - Cinsiyet: 1 (erkek) ya da 2 (kadın)
    - Hareket düzeyi: 1–5
 4. **Girdi kapanırsa düzgünce bit.** Kullanıcı herhangi bir soruda `Ctrl+D` ile girdiyi kapatırsa program sonsuz döngüye girmeden çıksın.
-5. **Çok dosyalı ol** (Ders 2.13): giriş-çıkış fonksiyonları, hesaplama fonksiyonları ve menü ayrı dosyalarda dursun.
-6. **`Makefile` ile derlensin**, `-Wall -Wextra -Werror` ile hiç uyarı vermesin ve sanitizer'larla (Ders 2.14) çalıştırıldığında hiçbir hata raporlamasın.
+5. **Çok dosyalı ol** (Ders 2.11): giriş-çıkış fonksiyonları, hesaplama fonksiyonları ve menü ayrı dosyalarda dursun.
+6. **`Makefile` ile derlensin**, `-Wall -Wextra -Werror` ile hiç uyarı vermesin ve sanitizer'larla (Ders 2.12) çalıştırıldığında hiçbir hata raporlamasın.
 
 ---
 
@@ -61,7 +61,7 @@ vki × 100 = kilo × 1.000.000 / (boy × boy)
 
 Gruplar da 100 ile çarpılmış sınırlarla: 1850'nin altı zayıf; 2500'ün altı normal; 3000'in altı fazla kilolu; 3000 ve üstü obez.
 
-**Overflow kontrolü:** En büyük kilo 300; 300 × 1.000.000 = 300.000.000. `INT_MAX` yaklaşık 2,1 milyar; sığıyor. Bu hesabı yapmadan büyük sayılarla çarpma yapma alışkanlığı edinme (Ders 2.14).
+**Overflow kontrolü:** En büyük kilo 300; 300 × 1.000.000 = 300.000.000. `INT_MAX` yaklaşık 2,1 milyar; sığıyor. Bu hesabı yapmadan büyük sayılarla çarpma yapma alışkanlığı edinme (Ders 2.12).
 
 **İdeal kilo (Broca formülü):** Erkekler için (boy − 100) × %90, kadınlar için (boy − 100) × %85. 175 cm bir erkek için: 75 × 90 / 100 = **67** kg.
 
@@ -94,18 +94,34 @@ Kod yazmadan önce, Ders 2.4'teki labirentte yaptığımız gibi, programı par�
 
 | Dosya | Sorumluluğu | İçindekiler |
 | --- | --- | --- |
-| `io.h`, `io.c` | Sayı okumak ve yazmak | `print_int`, `print_fixed2`, `read_int` |
+| `io.h`, `io.c` | Sayı okumak ve yazmak | `read_int`, `print_fixed2` |
 | `health.h`, `health.c` | Hesaplamalar | `bmi_x100`, `ideal_weight`, `daily_calories` |
 | `main.c` | Kullanıcıyla konuşmak | menü, soruları sorma, sonuçları yazma |
 | `Makefile` | Derleme | |
 
 Neden bu ayrım? `health.c` hiçbir şey okumaz, hiçbir şey yazmaz; sadece hesap yapar. Formüllerden birinde hata varsa nereye bakacağın belli. `io.c` hiçbir sağlık bilgisi bilmez; başka bir projede olduğu gibi kullanılabilir. Her dosyanın **tek bir işi** var.
 
-**`read_int`'i geliştirmek.** Ders 2.12'deki `read_int` iki şeyi ayırt edemiyor: kullanıcının yanlış bir şey yazması ile girdinin **bitmesi**. İkisinde de `ok` 0 oluyor. Ama bu projede ikisine farklı davranmamız gerekiyor: yanlış girişte soruyu tekrar sormalı, girdi bitince programdan çıkmalıyız. Yoksa girdi kapandığında program "lütfen geçerli bir sayı gir" diye sonsuza kadar sorar. Bu yüzden `ok` alanını üç değer alabilen bir `status` alanına çeviriyoruz: `READ_OK`, `READ_INVALID` ve `READ_EOF`.
+**`scanf` ile sayı okumak.** `printf` ekrana yazıyordu; `scanf` tersini yapar, klavyeden okur:
 
-İkinci bir geliştirme: kullanıcı `175abc` yazarsa, Ders 2.12'deki sürüm 175'i kabul edip `abc`'yi bir sonraki soruya bırakırdı. Bu projede **satırın tamamına** bakıyoruz: sayıdan sonra satır sonuna kadar boşluktan başka bir şey varsa giriş geçersizdir ve satırın geri kalanı atlanır.
+```c
+int value;
+int count = scanf("%d", &value);
+```
 
-İşte gerçek bir projede olan bu: dünkü kodun bugünkü ihtiyaca yetmez ve onu geliştirirsin. Ders 2.4'teki labirentte gördüğümüz çalışma biçimi.
+`%d`, `printf`'teki gibi "bir tamsayı" demek. Değişkenin önündeki `&` işaretini şimdilik kuralın bir parçası olarak kabul et: `scanf`'in değeri **değişkenin içine** yazabilmesi için gerekiyor. Ne anlama geldiğini Faz 4'te, pointer'larla göreceğiz. `printf` gibi `scanf`'i de şimdilik bir kara kutu olarak kullanıyoruz.
+
+`scanf`'in döndürdüğü değer çok önemli: kaç değeri **başarıyla** okuduğunu söyler. Bizim için üç durum var:
+
+- **1:** Bir sayı okundu, `value`'nun içinde.
+- **0:** Girdide sayı yerine başka bir şey vardı (`abc` gibi). `value`'ya dokunulmadı ve o karakterler hâlâ girdide bekliyor; onları atlamazsak bir sonraki `scanf` aynı `abc`'ye takılır ve program sonsuz döngüye girer.
+- **`EOF`:** Girdi bitti (`Ctrl+D`, Ders 2.4).
+
+Dönüş değerine bakmadan `scanf` kullanmak, bu projedeki hataların çoğunun kaynağı olur. Bu yüzden `scanf`'i doğrudan `main.c`'de çağırmak yerine bir `read_int` fonksiyonunun içine koyuyoruz. `read_int` sonucu bir struct'ta döndürüyor (Ders 2.3): `status` alanı üç değerden birini alır (`READ_OK`, `READ_INVALID` ya da `READ_EOF`), `value` alanı da okunan sayıyı tutar. Yanlış girişte soruyu tekrar sormalı, girdi bitince programdan çıkmalıyız; ikisini ayırt etmeden program girdi kapandığında "lütfen geçerli bir sayı gir" diye sonsuza kadar sorar.
+
+İki ince nokta daha:
+
+- Kullanıcı `175abc` yazarsa `scanf` 175'i okur ve `abc`'yi bir sonraki soruya bırakır. Biz **satırın tamamına** bakıyoruz: sayıdan sonra satır sonuna kadar boşluktan başka bir şey varsa giriş geçersizdir ve satırın geri kalanı atlanır.
+- `int`'e sığmayacak kadar uzun bir sayıyı `%d` ile okumak undefined behavior'dır (Ders 2.12). `%9d` yazarak `scanf`'e en fazla 9 karakter okumasını söylüyoruz; 9 basamaklı bir sayı her zaman `int`'e sığar. Daha uzun bir sayıda kalan rakamlar satırda kalır ve giriş, bir önceki maddedeki kuralla geçersiz sayılır.
 
 **Soru sormak.** Her soru aynı kalıpta: bir sayı oku, aralıktaysa kabul et, değilse uyarıp tekrar sor, girdi bittiyse vazgeç. Bunu her soru için tekrar yazmak yerine bir fonksiyona koy: `int ask(int min, int max)`. Girdi biterse -1 döndürsün; bütün aralıklar 0 ya da daha büyük olduğu için -1 hiçbir zaman geçerli bir cevapla karışmaz.
 
@@ -131,7 +147,6 @@ struct ReadResult {
     int value;
 };
 
-void print_int(int n);
 void print_fixed2(int value_x100);
 struct ReadResult read_int(void);
 
@@ -145,41 +160,10 @@ struct ReadResult read_int(void);
 
 ```c
 #include <stdio.h>
-#include <limits.h>
 #include "io.h"
 
-static void print_negative(int n) {
-    if (n <= -10) {
-        print_negative(n / 10);
-    }
-    putchar('0' - n % 10);
-}
-
-void print_int(int n) {
-    if (n < 0) {
-        putchar('-');
-        print_negative(n);
-    } else {
-        print_negative(-n);
-    }
-}
-
 void print_fixed2(int value_x100) {
-    print_int(value_x100 / 100);
-    putchar(',');
-    int cents = value_x100 % 100;
-    if (cents < 10) {
-        putchar('0');
-    }
-    print_int(cents);
-}
-
-static int is_space(int c) {
-    return c == ' ' || c == '\t';
-}
-
-static int is_digit(int c) {
-    return c >= '0' && c <= '9';
+    printf("%d,%02d", value_x100 / 100, value_x100 % 100);
 }
 
 static void skip_line(void) {
@@ -191,48 +175,31 @@ static void skip_line(void) {
 
 struct ReadResult read_int(void) {
     struct ReadResult result = {READ_INVALID, 0};
-    int c = getchar();
-    while (is_space(c)) {
-        c = getchar();
-    }
-    if (c == EOF) {
+    int value;
+    int count = scanf("%9d", &value);
+    if (count == EOF) {
         result.status = READ_EOF;
         return result;
     }
-    int negative = 0;
-    if (c == '-') {
-        negative = 1;
-        c = getchar();
+    if (count == 0) {
+        skip_line();
+        return result;
     }
-    int value = 0;
-    int digits = 0;
-    while (is_digit(c)) {
-        int digit = c - '0';
-        if (value > (INT_MAX - digit) / 10) {
-            skip_line();
-            return result;
-        }
-        value = value * 10 + digit;
-        digits++;
-        c = getchar();
-    }
-    while (is_space(c)) {
+    int c = getchar();
+    while (c == ' ' || c == '\t') {
         c = getchar();
     }
     if (c != '\n' && c != EOF) {
         skip_line();
         return result;
     }
-    if (digits == 0) {
-        return result;
-    }
     result.status = READ_OK;
-    result.value = negative ? -value : value;
+    result.value = value;
     return result;
 }
 ```
 
-`print_fixed2`, 2285'i `22,85` diye yazar. `cents < 10` kontrolü 2205'in `22,5` değil `22,05` diye yazılması için. `skip_line` ve karakter testleri `static`: dışarıya açılması gerekmeyen yardımcılar (Ders 2.13).
+`print_fixed2`, 2285'i `22,85` diye yazar. `%02d`, sayıyı en az iki basamakla, gerekirse başına sıfır koyarak yazar: 2205 `22,5` değil `22,05` olarak görünür. `skip_line` `static`: dışarıya açılması gerekmeyen bir yardımcı (Ders 2.11).
 
 </details>
 
@@ -313,11 +280,7 @@ static int ask(int min, int max) {
         if (r.status == READ_OK && r.value >= min && r.value <= max) {
             return r.value;
         }
-        printf("Lütfen ");
-        print_int(min);
-        printf(" ile ");
-        print_int(max);
-        printf(" arasında bir sayı gir: ");
+        printf("Lütfen %d ile %d arasında bir sayı gir: ", min, max);
     }
 }
 
@@ -360,9 +323,7 @@ static int show_ideal_weight(void) {
         return 0;
     }
 
-    printf("İdeal kilon: yaklaşık ");
-    print_int(ideal_weight(height, sex));
-    printf(" kg\n");
+    printf("İdeal kilon: yaklaşık %d kg\n", ideal_weight(height, sex));
     return 1;
 }
 
@@ -393,9 +354,7 @@ static int show_calories(void) {
         return 0;
     }
 
-    printf("Günlük kalori ihtiyacın: yaklaşık ");
-    print_int(daily_calories(weight, height, age, sex, activity));
-    printf(" kcal\n");
+    printf("Günlük kalori ihtiyacın: yaklaşık %d kcal\n", daily_calories(weight, height, age, sex, activity));
     return 1;
 }
 
@@ -458,7 +417,7 @@ clean:
 .PHONY: run clean
 ```
 
-Ders 2.13'teki `Makefile`'ın aynısı, üç dosya için. `CFLAGS`'te bu sefer `-Werror` da var.
+Ders 2.11'deki `Makefile`'ın aynısı, üç dosya için. `CFLAGS`'te bu sefer `-Werror` da var.
 
 </details>
 
@@ -515,7 +474,7 @@ Lütfen 0 ile 3 arasında bir sayı gir: <b>0</b>
 Görüşmek üzere!
 </code></pre>
 
-**Hızlı test.** Her seferinde elle yazmak yerine girdiyi hazır ver (Ders 2.12):
+**Hızlı test.** Her seferinde elle yazmak yerine girdiyi hazır ver. `|` işareti, soldaki komutun çıktısını sağdaki programa girdi olarak verir; program sanki biri klavyeden yazmış gibi okur:
 
 ```sh
 printf '1\n175\n70\n0\n' | ../../build/faz-02/health/health
@@ -524,7 +483,7 @@ printf '1\n175\n70\n0\n' | ../../build/faz-02/health/health
 Kendi çözümünü en azından şu durumlarla dene:
 
 - Bölüm 2'deki örnek değerler: 22,85, 67 kg ve 2554 kcal çıkmalı.
-- Aralık dışı ve harfli girişler: `5`, `abc`, `175abc`. Program çökmemeli, aynı soruyu tekrar sormalı.
+- Aralık dışı, harfli ve çok uzun girişler: `5`, `abc`, `175abc`, `12345678901`. Program çökmemeli, aynı soruyu tekrar sormalı.
 - Bir sorunun ortasında `Ctrl+D`: program "Görüşmek üzere!" deyip çıkmalı.
 - En uç değerler: 300 kg ve 100 cm; 20 kg ve 250 cm. Sonuçlar mantıklı olmalı ve hiçbir hesap overflow olmamalı.
 
@@ -553,7 +512,6 @@ Proje çalışıyor. Bitmiş mi? Gerçek yazılımlar hiç bitmez. Kendini denem
 Bu fazın başında bilgisayarın sana `Hello, world!` yazmasını sağlamıştın. Şimdi:
 
 - değişkenler, kararlar, döngüler, fonksiyonlar, struct'lar ve array'lerle program yazabiliyorsun,
-- `printf` ve `scanf`'in yaptığı işi kendin yapabiliyorsun,
 - programını dosyalara bölüp Make ile derleyebiliyorsun,
 - hataları debugger, uyarılar ve sanitizer'larla avlayabiliyorsun.
 

@@ -1,10 +1,10 @@
 ---
-title: "2.14 Uyarılar ve undefined behavior"
+title: "2.12 Uyarılar ve undefined behavior"
 description: "Compiler uyarılarını okumak ve -Werror ile hataya çevirmek; undefined behavior nedir, neden 'her şey olabilir' demektir; UndefinedBehaviorSanitizer ve AddressSanitizer ile görünmeyen hataları yakalamak."
 windowsNotu: "clang'in sanitizer desteği Windows'ta Linux ve macOS'taki kadar olgun değil; rapor biçimi farklı olabilir. Bölüm 4'te bir sorunla karşılaşırsan o bölümü WSL içinde dene (Kurulum → Linux ortamı)."
 ---
 
-Bu fazda birkaç kez aynı cümleyle karşılaştık: "sonuç belirsizdir." 13!'in overflow olması (Ders 2.8), asal testindeki `d * d` (Ders 2.10), `INT_MIN`'in negatifi (Ders 2.11), array'in dışına taşmak (Ders 2.4), değer verilmemiş bir değişkeni okumak (Ders 2.3)… Bu derste bu durumların adını koyacağız: **undefined behavior** (tanımsız davranış). C'nin en tehlikeli kavramı.
+Bu fazda birkaç kez aynı cümleyle karşılaştık: "sonuç belirsizdir." 13!'in overflow olması (Ders 2.8), asal testindeki `d * d` (Ders 2.10), array'in dışına taşmak (Ders 2.4), değer verilmemiş bir değişkeni okumak (Ders 2.3)… Bu derste bu durumların adını koyacağız: **undefined behavior** (tanımsız davranış). C'nin en tehlikeli kavramı.
 
 Ama önce, compiler'ın bizi bu tür hatalara karşı nasıl uyardığına bakalım.
 
@@ -78,7 +78,7 @@ clang -std=c17 -Wall -Wextra -Werror warn.c -o warn
 
 `-Werror` ile aynı dört mesaj artık `error:` diye başlıyor ve program **üretilmiyor**. Uyarıyı düzeltmeden devam edemezsin.
 
-Ders 2.15'teki faz projesinin `Makefile`'ında `-Werror` kullanacağız. İstersen `.vscode/tasks.json`'daki derleme komutuna da `-Wall -Wextra`'nın yanına `-Werror` ekleyebilirsin.
+Ders 2.13'teki faz projesinin `Makefile`'ında `-Werror` kullanacağız. İstersen `.vscode/tasks.json`'daki derleme komutuna da `-Wall -Wextra`'nın yanına `-Werror` ekleyebilirsin.
 
 ---
 
@@ -90,7 +90,7 @@ Bu fazda karşılaştığımız undefined behavior'lar:
 
 | Durum | Nerede gördük? |
 | --- | --- |
-| İşaretli tamsayı overflow'u (`int`'in sınırını aşmak) | 13! (2.8), `d * d` (2.10), `-INT_MIN` (2.11) |
+| İşaretli tamsayı overflow'u (`int`'in sınırını aşmak) | 13! (2.8), `d * d` (2.10) |
 | Array'in dışını okumak ya da yazmak | Labirentte kenarı açmak (2.4) |
 | Değer verilmemiş bir değişkeni okumak | `total` (yukarıda), `int sayi;` (2.3) |
 | Sıfıra bölmek | `average(10, 0)` (aşağıda) |
@@ -209,7 +209,7 @@ Sessiz bir yanlış sonuç, satır numarası ve değişken adıyla birlikte gele
 
 ### UndefinedBehaviorSanitizer
 
-`-fsanitize=undefined`, overflow ve sıfıra bölme gibi hataları yakalar. Bu araçla Ders 2.10 ve 2.11'de zaten tanıştın. Bir örnek daha:
+`-fsanitize=undefined`, overflow ve sıfıra bölme gibi hataları yakalar. Bu araçla Ders 2.10'da zaten tanıştın. Bir örnek daha:
 
 ```c
 #include <stdio.h>

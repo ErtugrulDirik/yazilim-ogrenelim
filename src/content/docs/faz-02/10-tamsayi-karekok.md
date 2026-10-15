@@ -291,7 +291,7 @@ int is_prime(int n) {
 
 Artık hiçbir çarpma yok, dolayısıyla overflow da yok. Bir faydası daha var: `d * d`'yi her turda hesaplamak yerine sınırı bir kez hesaplıyoruz.
 
-Bu hatayı nasıl yakaladık? clang'in `-fsanitize=undefined` adlı bir ayarı, program çalışırken overflow'u tespit edip uyarıyor: `runtime error: signed integer overflow: 46341 * 46341 cannot be represented in type 'int'`. Bu aracı ve overflow'un neden bu kadar tehlikeli olduğunu Ders 2.14'te ayrıntısıyla göreceğiz.
+Bu hatayı nasıl yakaladık? clang'in `-fsanitize=undefined` adlı bir ayarı, program çalışırken overflow'u tespit edip uyarıyor: `runtime error: signed integer overflow: 46341 * 46341 cannot be represented in type 'int'`. Bu aracı ve overflow'un neden bu kadar tehlikeli olduğunu Ders 2.12'de ayrıntısıyla göreceğiz.
 
 </details>
 
@@ -302,4 +302,4 @@ Bu hatayı nasıl yakaladık? clang'in `-fsanitize=undefined` adlı bir ayarı, 
 - Donald Knuth, *The Art of Computer Programming*, Cilt 3 (2. baskı), §6.2.1: binary search ve ünlü edge case hataları.
 - Henry S. Warren, *Hacker's Delight* (2. baskı), Bölüm 11: tamsayı karekök ve küp kök (Faz 5'te bu kitaba tekrar döneceğiz).
 
-**Sıradaki ders:** `printf` olmadan sayı yazdırma. Ders 2.8'deki `print_in_order` fikrinden yola çıkıp kendi `print_int` fonksiyonumuzu yazacağız.
+**Sıradaki ders:** Çok dosyalı program ve Make. Bu derste yazdığımız fonksiyonları ayrı dosyalara koyup Make ile derleyeceğiz.

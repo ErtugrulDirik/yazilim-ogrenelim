@@ -61,7 +61,7 @@ int square(int x) {
 
 **Neden işe yarar?** Prototipler sayesinde `main`'i dosyanın en üstüne koyabilirsin. Dosyayı açan kişi önce programın ana akışını, yani bir tür içindekiler sayfasını görür; ayrıntılar aşağıda durur. Ders 2.4'teki labirent oyununu düşün: `main` en üstte olsaydı, akış diyagramıyla aynı sırada okunurdu.
 
-Prototipler asıl gücünü Ders 2.13'te, programı birden fazla dosyaya böldüğümüzde gösterecek.
+Prototipler asıl gücünü Ders 2.11'de, programı birden fazla dosyaya böldüğümüzde gösterecek.
 
 ---
 
@@ -335,7 +335,7 @@ normal: 1, static: 3
 
 Ama global değişkenden farklı olarak, `calls`'u **sadece kendi fonksiyonu** görebilir. Ömrü global kadar uzun, görünürlüğü yerel kadar dar: iki dünyanın iyi tarafı.
 
-`static` kelimesinin C'de bir anlamı daha var: fonksiyonların ve global değişkenlerin başına yazıldığında başka bir iş yapar. Onu Ders 2.13'te, programı birden fazla dosyaya böldüğümüzde göreceğiz.
+`static` kelimesinin C'de bir anlamı daha var: fonksiyonların ve global değişkenlerin başına yazıldığında başka bir iş yapar. Onu Ders 2.11'de, programı birden fazla dosyaya böldüğümüzde göreceğiz.
 
 ---
 
