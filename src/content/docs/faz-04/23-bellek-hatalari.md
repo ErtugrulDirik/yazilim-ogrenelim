@@ -3,7 +3,7 @@ title: "4.23 Bellek hataları"
 description: "Dinamik bellekle gelen dört klasik hata: sallanan pointer ve use-after-free, double free, heap üzerinde sınır dışı erişim ve bir fonksiyonun yerel değişkeninin adresini döndürmesi (stack-use-after-return). Her birini AddressSanitizer'la üretip raporunu satır satır okumak: üç yığın izi (nerede kullanıldı, nerede serbest bırakıldı, nerede ayrıldı) ve gölge byte'lar."
 ---
 
-Ders 4.22'de `malloc` ve `free`'yi öğrendik, sızıntıyı valgrind'le yakaladık. Sızıntı hataların en zararsızı: program yine doğru çalışır. Bu derste dinamik belleğin **tehlikeli** hatalarını topluyoruz — programı bozan, çökerten ya da güvenlik açığı yaratanları. Hepsi Ders 4.7'deki sallanan pointer fikrinin birer çeşidi.
+Ders 4.22'de `malloc` ve `free`'yi öğrendik, sızıntıyı valgrind'le yakaladık. Sızıntı hataların en zararsızı: program yine doğru çalışır. Bu derste dinamik belleğin **tehlikeli** hatalarını topluyoruz — programı bozan, çökerten ya da güvenlik açığı oluşturanları. Hepsi Ders 4.7'deki sallanan pointer fikrinin birer çeşidi.
 
 Araç yine Ders 3.16'dan beri kullandığımız **AddressSanitizer** (`-fsanitize=address`). Bu derste asıl öğrendiğimiz, ASan'ın çıktısını **okumak**: her rapor, hatanın nerede olduğunu üç ayrı yığın iziyle anlatıyor.
 
