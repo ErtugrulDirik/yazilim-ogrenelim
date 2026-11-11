@@ -22,7 +22,7 @@ Michael Flynn 1966'da bilgisayarları iki soruyla sınıflandırdı: aynı anda 
 | | Tek veri | Çok veri |
 | --- | --- | --- |
 | **Tek komut** | SISD: klasik sıralı işlemci | **SIMD**: bir komut, çok veri |
-| **Çok komut** | MISD: pratikte neredeyse yok | MIMD: çok çekirdekli işlemciler (Faz 12) |
+| **Çok komut** | MISD: pratikte neredeyse yok | MIMD: çok çekirdekli işlemciler (Faz 10) |
 
 Modern bir işlemci aslında hepsinin karışımı: Ders 7'deki sırasız yürütme tek akışta paralellik buluyor, her çekirdek bir MIMD parçası, her çekirdeğin içinde SIMD birimleri var. Dikkat edilecek fark şu: SIMD'de paralellik **programcının veya derleyicinin görebileceği** yerde, komutun kendisinde.
 
